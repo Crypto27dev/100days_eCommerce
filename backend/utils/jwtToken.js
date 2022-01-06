@@ -1,5 +1,5 @@
-const sendToken = (user, statusCode, res) => {
-    
+const sendToken = (user, statusCode, message, res) => {
+
     const token = user.getJWTToken();
 
     // Options for cookie
@@ -12,6 +12,7 @@ const sendToken = (user, statusCode, res) => {
 
     res.status(statusCode).cookie('token', token, options).json({
         success: true,
+        message: message,
         token: token
     })
 
