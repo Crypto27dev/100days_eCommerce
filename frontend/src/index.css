@@ -1,0 +1,402 @@
+:root {
+  --activeColor: #A239CA;
+  --primaryColor: rgb(85, 85, 85);
+  --lightBGColor: rgb(240, 240, 240);
+  --whiteColor: rgb(255, 255, 255);
+  --voidColor: #0E0B16;
+  --boxShadow: 0 0 40px 10px rgba(8, 30, 40, 0.15);
+  --boxShadowMin: 0 10px 24px 0 rgba(10, 20, 20, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  line-height: 1.2;
+}
+
+*::-webkit-scrollbar {
+  display: block;
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--activeColor);
+}
+
+body {
+  background-color: var(--lightBGColor);
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--primaryColor);
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+  color: var(--activeColor);
+}
+
+a.active {
+  color: var(--activeColor);
+}
+
+p {
+  margin: 0;
+}
+
+img,
+svg {
+  vertical-align: middle;
+}
+
+input {
+  outline: none;
+  border: none;
+}
+
+input[type="checkbox"] {
+  min-width: 16px;
+  min-height: 16px;
+}
+
+textarea {
+  outline: none;
+  border: none;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #ccc !important;
+}
+
+textarea::-webkit-scrollbar {
+  display: none;
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+
+button {
+  outline: none !important;
+  border: none;
+  background: transparent;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.5;
+}
+
+iframe {
+  border: none !important;
+}
+
+/* -------------------------------------------------- */
+
+.rounded-filled-btn {
+  background-color: var(--activeColor);
+  width: fit-content;
+  padding: 12px 32px;
+  border-radius: 0.2rem;
+  display: block;
+  color: var(--whiteColor);
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: capitalize;
+  box-shadow: var(--boxShadowMin);
+  border: none;
+  outline: none;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.rounded-outlined-btn {
+  background: transparent;
+  width: fit-content;
+  padding: 12px 32px;
+  border-radius: 0.2rem;
+  display: block;
+  outline: none;
+  border: solid 1px var(--activeColor);
+  color: var(--activeColor);
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: capitalize;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.rounded-filled-btn:hover {
+  transform: scale(1.05);
+}
+
+.rounded-filled-btn:disabled:hover {
+  transform: none;
+}
+
+.rounded-outlined-btn:hover {
+  background-color: var(--activeColor);
+  color: var(--whiteColor);
+  transform: scale(1.05);
+}
+
+.rounded-outlined-btn:disabled:hover {
+  transform: none;
+}
+
+.icon-btn {
+  background-color: transparent;
+  color: #151515;
+  padding: 10px;
+  border: none;
+}
+
+.icon-btn:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+  border-radius: 50%;
+}
+
+.small-btn {
+  font-size: 12px;
+  margin: 0;
+  display: block;
+  width: auto;
+}
+
+.text-btn {
+  background-color: transparent;
+  color: var(--activeColor);
+  border: none;
+  outline: none;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.text-btn:hover {
+  transform: scale(1.1);
+}
+
+.form-item {
+  width: 100%;
+  margin: 5px 0;
+  padding: 5px 0;
+}
+
+.form-item label {
+  display: block;
+  margin-left: 4px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 5px;
+}
+
+.form-item input,
+select,
+textarea {
+  width: 100%;
+  background-color: var(--whiteColor);
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--activeColor);
+  outline: none;
+}
+
+.form-item input[type="checkbox"] {
+  width: auto;
+  display: inline;
+  font-size: 16px;
+  background-color: var(--whiteColor);
+  padding: 10px;
+  color: var(--activeColor);
+  outline: none;
+  margin-left: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.form-item .label-checkbox {
+  display: inline-block;
+  margin-left: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  color: #888;
+}
+
+.form-item input::placeholder,
+textarea::placeholder {
+  color: #ccc;
+}
+
+.small-btn-padding {
+  padding: 8px 12px;
+}
+
+.page-container {
+  margin-top: 140px;
+  width: 100%;
+}
+
+@media (max-width: 992px) {
+  .page-container {
+    margin-top: 120px;
+  }
+}
+
+.container {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.row {
+  flex-wrap: wrap;
+  margin-top: 0;
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.section-heading {
+  font-weight: 700;
+  font-size: 40px;
+  margin-bottom: 10px;
+  text-align: start;
+}
+
+.rounded-selection-tile {
+  width: fit-content;
+  display: block;
+  margin: auto;
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.25s ease-in;
+}
+
+.rounded-selection-tile:first-child {
+  margin-top: 10px;
+}
+
+.rounded-selection-tile:last-child {
+  margin-bottom: 0;
+}
+
+.row-padding {
+  padding: 0 40px;
+  justify-content: center;
+}
+
+/* CUstom Chip CSS */
+
+.custom-chip {
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: rgba(10, 10, 10, 0.2);
+  padding: 8px 15px;
+  border-radius: 30px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: background-color .25s ease-in;
+}
+
+.custom-chip:last-child {
+  margin-bottom: 0;
+  margin-right: 0;
+}
+
+.custom-chip .label {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.custom-chip svg {
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+}
+
+/* For Small Screens */
+
+@media (max-width: 567px) {
+
+  .rounded-filled-btn {
+    padding: 10px 24px;
+    font-size: 12px;
+  }
+
+  .rounded-outlined-btn {
+    padding: 10px 24px;
+    font-size: 12px;
+  }
+
+  .text-btn {
+    font-size: 12px;
+  }
+
+  .form-item input,
+  select,
+  textarea {
+    width: 100%;
+    background-color: var(--whiteColor);
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--activeColor);
+    outline: none;
+  }
+
+  .rounded-selection-tile {
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+
+  .row-padding {
+    padding: 0 20px;
+  }
+}
+
+/* Animations */
+
+.animated-icon {
+  animation: zoom-img 1s ease-in-out infinite alternate-reverse both;
+}
+
+@keyframes zoom-img {
+  0% {
+    transform: scale(1.3);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
