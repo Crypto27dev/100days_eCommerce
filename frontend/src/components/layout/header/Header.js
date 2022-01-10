@@ -10,10 +10,12 @@ import {
     FiSearch,
     FiSettings,
     FiLogOut,
+    FiList
 } from "react-icons/fi";
 import { logout } from "../../../redux/actions/userAction";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import Badge from '@mui/material/Badge';
 
 
 function Header() {
@@ -21,7 +23,9 @@ function Header() {
     const dispatch = useDispatch();
 
     const { isAuthenticated, user, loading } = useSelector((state) => state.user);
-    let navigate = useNavigate();
+    const { cartItems } = useSelector((state) => state.cart);
+    
+    const navigate = useNavigate();
 
     const [mobileNav, setMobileNav] = useState(true);
     const [mobileNavActive, setMobileNavActive] = useState(false);
@@ -53,6 +57,10 @@ function Header() {
         navigate("/account")
     }
 
+    const navigateToCart = () => {
+        navigate("/cart")
+    }
+
     const navigateToOrders = () => {
         navigate("/orders")
     }
@@ -60,6 +68,11 @@ function Header() {
     const UserOptions = [
         {
             icon: <FiShoppingCart />,
+            name: "My Cart",
+            func: navigateToCart
+        },
+        {
+            icon: <FiList />,
             name: "My Orders",
             func: navigateToOrders
         },
@@ -239,7 +252,9 @@ function Header() {
                             navigate("/cart");
                         }
                     }>
-                    <FiShoppingCart />
+                    <Badge badgeContent={cartItems.length} color='primary'>
+                        <FiShoppingCart />
+                    </Badge>
                 </div>
 
                 {
@@ -271,7 +286,12 @@ function Header() {
                                     UserOptions.map((option, i) => (
                                         <MenuItem
                                             key={i}
-                                            onClick={option.func}
+                                            onClick={
+                                                () => {
+                                                    handleCloseMenu();
+                                                    option.func();
+                                                }
+                                            }
                                             style={{
                                                 fontSize: 14
                                             }}>

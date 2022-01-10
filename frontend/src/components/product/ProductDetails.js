@@ -2,7 +2,6 @@ import './ProductDetails.css';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getProductDetails, clearErrors } from '../../redux/actions/productAction';
 import Carousel from 'react-material-ui-carousel';
 import Loader from '../layout/loader/Loader';
 import MetaData from '../layout/MetaData';
@@ -16,10 +15,20 @@ import {
     DialogTitle,
     Button
 } from '@mui/material';
+import {
+    getProductDetails, clearErrors, newReview
+} from '../../redux/actions/productAction';
+import {
+    addItemsToCart
+} from '../../redux/actions/cartAction';
+import { NEW_REVIEW_RESET } from '../../redux/constants/productConstants';
+
 
 function ProductDetails({ match }) {
 
     const { product, loading, error } = useSelector(state => state.productDetails);
+
+    const { success, error: reviewError } = useSelector((state) => state.newReview);
 
     const dispatch = useDispatch();
     const alert = useAlert();
@@ -39,7 +48,7 @@ function ProductDetails({ match }) {
     const [comment, setComment] = useState("");
 
     const increaseQuantity = () => {
-        if (product.Stock <= quantity) return;
+        if (product.stock <= quantity) return;
 
         const qty = quantity + 1;
         setQuantity(qty);
@@ -53,8 +62,8 @@ function ProductDetails({ match }) {
     };
 
     const addToCartHandler = () => {
-        // dispatch(addItemsToCart(match.params.id, quantity));
-        // alert.success("Item Added To Cart");
+        dispatch(addItemsToCart(id, quantity));
+        alert.success("Item Added To Cart");
     };
 
     const submitReviewToggle = () => {
@@ -62,15 +71,15 @@ function ProductDetails({ match }) {
     };
 
     const reviewSubmitHandler = () => {
-        // const myForm = new FormData();
+        const myForm = new FormData();
 
-        // myForm.set("rating", rating);
-        // myForm.set("comment", comment);
-        // myForm.set("productId", match.params.id);
+        myForm.set("rating", rating);
+        myForm.set("comment", comment);
+        myForm.set("productId", id);
 
-        // dispatch(newReview(myForm));
+        dispatch(newReview(myForm));
 
-        // setOpen(false);
+        setOpen(false);
     };
 
     useEffect(() => {
@@ -80,13 +89,24 @@ function ProductDetails({ match }) {
             dispatch(clearErrors());
         }
 
+        if (reviewError) {
+            alert.error(reviewError);
+            dispatch(clearErrors());
+        }
+
+        if (success) {
+            alert.success("Review Submitted Successfully");
+            dispatch({ type: NEW_REVIEW_RESET });
+        }
+
         if (id) {
             dispatch(getProductDetails(id));
         }
 
         return () => { }
     }, [
-        dispatch, id, error, alert
+        dispatch, id, error, alert,
+        reviewError, success
     ])
 
     return (
@@ -168,7 +188,7 @@ function ProductDetails({ match }) {
                                 </div>
 
                                 <button
-                                    // onClick={submitReviewToggle} 
+                                    onClick={submitReviewToggle}
                                     className="submitReview">
                                     Submit Review
                                 </button>

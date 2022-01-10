@@ -151,7 +151,7 @@
 
 .loginBtn:hover,
 .signUpBtn:hover {
-    background-color: rgb(179, 66, 46);
+    opacity: 0.75;
 }
 
 .shiftToLeft {
