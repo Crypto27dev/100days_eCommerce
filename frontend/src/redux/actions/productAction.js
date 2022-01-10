@@ -10,7 +10,7 @@ import {
 } from '../constants/productConstants';
 
 export const getProducts =
-    (keyword = "", currentPage = 1, price, category, ratings = 0) =>
+    (keyword = "", currentPage = 1, price = [0, 25000], category, ratings = 0) =>
         async (dispatch) => {
 
             try {

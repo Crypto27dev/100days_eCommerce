@@ -4,19 +4,27 @@ const User = require("../models/userModel");
 const sendToken = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
+const cloudinary = require('cloudinary');
 
 // Register a User
 exports.registerUser = catchAsyncError(async (req, res, next) => {
 
     const { name, email, password } = req.body;
 
+    const cloudUpload = await cloudinary.v2.uploader
+        .upload(req.body.avatar, {
+            folder: 'avatars',
+            width: 150,
+            crop: 'scale'
+        });
+
     const user = await User.create({
         name,
         email,
         password,
         avatar: {
-            public_id: "sample_pub_id",
-            url: "profilePicUrl"
+            public_id: cloudUpload.public_id,
+            url: cloudUpload.secure_url
         }
     });
 
@@ -190,7 +198,28 @@ exports.updateUserProfile = catchAsyncError(async (req, res, next) => {
 
     const newUserDetails = {
         name: req.body.name,
-        email: req.body.email,
+        email: req.body.email
+    }
+
+    if (req.body.avatar !== "") {
+        const user = await User.findById(req.user.id);
+
+        const imageId = user.avatar.public_id;
+
+        await cloudinary.v2.uploader.destroy(imageId);
+
+        const cloudUpload = await cloudinary.v2.uploader
+            .upload(req.body.avatar, {
+                folder: 'avatars',
+                width: 150,
+                crop: 'scale'
+            });
+
+        newUserDetails.avatar = {
+            public_id: cloudUpload.public_id,
+            url: cloudUpload.secure_url
+        }
+
     }
 
     const user = await User.findByIdAndUpdate(req.user.id, newUserDetails, {

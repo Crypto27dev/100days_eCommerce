@@ -1,33 +1,86 @@
 import './Header.css';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import {
     FiMenu,
     FiX,
     FiUser,
     FiShoppingCart,
-    FiSearch
+    FiSearch,
+    FiSettings,
+    FiLogOut,
 } from "react-icons/fi";
+import { logout } from "../../../redux/actions/userAction";
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
-// const mapState = ({ auth, userData }) => ({
-//     auth: auth,
-//     userData: userData
-// })
 
 function Header() {
 
-    // const { auth } = useSelector(mapState);
+    const dispatch = useDispatch();
 
+    const { isAuthenticated, user, loading } = useSelector((state) => state.user);
     let navigate = useNavigate();
-
-    const profileOptionsRef = useRef();
 
     const [mobileNav, setMobileNav] = useState(true);
     const [mobileNavActive, setMobileNavActive] = useState(false);
-    const [showProfileOptions, setShowProfileOptions] = useState(false);
+    const [anchorEl, setAnchorEl] = useState(false);
+
+    const handleMenuClick = evt => {
+        setAnchorEl(evt.currentTarget);
+    }
+
+    const handleCloseMenu = () => {
+        setAnchorEl(null);
+    }
+
+    const openMenu = Boolean(anchorEl);
 
     const handleResetMobileNav = () => {
         setMobileNavActive(false);
+    }
+
+    const handleLogout = () => {
+        dispatch(logout());
+    }
+
+    const navigateToDashboard = () => {
+        navigate("/dashboard")
+    }
+
+    const navigateToProfile = () => {
+        navigate("/account")
+    }
+
+    const navigateToOrders = () => {
+        navigate("/orders")
+    }
+
+    const UserOptions = [
+        {
+            icon: <FiShoppingCart />,
+            name: "My Orders",
+            func: navigateToOrders
+        },
+        {
+            icon: <FiUser />,
+            name: "Profile",
+            func: navigateToProfile
+        },
+        {
+            icon: <FiLogOut />,
+            name: "Logout",
+            func: handleLogout
+        }
+    ]
+
+    if (isAuthenticated && !loading && user.role === "admin") {
+        UserOptions.unshift({
+            icon: <FiUser />,
+            name: "Dashboard",
+            func: navigateToDashboard
+        })
     }
 
     useEffect(() => {
@@ -53,22 +106,6 @@ function Header() {
             window.removeEventListener("resize", () => { })
         }
     }, [])
-
-    useEffect(() => {
-        const checkIfClickedOutside = e => {
-            if (
-                showProfileOptions &&
-                profileOptionsRef.current &&
-                !profileOptionsRef.current.contains(e.target)
-            ) {
-                setShowProfileOptions(false)
-            }
-        }
-        document.addEventListener("mousedown", checkIfClickedOutside)
-        return () => {
-            document.removeEventListener("mousedown", checkIfClickedOutside)
-        }
-    }, [showProfileOptions])
 
     return (
         <div className="header" id="header">
@@ -195,13 +232,74 @@ function Header() {
                     <FiSearch />
                 </div>
 
-                <div className='header-icon'>
+                <div className='header-icon'
+                    onClick={
+                        () => {
+                            if (mobileNav) handleResetMobileNav()
+                            navigate("/cart");
+                        }
+                    }>
                     <FiShoppingCart />
                 </div>
 
-                <div className='header-icon'>
-                    <FiUser />
-                </div>
+                {
+                    isAuthenticated ?
+                        <div>
+                            <div className='header-icon'
+                                id='user-button'
+                                aria-controls={openMenu ? 'user-menu' : undefined}
+                                aria-haspopup="true"
+                                aria-expanded={openMenu ? 'true' : undefined}
+                                onClick={
+                                    (evt) => {
+                                        if (mobileNav) handleResetMobileNav();
+                                        handleMenuClick(evt);
+                                    }
+                                }>
+                                <FiSettings />
+                            </div>
+                            <Menu
+                                id="user-menu"
+                                anchorEl={anchorEl}
+                                open={openMenu}
+                                onClose={handleCloseMenu}
+                                MenuListProps={{
+                                    'aria-labelledby': 'user-button',
+                                }}>
+
+                                {
+                                    UserOptions.map((option, i) => (
+                                        <MenuItem
+                                            key={i}
+                                            onClick={option.func}
+                                            style={{
+                                                fontSize: 14
+                                            }}>
+                                            <span style={{
+                                                marginRight: 10,
+                                                color: "grey"
+                                            }}>
+                                                {option.icon}
+                                            </span>
+                                            {option.name}
+                                        </MenuItem>
+                                    ))
+                                }
+
+                            </Menu>
+                        </div>
+                        :
+                        <div className='header-icon'
+                            onClick={
+                                () => {
+                                    if (mobileNav) handleResetMobileNav();
+                                    navigate("/login");
+
+                                }
+                            }>
+                            <FiUser />
+                        </div>
+                }
 
             </div>
 

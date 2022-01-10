@@ -12,7 +12,11 @@ function Loader({
         height: "100vh",
         backgroundColor: "var(--whiteColor)",
         display: "grid",
-        placeItems: "center"
+        placeItems: "center",
+        position: "absolute",
+        zIndex: "999",
+        top: 80,
+        bottom: 0
     }
 
     const defaultStyle = {

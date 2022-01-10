@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import ProductCard from './ProductCard';
 import MetaData from '../layout/MetaData';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProducts } from '../../redux/actions/productAction';
+import { getProducts, clearErrors } from '../../redux/actions/productAction';
 import Loader from '../layout/loader/Loader';
 import { useAlert } from 'react-alert';
 
@@ -20,7 +20,8 @@ function Home() {
     useEffect(() => {
 
         if (error) {
-            return alert.error(error);
+            alert.error(error);
+            dispatch(clearErrors());
         }
 
         dispatch(getProducts());
@@ -30,7 +31,9 @@ function Home() {
     ])
 
     return (
-        <div>
+        <div style={{
+            paddingBottom: 60
+        }}>
 
             <MetaData title="Ecommerce" />
 
