@@ -8,7 +8,10 @@
     "@mui/icons-material": "^5.2.5",
     "@mui/material": "^5.2.7",
     "@mui/styles": "^5.2.3",
+    "@stripe/react-stripe-js": "^1.7.0",
+    "@stripe/stripe-js": "^1.22.0",
     "axios": "^0.24.0",
+    "country-state-city": "^3.0.1",
     "overlay-navbar": "^1.1.1",
     "react": "^17.0.2",
     "react-alert": "^7.0.3",
@@ -52,5 +55,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://192.168.82.155:4000"
+  "proxy": "http://192.168.230.155:4000"
 }

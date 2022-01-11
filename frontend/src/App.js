@@ -1,5 +1,5 @@
 import './App.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Header from './components/layout/header/Header';
 import Footer from './components/layout/footer/Footer';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -18,10 +18,27 @@ import UpdatePassword from './components/user/UpdatePassword';
 import ForgotPassword from './components/user/ForgotPassword';
 import ResetPassword from './components/user/ResetPassword';
 import Cart from './components/cart/Cart';
+import Shipping from './components/cart/Shipping';
+import ConfirmOrder from './components/cart/ConfirmOrder';
+import axios from 'axios';
+import Payment from './components/cart/Payment';
+import OrderSuccess from './components/cart/OrderSuccess';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 
 function App() {
 
   const dispatch = useDispatch();
+
+  const [stripeApiKey, setStripeApiKey] = useState("");
+
+  async function getStripeApiKey() {
+
+    const { data } = await axios.get("/api/v1/stripe/key");
+
+    setStripeApiKey(data.key);
+
+  }
 
   useEffect(() => {
 
@@ -32,6 +49,8 @@ function App() {
     })
 
     dispatch(loadUser());
+
+    getStripeApiKey();
 
     return () => { }
   }, [
@@ -80,6 +99,32 @@ function App() {
         <Route path="/password/reset/:token" element={<ResetPassword />} />
 
         <Route path="/cart" element={<Cart />} />
+
+        <Route path="/shipping" element={
+          <ProtectedRoute>
+            <Shipping />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/order/confirm" element={
+          <ProtectedRoute>
+            <ConfirmOrder />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/process/payment" element={
+          <Elements stripe={loadStripe(stripeApiKey)}>
+            <ProtectedRoute>
+              <Payment />
+            </ProtectedRoute>
+          </Elements>
+        } />
+
+        <Route path="/success" element={
+          <ProtectedRoute>
+            <OrderSuccess />
+          </ProtectedRoute>
+        } />
 
       </Routes>
 

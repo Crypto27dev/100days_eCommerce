@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import {
     addItemsToCart, removeItemsFromCart
 } from "../../redux/actions/cartAction";
+import MetaData from '../layout/MetaData';
 
 
 function Cart() {
@@ -44,6 +45,8 @@ function Cart() {
         <div style={{
             marginTop: 80
         }}>
+
+        <MetaData title={`My Cart`} />
 
             {
                 cartItems.length === 0 ?
