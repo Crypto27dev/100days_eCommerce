@@ -116,13 +116,13 @@ exports.createProductReview = catchAsyncError(async (req, res, next) => {
     const review = {
         user: req.user._id,
         name: req.user.name,
-        rating,
+        rating: Number(rating),
         comment
     }
 
     const product = await Product.findById(productId);
 
-    const isReviewed = product.reviews.find(doc => doc.user.toString() === req.user._id);
+    const isReviewed = product.reviews.find(doc => doc.user.toString() === req.user._id.toString());
 
     if (isReviewed) {
 

@@ -24,7 +24,7 @@ import {
 import { NEW_REVIEW_RESET } from '../../redux/constants/productConstants';
 
 
-function ProductDetails({ match }) {
+function ProductDetails() {
 
     const { product, loading, error } = useSelector(state => state.productDetails);
 

@@ -34,6 +34,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--primaryColor);
+  /* cursor: url("./assets/images/cursor.png"), auto; */
 }
 
 a {
@@ -341,6 +342,14 @@ textarea::placeholder {
   width: 20px;
   height: 20px;
   margin-left: 10px;
+}
+
+.greenColor {
+  color: green !important;
+}
+
+.redColor {
+  color: red !important;
 }
 
 /* For Small Screens */

@@ -1,5 +1,5 @@
 import './Payment.css';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import CheckoutSteps from './CheckoutSteps';
 import MetaData from '../layout/MetaData';
 import { useAlert } from 'react-alert';
@@ -9,6 +9,7 @@ import CreditCardIcon from '@mui/icons-material/CreditCard';
 import EventIcon from '@mui/icons-material/Event';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import { useNavigate } from 'react-router-dom';
+import Loader from '../layout/loader/Loader';
 import axios from 'axios';
 import {
     CardNumberElement,
@@ -35,6 +36,8 @@ function Payment() {
     const { user } = useSelector((state) => state.user);
     const { error } = useSelector((state) => state.newOrder);
 
+    const [loading, setLoading] = useState(false);
+
     const paymentData = {
         amount: Math.round(orderInfo.totalPrice * 100)
     };
@@ -52,6 +55,7 @@ function Payment() {
         e.preventDefault();
 
         payBtn.current.disabled = true;
+        setLoading(true);
 
         try {
             const config = {
@@ -88,6 +92,7 @@ function Payment() {
 
             if (result.error) {
                 payBtn.current.disabled = false;
+                setLoading(false);
 
                 alert.error(result.error.message);
             } else {
@@ -99,13 +104,18 @@ function Payment() {
 
                     dispatch(createOrder(order));
 
+                    setLoading(false);
+
                     navigate("/success");
+
                 } else {
+                    setLoading(false);
                     alert.error("There's some issue while processing payment ");
                 }
             }
         } catch (error) {
             payBtn.current.disabled = false;
+            setLoading(false);
             alert.error(error.response.data.message);
         }
     };
@@ -128,7 +138,10 @@ function Payment() {
             <MetaData title="Payment" />
             <CheckoutSteps activeStep={2} />
             <div className="paymentContainer">
-                <form className="paymentForm" onSubmit={(e) => submitHandler(e)}>
+                <form className="paymentForm"
+                    onSubmit={(e) => submitHandler(e)}
+                >
+
                     <Typography>Card Info</Typography>
                     <div>
                         <CreditCardIcon />
@@ -143,12 +156,18 @@ function Payment() {
                         <CardCvcElement className="paymentInput" />
                     </div>
 
-                    <input
-                        type="submit"
-                        value={`Pay ₹${orderInfo && orderInfo.totalPrice}`}
-                        ref={payBtn}
-                        className="paymentFormBtn"
-                    />
+                    {
+                        loading ?
+                            <Loader />
+                            :
+                            <input
+                                type="submit"
+                                value={`Pay ₹${orderInfo && orderInfo.totalPrice}`}
+                                ref={payBtn}
+                                className="paymentFormBtn"
+                            />
+                    }
+
                 </form>
             </div>
 

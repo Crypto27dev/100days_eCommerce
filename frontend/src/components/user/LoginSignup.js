@@ -17,7 +17,7 @@ function LoginSignup() {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const { error, loading, user, isAuthenticated } = useSelector((state) => state.user);
+    const { error, loading, isAuthenticated } = useSelector((state) => state.user);
 
     const loginTab = useRef(null);
     const registerTab = useRef(null);
@@ -71,20 +71,28 @@ function LoginSignup() {
         }
     };
 
-    const redirect = location.search ? `/${location.search.split("=")[1]}` : "/account";
-
     useEffect(() => {
+
+        let { from } = location.state || { from: { pathname: "/account" } }
+
+        if (location.search) {
+            from = `/${location.search.split("=")[1]}`
+        }
+
         if (error) {
             alert.error(error);
             dispatch(clearErrors());
         }
 
-        if (isAuthenticated && !loading && user) {
-            navigate(redirect);
+        if (isAuthenticated) {
+            navigate(from);
         }
+
+        return () => { }
+
     }, [
-        dispatch, error, alert, navigate, isAuthenticated,
-        redirect, loading, user
+        dispatch, error, alert, navigate,
+        isAuthenticated, location
     ]);
 
     const switchTabs = (e, tab) => {

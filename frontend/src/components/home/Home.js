@@ -1,5 +1,5 @@
 import './Home.css';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import ProductCard from './ProductCard';
 import MetaData from '../layout/MetaData';
 import { useDispatch, useSelector } from 'react-redux';

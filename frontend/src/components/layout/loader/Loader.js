@@ -39,7 +39,7 @@ function Loader({
             <div style={{
                 width: size ? size : "5vmax",
                 height: size ? size : "5vmax",
-                borderBottom: thickness ? `${thickness}px solid rgb(110, 110, 110)` : "3px solid rgb(110, 110, 110)",
+                borderBottom: thickness ? `${thickness}px solid #a139cab4` : "3px solid #a139cab4",
                 borderRadius: "50%"
             }}
             ></div>

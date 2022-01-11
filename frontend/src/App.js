@@ -25,6 +25,10 @@ import Payment from './components/cart/Payment';
 import OrderSuccess from './components/cart/OrderSuccess';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import MyOrders from './components/order/MyOrders';
+import OrderDetails from './components/order/OrderDetails';
+import Dashboard from './components/admin/Dashboard';
+import NotFound from './components/layout/error/NotFound';
 
 function App() {
 
@@ -53,9 +57,12 @@ function App() {
     getStripeApiKey();
 
     return () => { }
+
   }, [
     dispatch
   ])
+
+  // window.addEventListener("contextmenu", (e) => e.preventDefault());
 
   return (
     <Router>
@@ -106,25 +113,48 @@ function App() {
           </ProtectedRoute>
         } />
 
-        <Route path="/order/confirm" element={
-          <ProtectedRoute>
-            <ConfirmOrder />
-          </ProtectedRoute>
-        } />
-
-        <Route path="/process/payment" element={
-          <Elements stripe={loadStripe(stripeApiKey)}>
-            <ProtectedRoute>
-              <Payment />
-            </ProtectedRoute>
-          </Elements>
-        } />
+        {
+          stripeApiKey &&
+          <Route path="/process/payment" element={
+            <Elements stripe={loadStripe(stripeApiKey)}>
+              <ProtectedRoute>
+                <Payment />
+              </ProtectedRoute>
+            </Elements>
+          } />
+        }
 
         <Route path="/success" element={
           <ProtectedRoute>
             <OrderSuccess />
           </ProtectedRoute>
         } />
+
+        <Route path="/orders" element={
+          <ProtectedRoute>
+            <MyOrders />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/order/confirm" element={
+          <ProtectedRoute>
+            <ConfirmOrder />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/order/:id" element={
+          <ProtectedRoute>
+            <OrderDetails />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/admin/dashboard" element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        } />
+
+        <Route path="*" element={<NotFound />} />
 
       </Routes>
 
