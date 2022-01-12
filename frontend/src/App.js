@@ -29,6 +29,8 @@ import MyOrders from './components/order/MyOrders';
 import OrderDetails from './components/order/OrderDetails';
 import Dashboard from './components/admin/Dashboard';
 import NotFound from './components/layout/error/NotFound';
+import ProductList from './components/admin/ProductList';
+import NewProduct from './components/admin/NewProduct';
 
 function App() {
 
@@ -149,8 +151,20 @@ function App() {
         } />
 
         <Route path="/admin/dashboard" element={
-          <ProtectedRoute>
+          <ProtectedRoute isAdmin={true}>
             <Dashboard />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/admin/products" element={
+          <ProtectedRoute isAdmin={true}>
+            <ProductList />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/admin/product/new" element={
+          <ProtectedRoute isAdmin={true}>
+            <NewProduct />
           </ProtectedRoute>
         } />
 

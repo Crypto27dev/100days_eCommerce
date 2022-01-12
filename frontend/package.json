@@ -6,17 +6,20 @@
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@mui/icons-material": "^5.2.5",
+    "@mui/lab": "^5.0.0-alpha.64",
     "@mui/material": "^5.2.7",
     "@mui/styles": "^5.2.3",
     "@mui/x-data-grid": "^5.2.2",
     "@stripe/react-stripe-js": "^1.7.0",
     "@stripe/stripe-js": "^1.22.0",
     "axios": "^0.24.0",
+    "chart.js": "^3.7.0",
     "country-state-city": "^3.0.1",
     "overlay-navbar": "^1.1.1",
     "react": "^17.0.2",
     "react-alert": "^7.0.3",
     "react-alert-template-basic": "^1.0.2",
+    "react-chartjs-2": "^4.0.0",
     "react-dom": "^17.0.2",
     "react-helmet": "^6.1.0",
     "react-icons": "^4.3.1",
@@ -54,5 +57,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://192.168.209.155:4000"
+  "proxy": "http://192.168.76.155:4000"
 }

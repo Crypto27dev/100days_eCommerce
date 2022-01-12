@@ -185,7 +185,7 @@ export const getAllUsers = () => async (dispatch) => {
         dispatch({ type: ALL_USERS_REQUEST });
         const { data } = await axios.get(`/api/v1/admin/users`);
 
-        dispatch({ type: ALL_USERS_SUCCESS, payload: data.users });
+        dispatch({ type: ALL_USERS_SUCCESS, payload: data.results });
     } catch (error) {
         dispatch({ type: ALL_USERS_FAIL, payload: error.response.data.message });
     }
@@ -197,7 +197,7 @@ export const getUserDetails = (id) => async (dispatch) => {
         dispatch({ type: USER_DETAILS_REQUEST });
         const { data } = await axios.get(`/api/v1/admin/user/${id}`);
 
-        dispatch({ type: USER_DETAILS_SUCCESS, payload: data.user });
+        dispatch({ type: USER_DETAILS_SUCCESS, payload: data.result });
     } catch (error) {
         dispatch({ type: USER_DETAILS_FAIL, payload: error.response.data.message });
     }

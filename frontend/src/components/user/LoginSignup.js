@@ -73,7 +73,7 @@ function LoginSignup() {
 
     useEffect(() => {
 
-        let { from } = location.state || { from: { pathname: "/account" } }
+        let { from } = location.state || { from: { pathname: "/" } }
 
         if (location.search) {
             from = `/${location.search.split("=")[1]}`

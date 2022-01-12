@@ -16,6 +16,7 @@ import { logout } from "../../../redux/actions/userAction";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Badge from '@mui/material/Badge';
+import Logo from '../../../assets/images/logo.png';
 
 
 function Header() {
@@ -24,7 +25,7 @@ function Header() {
 
     const { isAuthenticated, user, loading } = useSelector((state) => state.user);
     const { cartItems } = useSelector((state) => state.cart);
-    
+
     const navigate = useNavigate();
 
     const [mobileNav, setMobileNav] = useState(true);
@@ -50,7 +51,7 @@ function Header() {
     }
 
     const navigateToDashboard = () => {
-        navigate("/dashboard")
+        navigate("/admin/dashboard")
     }
 
     const navigateToProfile = () => {
@@ -150,14 +151,13 @@ function Header() {
                             navigate("/")
                         }
                     }>
-                    {/* <img className="logo-img"
-                    width="100%"
-                    height="100%"
-                    src={Logo}
-                    alt="logo-img"
-                    loading="lazy"
-                /> */}
-                    Ecommerce
+                    <img className="logo-img"
+                        width="100%"
+                        height="100%"
+                        src={Logo}
+                        alt="logo-img"
+                        loading="lazy"
+                    />
                 </div>
             </div>
 
