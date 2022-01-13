@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProducts, clearErrors } from '../../redux/actions/productAction';
 import Loader from '../layout/loader/Loader';
 import { useAlert } from 'react-alert';
+import { categories } from '../../assets/data/categoryData';
 
 function Home() {
 
@@ -32,12 +33,26 @@ function Home() {
 
     return (
         <div style={{
+            marginTop: 80,
             paddingBottom: 60
         }}>
 
             <MetaData title="Ecommerce" />
 
-            <div className="banner">
+            <div className="category-area">
+
+                {
+                    categories.map((cat, i) => (
+                        <div key={i}
+                            className='category-item'>
+                            {cat.name}
+                        </div>
+                    ))
+                }
+
+            </div>
+
+            {/* <div className="banner">
                 <p>Welcome to Ecommerce</p>
                 <h1>FIND AMAZING PRODUCTS BELOW</h1>
 
@@ -46,7 +61,7 @@ function Home() {
                         Scroll
                     </button>
                 </a>
-            </div>
+            </div> */}
 
             <div className="homeHeading">
                 Featured Products

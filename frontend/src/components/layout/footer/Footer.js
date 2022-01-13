@@ -2,6 +2,7 @@ import React from 'react';
 import './Footer.css';
 import playStore from '../../../assets/images/playstore.png';
 import appStore from '../../../assets/images/Appstore.png';
+import logo from '../../../assets/images/logo.png';
 
 function Footer() {
     return (
@@ -9,7 +10,7 @@ function Footer() {
 
             <div className="left-footer">
 
-                <div>Download App for Android and iOS mobile phone.</div>
+                <h4>Download App for Android and iOS mobile phone.</h4>
 
                 <img
                     src={playStore}
@@ -29,7 +30,13 @@ function Footer() {
 
             <div className="mid-footer">
 
-                <h1>Ecommerce.</h1>
+                <img className='footer-logo'
+                    src={logo}
+                    alt='logo'
+                    width='100%'
+                    height='auto'
+                    loading='lazy'
+                />
 
                 <p>High Quality is our first priority.</p>
 

@@ -13,6 +13,7 @@ import SideBar from "./Sidebar";
 import MetaData from "../layout/MetaData";
 import { NEW_PRODUCT_RESET } from "../../redux/constants/productConstants";
 import { clearErrors, createProduct } from "../../redux/actions/productAction";
+import { categories } from '../../assets/data/categoryData';
 
 
 function NewProduct() {
@@ -30,15 +31,6 @@ function NewProduct() {
     const [stock, setStock] = useState(0);
     const [images, setImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([]);
-
-    const categories = [
-        "Laptop",
-        "Mobile Phone",
-        "Men's Wear",
-        "Women's Wear",
-        "Accessories",
-        "Camera"
-    ];
 
     const createProductSubmitHandler = (e) => {
         e.preventDefault();
@@ -146,8 +138,8 @@ function NewProduct() {
                             <select onChange={(e) => setCategory(e.target.value)}>
                                 <option value="">Choose Category</option>
                                 {categories.map((cate) => (
-                                    <option key={cate} value={cate}>
-                                        {cate}
+                                    <option key={cate.id} value={cate.name}>
+                                        {cate.name}
                                     </option>
                                 ))}
                             </select>

@@ -124,7 +124,10 @@ function ProductDetails() {
 
                         <div className="ProductDetails">
                             <div>
-                                <Carousel stopAutoPlayOnHover interval={5000}>
+                                <Carousel
+                                    stopAutoPlayOnHover
+                                    interval={5000}
+                                >
                                     {
                                         product.images &&
                                         product.images.map((item, i) => {

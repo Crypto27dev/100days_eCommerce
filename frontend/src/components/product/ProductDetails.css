@@ -1,5 +1,5 @@
 .ProductDetails {
-    background-color: rgb(255, 255, 255);
+    background-color: var(--whiteColor);
     width: 100vw;
     max-width: 100%;
     padding: 2vmax;
@@ -11,8 +11,9 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
+    align-items: stretch;
+    justify-content: center;
+    padding: 0 1rem;
     border: 1px solid white;
 }
 
@@ -21,8 +22,9 @@
 }
 
 .CarouselImage {
-    width: 100%;
-    object-fit: cover;
+    width: fit-content;
+    height: 50vmax;
+    max-height: 600px;
 }
 
 .detailsBlock-1>h2 {
@@ -211,6 +213,10 @@
     .ProductDetails {
         flex-direction: column;
         height: unset;
+    }
+
+    .ProductDetails>div {
+        margin-bottom: 20px;
     }
 
     .ProductDetails>div:last-child {

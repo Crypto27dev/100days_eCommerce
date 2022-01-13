@@ -6,18 +6,11 @@ import Loader from '../layout/loader/Loader';
 import { useAlert } from 'react-alert';
 import MetaData from '../layout/MetaData';
 import ProductCard from '../home/ProductCard';
-import { Typography, Slider } from '@mui/material';
+import { Slider } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import Pagination from 'react-js-pagination';
+import { categories } from '../../assets/data/categoryData';
 
-const categories = [
-    "Laptop",
-    "Mobile Phone",
-    "Men's Wear",
-    "Women's Wear",
-    "Accessories",
-    "Camera"
-];
 
 const Products = () => {
 
@@ -75,57 +68,78 @@ const Products = () => {
                 loading ?
                     <Loader />
                     :
-                    <div>
+                    <div className='custom-container'>
 
                         <MetaData title="Products -- Ecommerce" />
                         <h2 className="productsHeading">Products</h2>
 
-                        <div className="products">
-                            {products &&
-                                products.map((product) => (
-                                    <ProductCard
-                                        key={product._id}
-                                        product={product} />
-                                ))}
-                        </div>
+                        <div className="custom-row">
 
-                        <div className="filterBox">
-                            <Typography>Price</Typography>
-                            <Slider
-                                value={price}
-                                onChange={priceHandler}
-                                valueLabelDisplay="auto"
-                                aria-labelledby="range-slider"
-                                min={0}
-                                max={25000}
-                            />
-
-                            <Typography>Categories</Typography>
-                            <ul className="categoryBox">
-                                {categories.map((category) => (
-                                    <li
-                                        className="category-link"
-                                        key={category}
-                                        onClick={() => setCategory(category)}
-                                    >
-                                        {category}
-                                    </li>
-                                ))}
-                            </ul>
-
-                            <fieldset>
-                                <Typography component="legend">Ratings Above</Typography>
+                            <div className="filterBox">
+                                <div className='typography'>
+                                    Price Between
+                                </div>
                                 <Slider
-                                    value={ratings}
-                                    onChange={(e, newRating) => {
-                                        setRatings(newRating);
-                                    }}
-                                    aria-labelledby="continuous-slider"
+                                    value={price}
+                                    onChange={priceHandler}
                                     valueLabelDisplay="auto"
+                                    aria-labelledby="range-slider"
                                     min={0}
-                                    max={5}
+                                    max={500000}
                                 />
-                            </fieldset>
+
+                                <div style={{
+                                    marginTop: 20
+                                }}>
+                                    <div className='typography'
+                                        style={{
+                                            fontSize: 18,
+                                            marginBottom: 10
+                                        }}>
+                                        Categories
+                                    </div>
+                                    <ul className="categoryBox">
+                                        {categories.map((category) => (
+                                            <li
+                                                className="category-link"
+                                                key={category.id}
+                                                onClick={() => setCategory(category.name)}
+                                            >
+                                                {category.name}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+
+                                <div style={{
+                                    marginTop: 20
+                                }}>
+                                    <div className='typography'>
+                                        Ratings Above
+                                    </div>
+                                    <Slider
+                                        value={ratings}
+                                        onChange={(e, newRating) => {
+                                            setRatings(newRating);
+                                        }}
+                                        aria-labelledby="continuous-slider"
+                                        valueLabelDisplay="auto"
+                                        min={0}
+                                        max={5}
+                                    />
+                                </div>
+
+                            </div>
+
+                            <div className="products">
+                                {products &&
+                                    products.map((product) => (
+                                        <ProductCard
+                                            key={product._id}
+                                            product={product} />
+                                    ))}
+                            </div>
+
                         </div>
 
                         {resultPerPage < count && (
