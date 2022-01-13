@@ -170,7 +170,10 @@ export const resetPassword = (token, passwords) => async (dispatch) => {
             config
         );
 
-        dispatch({ type: RESET_PASSWORD_SUCCESS, payload: data.success });
+        dispatch({
+            type: RESET_PASSWORD_SUCCESS,
+            payload: data.success
+        });
     } catch (error) {
         dispatch({
             type: RESET_PASSWORD_FAIL,
@@ -185,9 +188,15 @@ export const getAllUsers = () => async (dispatch) => {
         dispatch({ type: ALL_USERS_REQUEST });
         const { data } = await axios.get(`/api/v1/admin/users`);
 
-        dispatch({ type: ALL_USERS_SUCCESS, payload: data.results });
+        dispatch({
+            type: ALL_USERS_SUCCESS,
+            payload: data.results
+        });
     } catch (error) {
-        dispatch({ type: ALL_USERS_FAIL, payload: error.response.data.message });
+        dispatch({
+            type: ALL_USERS_FAIL,
+            payload: error.response.data.message
+        });
     }
 };
 
@@ -197,9 +206,15 @@ export const getUserDetails = (id) => async (dispatch) => {
         dispatch({ type: USER_DETAILS_REQUEST });
         const { data } = await axios.get(`/api/v1/admin/user/${id}`);
 
-        dispatch({ type: USER_DETAILS_SUCCESS, payload: data.result });
+        dispatch({
+            type: USER_DETAILS_SUCCESS,
+            payload: data.result
+        });
     } catch (error) {
-        dispatch({ type: USER_DETAILS_FAIL, payload: error.response.data.message });
+        dispatch({
+            type: USER_DETAILS_FAIL,
+            payload: error.response.data.message
+        });
     }
 };
 
@@ -216,7 +231,10 @@ export const updateUser = (id, userData) => async (dispatch) => {
             config
         );
 
-        dispatch({ type: UPDATE_USER_SUCCESS, payload: data.success });
+        dispatch({
+            type: UPDATE_USER_SUCCESS,
+            payload: data.success
+        });
     } catch (error) {
         dispatch({
             type: UPDATE_USER_FAIL,

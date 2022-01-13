@@ -28,7 +28,7 @@ export const createOrder = (order) => async (dispatch) => {
         dispatch({ type: CREATE_ORDER_REQUEST });
 
         const config = {
-            headers: {"Content-Type": "application/json"},
+            headers: { "Content-Type": "application/json" },
         };
 
         const { data } = await axios.post(
@@ -93,9 +93,7 @@ export const updateOrder = (id, order) => async (dispatch) => {
         dispatch({ type: UPDATE_ORDER_REQUEST });
 
         const config = {
-            headers: {
-                "Content-Type": "application/json",
-            },
+            headers: { "Content-Type": "application/json" },
         };
         const { data } = await axios.put(
             `/api/v1/admin/order/${id}`,

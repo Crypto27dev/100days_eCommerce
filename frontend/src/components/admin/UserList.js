@@ -1,5 +1,5 @@
-import './ProductList.css';
-import { useEffect } from 'react';
+import "./ProductList.css";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
@@ -9,26 +9,106 @@ import { Button } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import SideBar from "./Sidebar";
 import MetaData from "../layout/MetaData";
+import { DELETE_USER_RESET } from "../../redux/constants/userConstants";
 import {
-    clearErrors,
-    getAdminProduct,
-    deleteProduct,
-} from "../../redux/actions/productAction";
-import { DELETE_PRODUCT_RESET } from "../../redux/constants/productConstants";
+    getAllUsers, clearErrors, deleteUser
+} from "../../redux/actions/userAction";
 
 
-function ProductList() {
+function UserList() {
 
     const dispatch = useDispatch();
     const alert = useAlert();
     const navigate = useNavigate();
 
-    const { error, products } = useSelector((state) => state.products);
-    const { error: deleteError, isDeleted } = useSelector((state) => state.product);
+    const { error, users } = useSelector((state) => state.allUsers);
+    const { error: deleteError, isDeleted, message } = useSelector((state) => state.profile);
 
-    const deleteProductHandler = (id) => {
-        dispatch(deleteProduct(id));
+    const deleteUserHandler = (id) => {
+        dispatch(deleteUser(id));
     };
+
+    const columns = [
+
+        {
+            field: "ind",
+            headerName: "No.",
+            minWidth: 100,
+            flex: 0.5
+        },
+
+        {
+            field: "id",
+            headerName: "User ID",
+            minWidth: 180,
+            flex: 0.8
+        },
+
+        {
+            field: "email",
+            headerName: "Email",
+            minWidth: 200,
+            flex: 1,
+        },
+        {
+            field: "name",
+            headerName: "Name",
+            minWidth: 150,
+            flex: 0.5,
+        },
+
+        {
+            field: "role",
+            headerName: "Role",
+            type: "number",
+            minWidth: 150,
+            flex: 0.3,
+            cellClassName: (params) => {
+                return params.getValue(params.id, "role") === "admin"
+                    ? "greenColor"
+                    : "redColor";
+            },
+        },
+
+        {
+            field: "actions",
+            flex: 0.3,
+            headerName: "Actions",
+            minWidth: 150,
+            type: "number",
+            sortable: false,
+            renderCell: (params) => {
+                return (
+                    <>
+                        <Link to={`/admin/user/${params.getValue(params.id, "id")}`}>
+                            <EditIcon />
+                        </Link>
+
+                        <Button
+                            onClick={() =>
+                                deleteUserHandler(params.getValue(params.id, "id"))
+                            }
+                        >
+                            <DeleteIcon />
+                        </Button>
+                    </>
+                );
+            },
+        },
+    ];
+
+    const rows = [];
+
+    users &&
+        users.forEach((item, i) => {
+            rows.push({
+                ind: (i + 1),
+                id: item._id,
+                role: item.role,
+                email: item.email,
+                name: item.name,
+            });
+        });
 
     useEffect(() => {
         if (error) {
@@ -42,109 +122,31 @@ function ProductList() {
         }
 
         if (isDeleted) {
-            alert.success("Product Deleted Successfully");
-            navigate("/admin/dashboard");
-            dispatch({ type: DELETE_PRODUCT_RESET });
+            alert.success(message);
+            navigate("/admin/users");
+            dispatch({ type: DELETE_USER_RESET });
         }
 
-        dispatch(getAdminProduct());
+        dispatch(getAllUsers());
 
         return () => { }
 
     }, [
-        dispatch, alert, error,
-        deleteError, navigate, isDeleted
+        dispatch, alert, error, deleteError,
+        navigate, isDeleted, message
     ]);
-
-    const columns = [
-
-        {
-            field: "ind",
-            headerName: "No.",
-            minWidth: 100,
-            flex: 0.5
-        },
-
-        {
-            field: "id",
-            headerName: "Product ID",
-            minWidth: 200,
-            flex: 0.5
-        },
-
-        {
-            field: "name",
-            headerName: "Name",
-            minWidth: 350,
-            flex: 1,
-        },
-        {
-            field: "stock",
-            headerName: "Stock",
-            type: "number",
-            minWidth: 150,
-            flex: 0.3,
-        },
-
-        {
-            field: "price",
-            headerName: "Price",
-            type: "number",
-            minWidth: 270,
-            flex: 0.5,
-        },
-
-        {
-            field: "actions",
-            flex: 0.3,
-            headerName: "Actions",
-            minWidth: 150,
-            type: "number",
-            sortable: false,
-            renderCell: (params) => {
-                return (
-                    <>
-                        <Link to={`/admin/product/${params.getValue(params.id, "id")}`}>
-                            <EditIcon />
-                        </Link>
-
-                        <Button
-                            onClick={() =>
-                                deleteProductHandler(params.getValue(params.id, "id"))
-                            }
-                        >
-                            <DeleteIcon />
-                        </Button>
-                    </>
-                );
-            },
-        },
-    ];
-
-    const rows = [];
-
-    products &&
-        products.forEach((item, i) => {
-            rows.push({
-                ind: (i + 1),
-                id: item._id,
-                stock: item.stock,
-                price: item.price,
-                name: item.name,
-            });
-        });
 
     return (
         <div style={{
             marginTop: 80
         }}>
 
-            <MetaData title={`All Products - Admin`} />
+            <MetaData title={`All Users - Admin`} />
 
             <div className="dashboard">
                 <SideBar />
                 <div className="productListContainer">
-                    <h1 id="productListHeading">ALL PRODUCTS</h1>
+                    <h1 id="productListHeading">ALL USERS</h1>
 
                     <DataGrid
                         rows={rows}
@@ -161,4 +163,4 @@ function ProductList() {
     )
 }
 
-export default ProductList;
+export default UserList;

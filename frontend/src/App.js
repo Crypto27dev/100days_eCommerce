@@ -1,4 +1,3 @@
-import './App.css';
 import { useEffect, useState } from 'react';
 import Header from './components/layout/header/Header';
 import Footer from './components/layout/footer/Footer';
@@ -31,6 +30,12 @@ import Dashboard from './components/admin/Dashboard';
 import NotFound from './components/layout/error/NotFound';
 import ProductList from './components/admin/ProductList';
 import NewProduct from './components/admin/NewProduct';
+import UpdateProduct from './components/admin/UpdateProduct';
+import OrderList from './components/admin/OrderList';
+import ProcessOrder from './components/admin/ProcessOrder';
+import UserList from './components/admin/UserList';
+import UpdateUser from './components/admin/UpdateUser';
+import ProductReviewList from './components/admin/ProductReviewList';
 
 function App() {
 
@@ -64,7 +69,7 @@ function App() {
     dispatch
   ])
 
-  // window.addEventListener("contextmenu", (e) => e.preventDefault());
+  window.addEventListener("contextmenu", (e) => e.preventDefault());
 
   return (
     <Router>
@@ -165,6 +170,42 @@ function App() {
         <Route path="/admin/product/new" element={
           <ProtectedRoute isAdmin={true}>
             <NewProduct />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/admin/product/:id" element={
+          <ProtectedRoute isAdmin={true}>
+            <UpdateProduct />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/admin/orders" element={
+          <ProtectedRoute isAdmin={true}>
+            <OrderList />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/admin/order/:id" element={
+          <ProtectedRoute isAdmin={true}>
+            <ProcessOrder />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/admin/users" element={
+          <ProtectedRoute isAdmin={true}>
+            <UserList />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/admin/user/:id" element={
+          <ProtectedRoute isAdmin={true}>
+            <UpdateUser />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/admin/reviews" element={
+          <ProtectedRoute isAdmin={true}>
+            <ProductReviewList />
           </ProtectedRoute>
         } />
 

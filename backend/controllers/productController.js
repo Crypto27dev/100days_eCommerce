@@ -119,6 +119,41 @@ exports.updateProduct = catchAsyncError(async (req, res, next) => {
         return next(new ErrorHandler("Product not found.", 404));
     }
 
+    let images = [];
+
+    if (typeof req.body.images === "string") {
+        images.push(req.body.images);
+    }
+    else {
+        images = req.body.images;
+    }
+
+    if (images !== undefined) {
+        for (let i = 0; i < product.images.length; i++) {
+            await cloudinary.v2.uploader.destroy(product.images[i].public_id)
+        }
+
+        const imagesLink = [];
+
+        for (let i = 0; i < images.length; i++) {
+            const result = await cloudinary.v2.uploader.upload(
+                images[i],
+                {
+                    folder: "products"
+                }
+            );
+
+            imagesLink.push({
+                public_id: result.public_id,
+                url: result.secure_url
+            });
+
+        }
+
+        req.body.images = imagesLink;
+
+    }
+
     product = await Product.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
         runValidators: true,
@@ -140,6 +175,10 @@ exports.deleteProduct = catchAsyncError(async (req, res, next) => {
 
     if (!product) {
         return next(new ErrorHandler("Product not found.", 404));
+    }
+
+    for (let i = 0; i < product.images.length; i++) {
+        await cloudinary.v2.uploader.destroy(product.images[i].public_id)
     }
 
     await product.remove();
@@ -231,10 +270,20 @@ exports.deleteReview = catchAsyncError(async (req, res, next) => {
     const reviews = product.reviews.filter(doc => doc._id.toString() !== req.query.id.toString());
 
     let total = 0;
+
     reviews.forEach(doc => {
         total += doc.rating;
     })
-    const ratings = total / reviews.length;
+
+    let ratings;
+
+    if (reviews.length === 0) {
+        ratings = 0;
+    }
+    else {
+        ratings = total / reviews.length;
+    }
+
     const numOfReviews = reviews.length;
 
     await Product.findByIdAndUpdate(req.query.productId,

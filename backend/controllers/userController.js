@@ -264,7 +264,7 @@ exports.getCustomUserDetails = catchAsyncError(async (req, res, next) => {
 
     res.status(200).json({
         success: true,
-        results: user
+        result: user
     })
 
 })
@@ -279,7 +279,7 @@ exports.updateUserRole = catchAsyncError(async (req, res, next) => {
         role: req.body.role
     }
 
-    const user = await User.findByIdAndUpdate(req.params.id, newUserDetails, {
+    await User.findByIdAndUpdate(req.params.id, newUserDetails, {
         new: true,
         runValidators: true,
         useFindAndModify: false
@@ -287,8 +287,7 @@ exports.updateUserRole = catchAsyncError(async (req, res, next) => {
 
     res.status(200).json({
         success: true,
-        message: "User role updated.",
-        result: user
+        message: "User role updated."
     })
 
 })
@@ -302,6 +301,10 @@ exports.deleteUser = catchAsyncError(async (req, res, next) => {
     if (!user) {
         return next(new ErrorHandler("User not found.", 404));
     }
+
+    const imageId = user.avatar.public_id;
+
+    await cloudinary.v2.uploader.destroy(imageId);
 
     await user.remove();
 
