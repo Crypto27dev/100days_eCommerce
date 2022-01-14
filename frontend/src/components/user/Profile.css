@@ -2,11 +2,8 @@
     display: flex;
     height: 100vh;
     width: 100vw;
-    position: fixed;
-    top: 0%;
-    left: 0%;
+    position: relative;
     max-width: 100%;
-    background-color: white;
 }
 
 .profileContainer>div {
@@ -21,7 +18,7 @@
 
 .profileContainer>div:first-child>h1 {
     color: rgba(0, 0, 0, 0.555);
-    font: 500 2.2vmax "Roboto";
+    font: 500 2.2vmax;
     transform: translateX(-10vmax) translateY(-2vmax);
 }
 
@@ -38,7 +35,7 @@
 .profileContainer>div:first-child>a {
     border: none;
     background-color: var(--activeColor);
-    font: 400 14px "Roboto";
+    font: 400 14px;
     color: white;
     text-decoration: none;
     padding: 1vmax 0.5vmax;
@@ -61,12 +58,12 @@
 
 .profileContainer>div:last-child>div>h4 {
     color: black;
-    font: 600 16px "Roboto";
+    font: 600 16px;
 }
 
 .profileContainer>div:last-child>div>p {
     color: rgba(0, 0, 0, 0.418);
-    font: 400 16px cursive;
+    font: 400 16px;
     margin: 0.2vmax;
 }
 
@@ -79,7 +76,7 @@
 .profileContainer>div:last-child>div:last-child>a {
     border: none;
     background-color: rgb(68, 68, 68);
-    font: 400 14px "Roboto";
+    font: 400 14px;
     color: white;
     text-decoration: none;
     padding: 1.5vmax 0.5vmax;
@@ -98,12 +95,12 @@
     }
 
     .profileContainer>div:first-child>h1 {
-        font: 500 3.2vmax "Roboto";
+        font: 500 3.2vmax;
         transform: translateY(-2vmax);
     }
 
     .profileContainer>div:first-child>a {
-        font: 400 1.7vmax "Roboto";
+        font: 400 1.7vmax;
         padding: 1vmax;
     }
 
@@ -113,7 +110,7 @@
     }
 
     .profileContainer>div:last-child>div>h4 {
-        font: 400 2.5vmax "Roboto";
+        font: 400 2.5vmax;
     }
 
     .profileContainer>div:last-child>div>p {
@@ -122,7 +119,7 @@
     }
 
     .profileContainer>div:last-child>div:last-child>a {
-        font: 400 1.8vmax "Roboto";
+        font: 400 1.8vmax;
         padding: 1vmax;
         margin: 2vmax 0;
     }

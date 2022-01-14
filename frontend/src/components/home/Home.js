@@ -34,7 +34,7 @@ function Home() {
     return (
         <div style={{
             marginTop: 80,
-            paddingBottom: 60
+            marginBottom: 80
         }}>
 
             <MetaData title="Ecommerce" />
@@ -52,22 +52,12 @@ function Home() {
 
             </div>
 
-            {/* <div className="banner">
-                <p>Welcome to Ecommerce</p>
-                <h1>FIND AMAZING PRODUCTS BELOW</h1>
-
-                <a href='#container'>
-                    <button>
-                        Scroll
-                    </button>
-                </a>
-            </div> */}
-
             <div className="homeHeading">
                 Featured Products
             </div>
 
-            <div className="container" id='container'>
+            <div className="customContainer"
+            >
                 {
                     loading ?
                         <Loader />

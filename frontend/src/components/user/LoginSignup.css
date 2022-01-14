@@ -4,16 +4,14 @@
     align-items: center;
     background-color: rgb(231, 231, 231);
     position: relative;
-    margin-top: 80px;
-    width: 100vw;
     max-width: 100%;
     height: 100vh;
 }
 
 .LoginSignUpBox {
     background-color: white;
-    width: 25vw;
-    min-width: 480px;
+    width: 50vw;
+    max-width: 480px;
     height: 80vh;
     padding: 2vmax 0;
     box-sizing: border-box;
@@ -27,7 +25,8 @@
 
 .login_signUp_toggle>p {
     color: rgba(0, 0, 0, 0.678);
-    font: 600 16px "Roboto";
+    font-weight: 700;
+    font-size: 18px;
     transition: all 0.5s;
     cursor: pointer;
     display: grid;
@@ -55,7 +54,7 @@
     margin: auto;
     padding: 2vmax;
     justify-content: space-evenly;
-    height: 100%;
+    height: 90%;
     transition: all 0.5s;
 }
 
@@ -78,7 +77,9 @@
     box-sizing: border-box;
     border: 1px solid rgba(0, 0, 0, 0.267);
     border-radius: 4px;
-    font: 300 16px cursive;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Jost', sans-serif;
     outline: none;
 }
 
@@ -95,7 +96,8 @@
     text-decoration: none;
     align-self: flex-end;
     transition: all 0.5s;
-    font: 600 16px "Gill Sans";
+    font-size: 16px;
+    font-weight: 700;
 }
 
 .loginForm>a:hover {
@@ -108,6 +110,7 @@
     object-fit: cover;
     aspect-ratio: 1.0;
     border-radius: 50%;
+    margin-right: 10px;
 }
 
 #registerImage>input {
@@ -122,7 +125,7 @@
     height: 5vh;
     border: none;
     margin: 0%;
-    font: 400 16px cursive;
+    font: 400 16px;
     transition: all 0.5s;
     padding: 0 1vmax;
     color: rgba(0, 0, 0, 0.623);
@@ -138,7 +141,8 @@
     border: none;
     background-color: var(--activeColor);
     color: white;
-    font: 400 16px "Roboto";
+    font-size: 16px;
+    font-weight: 400;
     width: 100%;
     padding: 1vmax;
     min-height: 48px;
@@ -176,7 +180,7 @@
     }
 
     .LoginSignUpBox {
-        width: 100vw;
+        width: 100%;
         height: 95vh;
     }
 
@@ -185,7 +189,7 @@
     }
 
     .login_signUp_toggle>p {
-        font: 300 1.5vmax "Roboto";
+        font: 300 1.5vmax;
     }
 
     .loginForm,
@@ -205,7 +209,7 @@
     }
 
     .loginForm>a {
-        font: 500 16px "Gill Sans";
+        font: 500 16px;
     }
 
     #registerImage>img {
@@ -221,7 +225,7 @@
     .loginBtn,
     .signUpBtn {
         min-height: 40px;
-        font: 300 16px "Roboto";
+        font: 300 16px;
         padding: 1.8vmax;
     }
 }

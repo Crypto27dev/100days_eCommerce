@@ -5,6 +5,7 @@
     color: white;
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 .left-footer {

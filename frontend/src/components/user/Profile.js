@@ -29,7 +29,7 @@ function Profile() {
 
             {
                 loading ?
-                    <Loader />
+                    <Loader fullScreen={true} />
                     :
                     user &&
                     <div>

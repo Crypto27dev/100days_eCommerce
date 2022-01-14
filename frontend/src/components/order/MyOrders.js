@@ -97,7 +97,7 @@ function MyOrders() {
 
             {
                 loading ?
-                    <Loader /> :
+                    <Loader fullScreen={true} /> :
                     <div className="myOrdersPage">
                         <DataGrid
                             rows={rows}

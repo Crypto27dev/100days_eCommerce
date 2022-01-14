@@ -66,7 +66,7 @@ const Products = () => {
 
             {
                 loading ?
-                    <Loader />
+                    <Loader fullScreen />
                     :
                     <div className='custom-container'>
 

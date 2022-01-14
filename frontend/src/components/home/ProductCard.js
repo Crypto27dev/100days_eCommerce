@@ -12,8 +12,10 @@ function ProductCard({ product }) {
     };
 
     return (
-        <Link className='productCard' to={`/product/${product._id}`}>
-            <img
+        <Link className='productCard'
+            to={`/product/${product._id}`}
+        > 
+            <img className='productImg'
                 src={product.images[0].url}
                 alt={product.name}
                 loading="lazy"
@@ -23,9 +25,7 @@ function ProductCard({ product }) {
 
             <Rating {...options} />
 
-            <div>({product.numOfReviews} reviews)</div>
-
-            <span>{`₹ ${product.price}`}</span>
+            <span>{`₹${product.price}`}</span>
 
         </Link>
     )

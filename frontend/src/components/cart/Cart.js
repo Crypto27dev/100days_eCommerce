@@ -1,7 +1,6 @@
 import "./Cart.css";
 import CartItemCard from "./CartItemCard";
 import { useSelector, useDispatch } from "react-redux";
-import { Typography } from "@mui/material";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -46,14 +45,16 @@ function Cart() {
             marginTop: 80
         }}>
 
-        <MetaData title={`My Cart`} />
+            <MetaData title={`My Cart`} />
 
             {
                 cartItems.length === 0 ?
                     <div className="emptyCart">
                         <RemoveShoppingCartIcon />
 
-                        <Typography>No Product in Your Cart</Typography>
+                        <p style={{
+                            marginTop: 10
+                        }}>No Product in Your Cart</p>
                         <Link to="/products">View Products</Link>
                     </div>
                     :

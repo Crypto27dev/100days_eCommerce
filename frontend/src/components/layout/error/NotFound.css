@@ -12,6 +12,7 @@
 .PageNotFound>svg {
     font-size: 7vmax;
     color: tomato;
+    margin-bottom: 20px;
 }
 
 .PageNotFound>p {

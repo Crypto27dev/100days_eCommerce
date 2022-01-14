@@ -22,9 +22,10 @@
 }
 
 .CarouselImage {
-    width: fit-content;
+    width: 100%;
     height: 50vmax;
     max-height: 600px;
+    object-fit: contain;
 }
 
 .detailsBlock-1>h2 {

@@ -116,7 +116,7 @@ function ProductDetails() {
                     <div style={{
                         marginTop: 120
                     }}>
-                        <Loader />
+                        <Loader fullScreen={true} />
                     </div>
                     :
                     <div>

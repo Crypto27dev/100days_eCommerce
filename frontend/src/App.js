@@ -55,7 +55,7 @@ function App() {
 
     WebFont.load({
       google: {
-        families: ['Roboto', 'Droid Sans']
+        families: ['Jost', 'Roboto', 'Droid Sans']
       }
     })
 
