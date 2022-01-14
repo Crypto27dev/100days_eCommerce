@@ -43,6 +43,7 @@ function LoginSignup() {
     };
 
     const registerSubmit = (e) => {
+        console.log(avatar);
         e.preventDefault();
 
         const myForm = new FormData();

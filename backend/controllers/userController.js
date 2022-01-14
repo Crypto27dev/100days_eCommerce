@@ -27,7 +27,26 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
         }
     });
 
-    sendToken(user, 201, "User registered successfully.", res);
+    const message = `Hello ${user.name},
+    \nWe're glad you're here! Check out our product collection and enjoy shopping.
+    \n\nThank you for joining with us.
+    \n\nThank You,\nNixLab Technologies Team`;
+
+    try {
+
+        await sendEmail({
+            email: user.email,
+            subject: `Welcome to Ecommerce`,
+            message
+        });
+
+        sendToken(user, 201, "User registered successfully.", res);
+
+    } catch (err) {
+
+        return next(new ErrorHandler(err.message, 500));
+
+    }
 
 })
 
