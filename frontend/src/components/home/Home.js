@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProducts, clearErrors } from '../../redux/actions/productAction';
 import Loader from '../layout/loader/Loader';
 import { useAlert } from 'react-alert';
-import { categories } from '../../assets/data/categoryData';
+import { Link } from 'react-router-dom';
 
 function Home() {
 
@@ -34,12 +34,12 @@ function Home() {
     return (
         <div style={{
             marginTop: 80,
-            marginBottom: 80
+            marginBottom: 60
         }}>
 
             <MetaData title="Ecommerce" />
 
-            <div className="category-area">
+            {/* <div className="category-area">
 
                 {
                     categories.map((cat, i) => (
@@ -50,7 +50,7 @@ function Home() {
                     ))
                 }
 
-            </div>
+            </div> */}
 
             <div className="homeHeading">
                 Featured Products
@@ -70,6 +70,18 @@ function Home() {
                         })
                 }
             </div>
+
+            <Link style={{
+                textAlign: "center",
+                display: "block",
+                margin: "20px auto",
+                marginBottom: 0,
+                fontWeight: 700
+            }}
+                to='/products'
+            >
+                View more
+            </Link>
 
         </div>
     )
