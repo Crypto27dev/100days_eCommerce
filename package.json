@@ -10,7 +10,7 @@
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false && npm install --prefix frontend && npm audit fix --force --prefix frontend && npm run build --prefix frontend"
   },
   "author": "Nikhil Rajput",
-  "license": "ISC",
+  "license": "GPL-3.0",
   "dependencies": {
     "@sendgrid/mail": "^7.6.1",
     "bcrypt": "^5.0.1",
@@ -28,6 +28,7 @@
     "validator": "^13.7.0"
   },
   "engines": {
-    "node": "17.x"
+    "node": "17.x",
+    "npm": "8.x"
   }
 }
