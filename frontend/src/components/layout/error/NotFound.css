@@ -27,6 +27,7 @@
     cursor: pointer;
     font: 400 16px "Roboto";
     text-decoration: none;
+    border-radius: 20px;
     margin: 2vmax;
 }
 

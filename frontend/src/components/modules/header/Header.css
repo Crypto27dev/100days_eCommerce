@@ -1,0 +1,77 @@
+.header {
+    position: fixed;
+    width: 100%;
+    height: 80px;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--whiteColor);
+    color: var(--voidColor);
+    padding: 0 80px;
+    margin: 0;
+    overflow: hidden;
+    z-index: 999;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header .logo {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.header .logo-img {
+    width: auto;
+    height: 80px;
+    padding: 10px 0;
+}
+
+.header .header-icon {
+    display: block;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.header .header-icon:hover {
+    color: var(--activeColor);
+}
+
+.header .header-icon svg {
+    width: 20px !important;
+    height: 20px !important;
+}
+
+@media screen and (max-width: 1024px) {
+    .header {
+        padding: 0 40px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .header {
+        padding: 0 20px;
+    }
+}
+
+@media screen and (max-width: 720px) {
+    .header .logo-img {
+        height: 60px;
+    }
+}
+
+@media screen and (max-width: 567px) {
+    .header {
+        padding: 0 20px;
+    }
+
+    .header .logo {
+        font-size: 20px;
+    }
+}

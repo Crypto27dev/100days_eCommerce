@@ -1,0 +1,39 @@
+.app__sidebar {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 0;
+}
+
+.app__sidebar .sidebar-item {
+    cursor: pointer;
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    margin-right: 0.5rem;
+
+    transition: background-color .3s ease-in-out, color .3s ease-in-out;
+}
+
+.app__sidebar .sidebar-item:hover {
+    background-color: var(--whiteColor);
+    color: var(--activeColor);
+    font-weight: 600;
+}
+
+.app__sidebar .sidebar-item svg {
+    width: 24px;
+    height: 24px;
+    color: var(--grayColor);
+    transition: all .3s ease-in-out;
+}
+
+.app__sidebar .selected {
+    background-color: var(--whiteColor);
+    color: var(--activeColor);
+    font-weight: 600;
+}
+
+.app__sidebar .selected svg {
+    color: var(--activeColor);
+}

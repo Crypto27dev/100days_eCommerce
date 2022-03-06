@@ -7,7 +7,12 @@
 }
 
 .loading .loading-spinner {
-    animation: loadingRotate 800ms linear infinite;
+    position: absolute;
+}
+
+.loading-spinner-2 {
+    position: absolute;
+    animation: loadingRotate 1000ms linear infinite;
 }
 
 @keyframes loadingRotate {

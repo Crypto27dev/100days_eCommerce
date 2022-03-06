@@ -1,31 +1,38 @@
 const ErrorHandler = require("../utils/errorHandler");
 const catchAsyncError = require("../middlewares/catchAsyncError");
 const User = require("../models/userModel");
-const sendToken = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
 const cloudinary = require('cloudinary');
+const jwt = require("jsonwebtoken");
 
 // Register a User
 exports.registerUser = catchAsyncError(async (req, res, next) => {
 
     const { name, email, password } = req.body;
 
-    const cloudUpload = await cloudinary.v2.uploader
-        .upload(req.body.avatar, {
-            folder: 'avatars',
-            crop: 'scale'
-        });
+    if (!name) {
+        return next(new ErrorHandler("Please enter a name.", 400));
+    }
+
+    if (!email) {
+        return next(new ErrorHandler("Please enter an email address.", 400));
+    }
+
+    if (!password) {
+        return next(new ErrorHandler("Please enter a password.", 400));
+    }
 
     const user = await User.create({
         name,
         email,
-        password,
-        avatar: {
-            public_id: cloudUpload.public_id,
-            url: cloudUpload.secure_url
-        }
+        password
     });
+
+    const token = user.generateToken();
+    await user.save();
+    const decodedData = jwt.decode(token);
+    const expiresAt = decodedData.exp;
 
     const message = `Hello ${user.name},
     \nWe're glad you're here! Check out our product collection and enjoy shopping.
@@ -33,20 +40,33 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
     \n\nThank You,\nNixLab Technologies Team`;
 
     try {
-
         await sendEmail({
             email: user.email,
-            subject: `Welcome to Ecommerce`,
-            message
+            subject: `Welcome to NixLab Shop`,
+            message: message
         });
 
-        sendToken(user, 201, "User registered successfully.", res);
-
     } catch (err) {
-
-        return next(new ErrorHandler(err.message, 500));
-
+        console.log(err.message);
     }
+
+    // Options for cookie
+    const options = {
+        expires: new Date(
+            Date.now + process.env.COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+        ),
+        httpOnly: true
+    }
+
+    res.status(201)
+        .cookie('token', token, options)
+        .json({
+            success: true,
+            message: "User registered successfully.",
+            token: token,
+            expiresAt: expiresAt,
+            result: user
+        });
 
 })
 
@@ -73,7 +93,49 @@ exports.loginUser = catchAsyncError(async (req, res, next) => {
         return next(new ErrorHandler("Invalid email or password.", 401));
     }
 
-    sendToken(user, 200, "Logged in successfully.", res);
+    let token = user.token;
+    let expiresAt;
+
+    if (token) {
+        let decodedData;
+
+        decodedData = jwt.decode(token);
+
+        if (decodedData.exp < new Date().getTime() / 1000) {
+            token = user.generateToken();
+            await user.save();
+            decodedData = jwt.verify(token, process.env.JWT_SECRET);
+            expiresAt = decodedData.exp;
+        }
+        else {
+            decodedData = jwt.verify(token, process.env.JWT_SECRET);
+            expiresAt = decodedData.exp;
+        }
+    }
+    else {
+        token = user.generateToken();
+        await user.save();
+        decodedData = jwt.verify(token, process.env.JWT_SECRET);
+        expiresAt = decodedData.exp;
+    }
+
+    // Options for cookie
+    const options = {
+        expires: new Date(
+            Date.now + process.env.COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+        ),
+        httpOnly: true
+    }
+
+    res.status(200)
+        .cookie('token', token, options)
+        .json({
+            success: true,
+            message: "Logged in successfully.",
+            token: token,
+            expiresAt: expiresAt,
+            result: user
+        });
 
 })
 
@@ -97,21 +159,27 @@ exports.logoutUser = catchAsyncError(async (req, res, next) => {
 // Forgot Password
 exports.forgotPassword = catchAsyncError(async (req, res, next) => {
 
-    const user = await User.findOne({ email: req.body.email });
+    const { email } = req.body;
+
+    if (!email) {
+        return next(new ErrorHandler("Please enter your email associated with the account.", 400));
+    }
+
+    const user = await User.findOne({ email: email });
 
     if (!user) {
         return next(new ErrorHandler("User not found.", 404));
     }
 
     // Get ResetPasswordToken
-    const resetToken = user.getResetPasswordToken();
+    const resetToken = user.generatePasswordResetToken();
 
-    await user.save({ validateBeforeSave: false });
+    await user.save();
 
-    const resetPasswordUrl = `${req.protocol}://${req.get("host")}/password/reset/${resetToken}`;
+    const resetPasswordUrl = `${req.protocol}://${req.get("host")}/auth/password/reset/${resetToken}`;
 
     const message = `Hello ${user.name},
-    \nYour password reset token is :- \n\n ${resetPasswordUrl}.
+    \nYour password reset link is :- \n\n ${resetPasswordUrl}.
     \nIf you have not requested this email then, please ignore it.
     \n\nThank You,\nNixLab Technologies Team`;
 
@@ -119,8 +187,8 @@ exports.forgotPassword = catchAsyncError(async (req, res, next) => {
 
         await sendEmail({
             email: user.email,
-            subject: `Ecommerce Password Recovery`,
-            message
+            subject: `NixLab Shop Password Recovery`,
+            message: message
         });
 
         res.status(200).json({
@@ -132,7 +200,7 @@ exports.forgotPassword = catchAsyncError(async (req, res, next) => {
         user.resetPasswordToken = undefined;
         user.resetPasswordExpire = undefined;
 
-        await user.save({ validateBeforeSave: false });
+        await user.save();
 
         return next(new ErrorHandler(err.message, 500));
     }
@@ -141,6 +209,16 @@ exports.forgotPassword = catchAsyncError(async (req, res, next) => {
 
 // Reset Password
 exports.resetPassword = catchAsyncError(async (req, res, next) => {
+
+    const { newPassword, confirmPassword } = req.body;
+
+    if (!newPassword) {
+        return next(new ErrorHandler("Please enter new password.", 400));
+    }
+
+    if (!confirmPassword) {
+        return next(new ErrorHandler("Please enter new password again.", 400));
+    }
 
     // Creating Token Hash
     const resetPasswordToken = crypto.createHash("sha256")
@@ -157,17 +235,36 @@ exports.resetPassword = catchAsyncError(async (req, res, next) => {
     }
 
 
-    if (req.body.password !== req.body.confirmPassword) {
-        return next(new ErrorHandler("Password does not matched.", 400));
+    if (newP4 !== confirmPassword) {
+        return next(new ErrorHandler("Passwords do not matched.", 400));
     }
 
-    user.password = req.body.password;
+    user.password = newPassword;
     user.resetPasswordToken = undefined;
     user.resetPasswordExpire = undefined;
 
+    const token = user.generateToken();
     await user.save();
+    const decodedData = jwt.decode(token);
+    const expiresAt = decodedData.exp;
 
-    sendToken(user, 200, "Password changed successfully.", res);
+    // Options for cookie
+    const options = {
+        expires: new Date(
+            Date.now + process.env.COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+        ),
+        httpOnly: true
+    }
+
+    res.status(200)
+        .cookie('token', token, options)
+        .json({
+            success: true,
+            message: "Password changed successfully.",
+            token: token,
+            expiresAt: expiresAt,
+            result: user
+        });
 
 })
 
@@ -192,23 +289,56 @@ exports.getUserDetails = catchAsyncError(async (req, res, next) => {
 // Update Password
 exports.updatePassword = catchAsyncError(async (req, res, next) => {
 
+    const { oldPassword, newPassword, confirmPassword } = req.body;
+
+    if (!oldPassword) {
+        return next(new ErrorHandler("Please enter old password.", 400));
+    }
+
+    if (!newPassword) {
+        return next(new ErrorHandler("Please enter new password.", 400));
+    }
+
+    if (!confirmPassword) {
+        return next(new ErrorHandler("Please enter new password again.", 400));
+    }
+
     const user = await User.findById(req.user.id).select("+password");
 
-    const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
+    const isPasswordMatched = await user.comparePassword(oldPassword);
 
     if (!isPasswordMatched) {
         return next(new ErrorHandler("Old password is incorrect.", 400));
     }
 
-    if (req.body.newPassword !== req.body.confirmPassword) {
+    if (newPassword !== confirmPassword) {
         return next(new ErrorHandler("Both passwords do not matched.", 400));
     }
 
-    user.password = req.body.newPassword;
+    user.password = newPassword;
 
+    const token = user.generateToken();
     await user.save();
+    const decodedData = jwt.decode(token);
+    const expiresAt = decodedData.exp;
 
-    sendToken(user, 200, "Password changed successfully.", res);
+    // Options for cookie
+    const options = {
+        expires: new Date(
+            Date.now + process.env.COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+        ),
+        httpOnly: true
+    }
+
+    res.status(200)
+        .cookie('token', token, options)
+        .json({
+            success: true,
+            message: "Password changed successfully.",
+            token: token,
+            expiresAt: expiresAt,
+            result: user
+        });
 
 })
 
@@ -216,37 +346,48 @@ exports.updatePassword = catchAsyncError(async (req, res, next) => {
 // Update User Profile
 exports.updateUserProfile = catchAsyncError(async (req, res, next) => {
 
-    const newUserDetails = {
-        name: req.body.name,
-        email: req.body.email
+    const { name, email, avatar, dob, gender } = req.body;
+
+    const user = await User.findById(req.user.id);
+
+    if (name) {
+        user.name = name;
     }
 
-    if (req.body.avatar !== "") {
-        const user = await User.findById(req.user.id);
+    if (email) {
+        user.email = email;
+    }
 
-        const imageId = user.avatar.public_id;
+    if (dob) {
+        user.dob = dob;
+    }
 
-        await cloudinary.v2.uploader.destroy(imageId);
+    if (gender) {
+        user.gender = gender;
+    }
+
+    if (avatar) {
+
+        if (user.avatar && user.avatar.public_id) {
+
+            const imageId = user.avatar.public_id;
+
+            await cloudinary.v2.uploader.destroy(imageId);
+        }
 
         const cloudUpload = await cloudinary.v2.uploader
-            .upload(req.body.avatar, {
-                folder: 'avatars',
-                width: 150,
-                crop: 'scale'
+            .upload(avatar, {
+                folder: 'ecommerce/avatars'
             });
 
-        newUserDetails.avatar = {
+        user.avatar = {
             public_id: cloudUpload.public_id,
             url: cloudUpload.secure_url
         }
 
     }
 
-    const user = await User.findByIdAndUpdate(req.user.id, newUserDetails, {
-        new: true,
-        runValidators: true,
-        useFindAndModify: false
-    })
+    await user.save();
 
     res.status(200).json({
         success: true,

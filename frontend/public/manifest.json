@@ -1,16 +1,11 @@
 {
-  "short_name": "Ecommerce",
-  "name": "Ecommerce",
+  "short_name": "NixLab Shop",
+  "name": "NixLab Shop",
   "icons": [
     {
-      "src": "favicon.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "logo.png",
-      "type": "image/png",
-      "sizes": "192x192"
+      "src": "favicon.ico",
+      "type": "image/ico",
+      "sizes": "32x32,64x64,192x192"
     }
   ],
   "start_url": ".",

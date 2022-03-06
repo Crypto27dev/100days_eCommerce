@@ -1,41 +1,49 @@
-import { useEffect, useState } from 'react';
-import Header from './components/layout/header/Header';
-import Footer from './components/layout/footer/Footer';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { lazy, Suspense, useEffect, useState } from 'react';
+import { BrowserRouter as Router, Navigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import WebFont from 'webfontloader';
-import Home from './components/home/Home';
-import ProductDetails from './components/product/ProductDetails';
-import Products from './components/product/Products';
-import Search from './components/product/Search';
-import LoginSignup from './components/user/LoginSignup';
-import { loadUser } from './redux/actions/userAction';
-import Profile from './components/user/Profile';
-import ProtectedRoute from './components/route/ProtectedRoute';
-import UpdateProfile from './components/user/UpdateProfile';
-import UpdatePassword from './components/user/UpdatePassword';
-import ForgotPassword from './components/user/ForgotPassword';
-import ResetPassword from './components/user/ResetPassword';
-import Cart from './components/cart/Cart';
-import Shipping from './components/cart/Shipping';
-import ConfirmOrder from './components/cart/ConfirmOrder';
 import axios from 'axios';
-import Payment from './components/cart/Payment';
-import OrderSuccess from './components/cart/OrderSuccess';
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
-import MyOrders from './components/order/MyOrders';
-import OrderDetails from './components/order/OrderDetails';
-import Dashboard from './components/admin/Dashboard';
+import { loadUser } from './redux/actions/userAction';
+import { TraverseRoutes } from './components/route';
+import Loader from './components/layout/loader/Loader';
+
 import NotFound from './components/layout/error/NotFound';
-import ProductList from './components/admin/ProductList';
-import NewProduct from './components/admin/NewProduct';
-import UpdateProduct from './components/admin/UpdateProduct';
-import OrderList from './components/admin/OrderList';
-import ProcessOrder from './components/admin/ProcessOrder';
-import UserList from './components/admin/UserList';
-import UpdateUser from './components/admin/UpdateUser';
-import ProductReviewList from './components/admin/ProductReviewList';
+const AuthModule = lazy(() => import('./components/modules/auth'));
+const HomeModule = lazy(() => import('./components/modules/home'));
+const UserModule = lazy(() => import('./components/modules/user'));
+const AdminModule = lazy(() => import('./components/modules/admin'));
+
+const routes = [
+  {
+    path: "/",
+    element: <Navigate to='/home' />
+  },
+
+  {
+    path: 'auth/*',
+    element: <AuthModule />
+  },
+
+  {
+    path: 'home/*',
+    element: <HomeModule />
+  },
+
+  {
+    path: 'user/*',
+    element: <UserModule />
+  },
+
+  {
+    path: 'admin/*',
+    element: <AdminModule />
+  },
+
+  {
+    path: '*',
+    element: <NotFound />
+  }
+]
 
 function App() {
 
@@ -74,9 +82,13 @@ function App() {
   return (
     <Router>
 
-      <Header />
+      <Suspense fallback={<Loader fullScreen />} >
 
-      <Routes>
+        <TraverseRoutes routes={routes} />
+
+      </Suspense>
+
+      {/* <Routes>
 
         <Route path="/" element={<Home />} />
 
@@ -89,6 +101,8 @@ function App() {
         <Route path="/search" element={<Search />} />
 
         <Route path="/login" element={<LoginSignup />} />
+
+        <Route path="/register" element={<Register />} />
 
         <Route path="/account" element={
           <ProtectedRoute>
@@ -211,9 +225,7 @@ function App() {
 
         <Route path="*" element={<NotFound />} />
 
-      </Routes>
-
-      <Footer />
+      </Routes> */}
 
     </Router>
   );

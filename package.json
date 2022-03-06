@@ -7,11 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node backend/server.js",
     "dev": "nodemon backend/server.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false && npm install --prefix frontend && npm audit fix --prefix frontend && npm run build --prefix frontend"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false && npm install --prefix frontend && npm audit fix --force --prefix frontend && npm run build --prefix frontend"
   },
   "author": "Nikhil Rajput",
   "license": "ISC",
   "dependencies": {
+    "@sendgrid/mail": "^7.6.1",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.1",
     "cloudinary": "^1.28.1",
@@ -25,5 +26,8 @@
     "nodemon": "^2.0.15",
     "stripe": "^8.195.0",
     "validator": "^13.7.0"
+  },
+  "engines": {
+    "node": "17.x"
   }
 }

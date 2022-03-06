@@ -13,6 +13,7 @@ const errorMiddleware = require("./middlewares/error");
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(fileUpload());
 
