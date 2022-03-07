@@ -63,9 +63,16 @@ function ProductList() {
 
         {
             field: "ind",
-            headerName: "No.",
+            headerName: "S. No.",
             minWidth: 100,
             flex: 0.5
+        },
+
+        {
+            field: "name",
+            headerName: "Name",
+            minWidth: 200,
+            flex: 1,
         },
 
         {
@@ -76,16 +83,10 @@ function ProductList() {
         },
 
         {
-            field: "name",
-            headerName: "Name",
-            minWidth: 350,
-            flex: 1,
-        },
-        {
             field: "stock",
             headerName: "Stock",
             type: "number",
-            minWidth: 150,
+            minWidth: 100,
             flex: 0.3,
         },
 
@@ -93,21 +94,23 @@ function ProductList() {
             field: "price",
             headerName: "Price",
             type: "number",
-            minWidth: 270,
+            minWidth: 120,
             flex: 0.5,
+            renderCell: (params) => {
+                return <div> {`₹${params.value}`} </div>
+            }
         },
 
         {
             field: "actions",
             flex: 0.3,
-            headerName: "Actions",
-            minWidth: 150,
-            type: "number",
+            headerName: "",
+            minWidth: 100,
             sortable: false,
             renderCell: (params) => {
                 return (
                     <>
-                        <Link to={`/admin/product/${params.getValue(params.id, "id")}`}>
+                        <Link to={`/admin/products/${params.getValue(params.id, "id")}`}>
                             <EditIcon />
                         </Link>
 
@@ -140,7 +143,7 @@ function ProductList() {
     return (
         <div className='app__top-margin'>
 
-            <MetaData title={`All Products - Admin Panel`} />
+            <MetaData title={`Products - Admin Panel`} />
 
             <div className="app__dashboard">
 
@@ -149,11 +152,9 @@ function ProductList() {
                 <div className="app__dashboard-container">
 
                     <div className='title'>
-
                         Products
 
                         <Link to="/admin/product/new"><MdPostAdd /> Add</Link>
-
                     </div>
 
                     <DataGrid
@@ -161,8 +162,7 @@ function ProductList() {
                         columns={columns}
                         pageSize={10}
                         disableSelectionOnClick
-                        className="productListTable"
-                        autoHeight
+                        className="custom-list-table"
                     />
                 </div>
             </div>

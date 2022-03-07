@@ -1,10 +1,7 @@
 import "./Sidebar.css";
 import { useNavigate } from "react-router-dom";
-import ImportExportIcon from "@mui/icons-material/ImportExport";
-import ListAltIcon from "@mui/icons-material/ListAlt";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import PeopleIcon from "@mui/icons-material/People";
-import RateReviewIcon from "@mui/icons-material/RateReview";
+import { MdDashboard, MdListAlt, MdReviews, MdStorefront } from 'react-icons/md';
+import { FaUsers } from 'react-icons/fa';
 
 
 function Sidebar({ active }) {
@@ -19,7 +16,7 @@ function Sidebar({ active }) {
                     () => navigate("/admin/dashboard")
                 }
             >
-                <DashboardIcon /> Dashboard
+                <MdDashboard /> <span>Dashboard</span>
             </div>
 
             <div className={active === "products" ? "sidebar-item selected" : "sidebar-item"}
@@ -27,7 +24,7 @@ function Sidebar({ active }) {
                     () => navigate("/admin/products")
                 }
             >
-                <ImportExportIcon /> Products
+                <MdStorefront /> <span>Products</span>
             </div>
 
             <div className={active === "orders" ? "sidebar-item selected" : "sidebar-item"}
@@ -35,7 +32,7 @@ function Sidebar({ active }) {
                     () => navigate("/admin/orders")
                 }
             >
-                <ListAltIcon /> Orders
+                <MdListAlt /> <span>Orders</span>
             </div>
 
             <div className={active === "users" ? "sidebar-item selected" : "sidebar-item"}
@@ -43,7 +40,7 @@ function Sidebar({ active }) {
                     () => navigate("/admin/users")
                 }
             >
-                <PeopleIcon /> Users
+                <FaUsers /> <span>Users</span>
             </div>
 
             <div className={active === "reviews" ? "sidebar-item selected" : "sidebar-item"}
@@ -51,7 +48,7 @@ function Sidebar({ active }) {
                     () => navigate("/admin/reviews")
                 }
             >
-                <RateReviewIcon /> Reviews
+                <MdReviews /> <span>Reviews</span>
             </div>
 
         </div>

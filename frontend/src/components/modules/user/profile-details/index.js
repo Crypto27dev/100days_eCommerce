@@ -36,6 +36,7 @@ function ProfileDetails() {
                     user &&
                     <div className='app__flex-container'>
                         <MetaData title={`${user.name} - NixLab Shop`} />
+
                         <div className="app__flex-card">
 
                             <div className='image-container'>

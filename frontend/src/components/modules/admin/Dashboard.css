@@ -17,12 +17,6 @@
     align-items: stretch;
 }
 
-@media screen and (max-width: 768px) {
-    .app__dashboard-container {
-        padding: 2rem 0;
-    }
-}
-
 .app__dashboard-container .title {
     font-size: x-large;
     font-weight: bold;
@@ -79,29 +73,37 @@
     margin-right: 0;
 }
 
-.productListTable {
-    background-color: white;
-    border: none !important;
+@media screen and (max-width: 768px) {
+    .app__dashboard-container {
+        padding: 2rem 1rem;
+    }
+
+    .app__dashboard-container .title {
+        margin-bottom: 1rem;
+    }
+}
+
+.custom-list-table {
+    background-color: var(--whiteColor);
     border-radius: 10px;
 }
 
-.productListTable div {
-    color: rgba(0, 0, 0, 0.678);
-    border: none !important;
+.custom-list-table div {
+    color: var(--primaryTextColor);
 }
 
-.productListTable a,
-.productListTable button {
-    color: rgba(0, 0, 0, 0.527);
+.custom-list-table a,
+.custom-list-table button {
+    color: var(--activeColor);
     transition: all 0.5s;
 }
 
-.productListTable a:hover {
-    color: tomato;
+.custom-list-table a:hover {
+    opacity: 0.75;
 }
 
-.productListTable button:hover {
-    color: rgb(236, 30, 30);
+.custom-list-table button:hover {
+    color: var(--errorColor);
 }
 
 .MuiDataGrid-columnHeader div {

@@ -61,7 +61,8 @@ function UpdatePassword() {
     ]);
 
     return (
-        <>
+        <div className='app__top-margin'>
+
             <div className='app__flex-container'>
                 <MetaData title="Change Password - NixLab Shop" />
                 <form
@@ -132,7 +133,7 @@ function UpdatePassword() {
                     </div>
                 </form>
             </div>
-        </>
+        </div>
     )
 }
 

@@ -96,7 +96,7 @@ function UpdateProfile() {
                 <MetaData title="Update Profile - NixLab Shop" />
 
                 <form
-                    className="app__flex"
+                    className="app__flex-card"
                     encType="multipart/form-data"
                     onSubmit={updateProfileSubmit}
                 >

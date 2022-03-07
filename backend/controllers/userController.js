@@ -85,28 +85,20 @@ exports.loginUser = catchAsyncError(async (req, res, next) => {
     }
 
     let token = user.token;
-    let expiresAt;
+    let expiresAt = user.expiresAt;
 
     if (token) {
-        let decodedData;
-
-        decodedData = jwt.decode(token);
-
-        if (decodedData.exp < new Date().getTime() / 1000) {
+        if (expiresAt < new Date().getTime() / 1000) {
             token = user.generateToken();
             await user.save();
-            decodedData = jwt.verify(token, process.env.JWT_SECRET);
-            expiresAt = decodedData.exp;
-        }
-        else {
-            decodedData = jwt.verify(token, process.env.JWT_SECRET);
+            const decodedData = jwt.verify(token, process.env.JWT_SECRET);
             expiresAt = decodedData.exp;
         }
     }
     else {
         token = user.generateToken();
         await user.save();
-        decodedData = jwt.verify(token, process.env.JWT_SECRET);
+        const decodedData = jwt.verify(token, process.env.JWT_SECRET);
         expiresAt = decodedData.exp;
     }
 
@@ -119,7 +111,6 @@ exports.loginUser = catchAsyncError(async (req, res, next) => {
             expiresAt: expiresAt,
             result: user
         });
-
 })
 
 
@@ -237,7 +228,7 @@ exports.resetPassword = catchAsyncError(async (req, res, next) => {
 
 
 // Get User Details
-exports.getUserDetails = catchAsyncError(async (req, res, next) => {
+exports.getProfileDetails = catchAsyncError(async (req, res, next) => {
 
     const user = await User.findById(req.user.id);
 
@@ -284,18 +275,13 @@ exports.updatePassword = catchAsyncError(async (req, res, next) => {
 
     user.password = newPassword;
 
-    const token = user.generateToken();
+    user.generateToken();
     await user.save();
-    const decodedData = jwt.decode(token);
-    const expiresAt = decodedData.exp;
 
     res.status(200)
         .json({
             success: true,
-            message: "Password changed successfully.",
-            token: token,
-            expiresAt: expiresAt,
-            result: user
+            message: "Password changed successfully."
         });
 
 })
@@ -386,17 +372,17 @@ exports.getCustomUserDetails = catchAsyncError(async (req, res, next) => {
 // Update User Role -- Admin
 exports.updateUserRole = catchAsyncError(async (req, res, next) => {
 
-    const newUserDetails = {
-        name: req.body.name,
-        email: req.body.email,
-        role: req.body.role
+    const { role } = req.body;
+
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+        return next(new ErrorHandler("User not found.", 404));
     }
 
-    await User.findByIdAndUpdate(req.params.id, newUserDetails, {
-        new: true,
-        runValidators: true,
-        useFindAndModify: false
-    })
+    user.role = String(role).toLowerCase();
+
+    await user.save();
 
     res.status(200).json({
         success: true,
@@ -415,9 +401,12 @@ exports.deleteUser = catchAsyncError(async (req, res, next) => {
         return next(new ErrorHandler("User not found.", 404));
     }
 
-    const imageId = user.avatar.public_id;
+    if (user.avatar && user.avatar.public_id) {
 
-    await cloudinary.v2.uploader.destroy(imageId);
+        const imageId = user.avatar.public_id;
+
+        await cloudinary.v2.uploader.destroy(imageId);
+    }
 
     await user.remove();
 

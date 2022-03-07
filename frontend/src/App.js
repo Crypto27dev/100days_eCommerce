@@ -1,8 +1,8 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter as Router, Navigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import WebFont from 'webfontloader';
-import axios from 'axios';
+// import axios from 'axios';
 import { loadUser } from './redux/actions/userAction';
 import { TraverseRoutes } from './components/route';
 import Loader from './components/layout/loader/Loader';
@@ -55,15 +55,15 @@ function App() {
 
   const dispatch = useDispatch();
 
-  const [stripeApiKey, setStripeApiKey] = useState("");
+  // const [stripeApiKey, setStripeApiKey] = useState("");
 
-  async function getStripeApiKey() {
+  // async function getStripeApiKey() {
 
-    const { data } = await axios.get("/api/v1/stripe/key");
+  //   const { data } = await axios.get("/api/v1/stripe/key");
 
-    setStripeApiKey(data.key);
+  //   setStripeApiKey(data.key);
 
-  }
+  // }
 
   useEffect(() => {
 
@@ -79,7 +79,7 @@ function App() {
       dispatch(loadUser(token));
     }
 
-    getStripeApiKey();
+    // getStripeApiKey();
 
     return () => { }
 

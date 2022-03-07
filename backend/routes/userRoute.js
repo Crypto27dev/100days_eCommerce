@@ -5,7 +5,7 @@ const {
     logoutUser,
     forgotPassword,
     resetPassword,
-    getUserDetails,
+    getProfileDetails,
     updatePassword,
     updateUserProfile,
     getAllUsers,
@@ -25,7 +25,7 @@ router.route("/password/forgot").post(forgotPassword);
 router.route("/password/reset/:token").put(resetPassword);
 router.route("/password/update").put(isAuthenticatedUser, updatePassword);
 router.route("/logout").get(logoutUser);
-router.route("/user/me").get(isAuthenticatedUser, getUserDetails);
+router.route("/user/me").get(isAuthenticatedUser, getProfileDetails);
 router.route("/user/me/update").put(isAuthenticatedUser, updateUserProfile);
 router.route("/admin/users")
     .get(isAuthenticatedUser, authorizeRoles("admin"), getAllUsers);
@@ -35,5 +35,5 @@ router.route("/admin/user/:id")
     .delete(isAuthenticatedUser, authorizeRoles("admin"), deleteUser);
 
 
-    
+
 module.exports = router

@@ -4,6 +4,8 @@ import { TraverseRoutes, ProtectedRoute } from "../../route";
 const Dashboard = lazy(() => import("./dashboard"));
 const ProductList = lazy(() => import("./product-list"));
 const NewProduct = lazy(() => import("./new-product"));
+const UserList = lazy(() => import("./user-list"));
+const OrderList = lazy(() => import("./order-list"));
 
 const routes = [
     {
@@ -19,6 +21,16 @@ const routes = [
     {
         path: 'product/new',
         element: <ProtectedRoute isAdmin={true}> <NewProduct /> </ProtectedRoute>
+    },
+
+    {
+        path: 'users',
+        element: <ProtectedRoute isAdmin={true}> <UserList /> </ProtectedRoute>
+    },
+
+    {
+        path: 'orders',
+        element: <ProtectedRoute isAdmin={true}> <OrderList /> </ProtectedRoute>
     }
 ]
 

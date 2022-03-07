@@ -1,4 +1,4 @@
-import "./ProductList.css";
+import "../Dashboard.css";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,14 +7,16 @@ import { Button } from "@mui/material";
 import { DataGrid } from '@mui/x-data-grid';
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import SideBar from "../Sidebar";
-import MetaData from "../layout/MetaData";
 import {
     deleteOrder,
     getAllOrders,
     clearErrors,
-} from "../../redux/actions/orderAction";
-import { DELETE_ORDER_RESET } from "../../redux/constants/orderConstants";
+} from "../../../../redux/actions/orderAction";
+import { DELETE_ORDER_RESET } from "../../../../redux/constants/orderConstants";
+import SideBar from "../sidebar";
+import MetaData from "../../../layout/MetaData";
+import AppWrap from "../../../hoc/AppWrap";
+
 
 function OrderList() {
 
@@ -22,18 +24,19 @@ function OrderList() {
     const alert = useAlert();
     const navigate = useNavigate();
 
+    const { token } = useSelector((state) => state.user);
     const { error, orders } = useSelector((state) => state.allOrders);
     const { error: deleteError, isDeleted } = useSelector((state) => state.order);
 
     const deleteOrderHandler = (id) => {
-        dispatch(deleteOrder(id));
+        dispatch(deleteOrder(id, token));
     };
 
     const columns = [
 
         {
             field: "ind",
-            headerName: "No.",
+            headerName: "S. No.",
             minWidth: 100,
             flex: 0.5
         },
@@ -41,7 +44,7 @@ function OrderList() {
         {
             field: "id",
             headerName: "Order ID",
-            minWidth: 300,
+            minWidth: 200,
             flex: 1
         },
 
@@ -50,17 +53,17 @@ function OrderList() {
             headerName: "Status",
             minWidth: 150,
             flex: 0.5,
-            cellClassName: (params) => {
-                return params.getValue(params.id, "status") === "Delivered"
-                    ? "greenColor"
-                    : "redColor";
-            },
+            renderCell: (params) => {
+                return <div className={params.value === "Delivered" ? "greenStatusBox" : "redStatusBox"}
+                > {params.value} </div>
+            }
         },
+
         {
             field: "itemsQty",
             headerName: "Items Qty",
             type: "number",
-            minWidth: 150,
+            minWidth: 100,
             flex: 0.4,
         },
 
@@ -68,16 +71,15 @@ function OrderList() {
             field: "amount",
             headerName: "Amount",
             type: "number",
-            minWidth: 270,
+            minWidth: 100,
             flex: 0.5,
         },
 
         {
             field: "actions",
             flex: 0.3,
-            headerName: "Actions",
-            minWidth: 150,
-            type: "number",
+            headerName: "",
+            minWidth: 100,
             sortable: false,
             renderCell: (params) => {
                 return (
@@ -129,34 +131,36 @@ function OrderList() {
             dispatch({ type: DELETE_ORDER_RESET });
         }
 
-        dispatch(getAllOrders());
+        dispatch(getAllOrders(token));
 
         return () => { }
 
     }, [
-        dispatch, alert, error,
+        dispatch, alert, error, token,
         deleteError, navigate, isDeleted
     ]);
 
     return (
-        <div style={{
-            marginTop: 80
-        }}>
+        <div className="app__top-margin">
 
-            <MetaData title={`All Orders - Admin`} />
+            <MetaData title="Orders - Admin Panel" />
 
-            <div className="dashboard">
-                <SideBar />
-                <div className="productListContainer">
-                    <h1 id="productListHeading">ALL ORDERS</h1>
+            <div className="app__dashboard">
+
+                <SideBar active={"orders"} />
+
+                <div className="app__dashboard-container">
+
+                    <div className='title'>
+                        Orders
+                    </div>
 
                     <DataGrid
                         rows={rows}
                         columns={columns}
                         pageSize={10}
                         disableSelectionOnClick
-                        className="productListTable"
-                        autoHeight
+                        className="custom-list-table"
                     />
                 </div>
             </div>
@@ -165,4 +169,4 @@ function OrderList() {
     )
 }
 
-export default OrderList;
+export default AppWrap(OrderList);

@@ -15,21 +15,21 @@ module.exports = (err, req, res, next) => {
 
     // Mongoose duplicate key error
     if (err.code === 11000) {
-        const message = `Email is already in use.`;
+        const message = `Email is already in use, please try again with another email.`;
         err = new ErrorHandler(message, 400);
     }
 
 
     // Wrong JWT error
     if (err.name === "jsonWebTokenError") {
-        const message = `JWT is invalid.`;
+        const message = `Token is invalid, please login again.`;
         err = new ErrorHandler(message, 400);
     }
 
 
     // JWT Expire error
     if (err.name === "TokenExpiredError") {
-        const message = `JWT is expired.`;
+        const message = `Token is expired, please login again.`;
         err = new ErrorHandler(message, 400);
     }
 

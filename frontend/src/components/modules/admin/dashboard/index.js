@@ -104,9 +104,9 @@ function Dashboard() {
 
             <div className="app__dashboard">
 
-                <MetaData title="Admin Panel - Nixlab Shop" />
+                <MetaData title="Dashboard - Admin Panel" />
 
-                <Sidebar />
+                <Sidebar active="dashboard" />
 
                 <div className="app__dashboard-container">
 

@@ -156,7 +156,16 @@ function Header() {
                                         handleMenuClick(evt);
                                     }
                                 }>
-                                <FiSettings />
+
+                                {
+                                    user.avatar ?
+                                        <img className='header-user-img'
+                                            src={user.avatar.url}
+                                            alt="user"
+                                        /> :
+                                        <FiSettings />
+                                }
+
                             </div>
                             <Menu
                                 id="user-menu"

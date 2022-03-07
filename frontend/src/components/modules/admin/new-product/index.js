@@ -97,12 +97,8 @@ function NewProduct() {
 
                 <div className="app__dashboard-container">
 
-                    <div className="title">
-                        Create Product
-                    </div>
-
                     <form
-                        className="app__flex"
+                        className="app__flex-card"
                         encType="multipart/form-data"
                         onSubmit={createProductSubmitHandler}
                     >
@@ -116,6 +112,10 @@ function NewProduct() {
                                 <Loader />
                             </div>
                         }
+
+                        <p className="title">
+                            Create Product
+                        </p>
 
                         <div className='form-control'>
                             <SpellcheckIcon />

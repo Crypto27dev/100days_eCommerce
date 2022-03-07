@@ -43,7 +43,11 @@ export const login = (email, password) => async (dispatch) => {
     try {
         dispatch({ type: LOGIN_REQUEST });
 
-        const config = { headers: { "Content-Type": "application/json" } };
+        const config = {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        };
 
         const { data } = await axios.post(
             `/api/v1/login`,
@@ -52,15 +56,23 @@ export const login = (email, password) => async (dispatch) => {
         );
 
         localStorage.setItem('token', data.token);
+        localStorage.setItem('expiresAt', data.expiresAt);
 
         const userData = {
             user: data.result,
-            token: data.token
+            token: data.token,
+            expiresAt: data.expiresAt
         }
 
-        dispatch({ type: LOGIN_SUCCESS, payload: userData });
+        dispatch({
+            type: LOGIN_SUCCESS,
+            payload: userData
+        });
     } catch (error) {
-        dispatch({ type: LOGIN_FAIL, payload: error.response.data.message });
+        dispatch({
+            type: LOGIN_FAIL,
+            payload: error.response.data.message
+        });
     }
 };
 
@@ -69,18 +81,31 @@ export const register = (userData) => async (dispatch) => {
     try {
         dispatch({ type: REGISTER_USER_REQUEST });
 
-        const config = { headers: { "Content-Type": "application/json" } };
+        const config = {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        };
 
-        const { data } = await axios.post(`/api/v1/register`, userData, config);
+        const { data } = await axios.post(
+            `/api/v1/register`,
+            userData,
+            config
+        );
 
         localStorage.setItem('token', data.token);
+        localStorage.setItem('expiresAt', data.expiresAt);
 
         const userDataLocal = {
             user: data.result,
-            token: data.token
+            token: data.token,
+            expiresAt: data.expiresAt
         }
 
-        dispatch({ type: REGISTER_USER_SUCCESS, payload: userDataLocal });
+        dispatch({
+            type: REGISTER_USER_SUCCESS,
+            payload: userDataLocal
+        });
     } catch (error) {
         dispatch({
             type: REGISTER_USER_FAIL,
@@ -101,29 +126,50 @@ export const loadUser = (token) => async (dispatch) => {
             }
         };
 
-        const { data } = await axios.get(`/api/v1/user/me`, config);
+        const { data } = await axios.get(
+            `/api/v1/user/me`,
+            config
+        );
 
-        const userData = {
-            user: data.result,
-            token: token
+        if (data.result.token && data.result.token === token &&
+            data.result.expiresAt > new Date().getTime() / 1000) {
+            const userData = {
+                user: data.result,
+                token: data.result.token,
+                expiresAt: data.result.expiresAt
+            }
+
+            dispatch({
+                type: LOAD_USER_SUCCESS,
+                payload: userData
+            });
+        }
+        else {
+            dispatch(logout());
         }
 
-        dispatch({ type: LOAD_USER_SUCCESS, payload: userData });
     } catch (error) {
-        dispatch({ type: LOAD_USER_FAIL, payload: error.response.data.message });
+        dispatch(logout());
+        dispatch({
+            type: LOAD_USER_FAIL,
+            payload: error.response.data.message
+        });
     }
 };
 
 // Logout User
 export const logout = () => async (dispatch) => {
     try {
-        // await axios.get(`/api/v1/logout`);
-
         localStorage.removeItem('token');
+        localStorage.removeItem('expiresAt');
 
         dispatch({ type: LOGOUT_SUCCESS });
     } catch (error) {
-        dispatch({ type: LOGOUT_FAIL, payload: error.response.data.message });
+        dispatch({
+            type:
+                LOGOUT_FAIL,
+            payload: 'An error occurred while logging out.'
+        });
     }
 };
 
@@ -139,9 +185,16 @@ export const updateProfile = (userData, token) => async (dispatch) => {
             }
         };
 
-        const { data } = await axios.put(`/api/v1/user/me/update`, userData, config);
+        const { data } = await axios.put(
+            `/api/v1/user/me/update`,
+            userData,
+            config
+        );
 
-        dispatch({ type: UPDATE_PROFILE_SUCCESS, payload: data.success });
+        dispatch({
+            type: UPDATE_PROFILE_SUCCESS,
+            payload: data.success
+        });
     } catch (error) {
         dispatch({
             type: UPDATE_PROFILE_FAIL,
@@ -168,7 +221,10 @@ export const updatePassword = (passwords, token) => async (dispatch) => {
             config
         );
 
-        dispatch({ type: UPDATE_PASSWORD_SUCCESS, payload: data.success });
+        dispatch({
+            type: UPDATE_PASSWORD_SUCCESS,
+            payload: data.success
+        });
     } catch (error) {
         dispatch({
             type: UPDATE_PASSWORD_FAIL,
@@ -182,11 +238,22 @@ export const forgotPassword = (email) => async (dispatch) => {
     try {
         dispatch({ type: FORGOT_PASSWORD_REQUEST });
 
-        const config = { headers: { "Content-Type": "application/json" } };
+        const config = {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        };
 
-        const { data } = await axios.post(`/api/v1/password/forgot`, email, config);
+        const { data } = await axios.post(
+            `/api/v1/password/forgot`,
+            email,
+            config
+        );
 
-        dispatch({ type: FORGOT_PASSWORD_SUCCESS, payload: data.message });
+        dispatch({
+            type: FORGOT_PASSWORD_SUCCESS,
+            payload: data.message
+        });
     } catch (error) {
         dispatch({
             type: FORGOT_PASSWORD_FAIL,
@@ -200,7 +267,11 @@ export const resetPassword = (token, passwords) => async (dispatch) => {
     try {
         dispatch({ type: RESET_PASSWORD_REQUEST });
 
-        const config = { headers: { "Content-Type": "application/json" } };
+        const config = {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        };
 
         const { data } = await axios.put(
             `/api/v1/password/reset/${token}`,
@@ -232,7 +303,10 @@ export const getAllUsers = (token) => async (dispatch) => {
             }
         };
 
-        const { data } = await axios.get(`/api/v1/admin/users`, config);
+        const { data } = await axios.get(
+            `/api/v1/admin/users`,
+            config
+        );
 
         dispatch({
             type: ALL_USERS_SUCCESS,
@@ -258,7 +332,10 @@ export const getUserDetails = (id, token) => async (dispatch) => {
             }
         };
 
-        const { data } = await axios.get(`/api/v1/admin/user/${id}`, config);
+        const { data } = await axios.get(
+            `/api/v1/admin/user/${id}`,
+            config
+        );
 
         dispatch({
             type: USER_DETAILS_SUCCESS,
@@ -314,9 +391,15 @@ export const deleteUser = (id, token) => async (dispatch) => {
             }
         };
 
-        const { data } = await axios.delete(`/api/v1/admin/user/${id}`, config);
+        const { data } = await axios.delete(
+            `/api/v1/admin/user/${id}`,
+            config
+        );
 
-        dispatch({ type: DELETE_USER_SUCCESS, payload: data });
+        dispatch({
+            type: DELETE_USER_SUCCESS,
+            payload: data
+        });
     } catch (error) {
         dispatch({
             type: DELETE_USER_FAIL,

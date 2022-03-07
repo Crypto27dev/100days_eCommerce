@@ -9,13 +9,15 @@
     color: var(--voidColor);
     padding: 0 80px;
     margin: 0;
-    overflow: hidden;
-    z-index: 99;
-    transition: all 0.3s;
+
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+
+    overflow: hidden;
+    z-index: 99;
+    transition: all 0.5s ease-in-out;
 }
 
 .header .logo {
@@ -25,18 +27,24 @@
     justify-content: center;
     font-size: 24px;
     font-weight: 700;
+
+    transition: all 0.5s ease-in-out;
 }
 
 .header .logo-img {
     width: auto;
     height: 80px;
     padding: 10px 0;
+
+    transition: all 0.5s ease-in-out;
 }
 
 .header .header-icon {
     display: block;
     margin: 0 10px;
     cursor: pointer;
+
+    transition: all 0.5s ease-in-out;
 }
 
 .header .header-icon:hover {

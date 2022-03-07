@@ -65,6 +65,7 @@ const userSchema = new mongoose.Schema({
     },
 
     token: String,
+    expiresAt: String,
     resetPasswordToken: String,
     resetPasswordExpire: Date
 })
@@ -84,7 +85,11 @@ userSchema.methods.generateToken = function () {
         { expiresIn: process.env.JWT_EXPIRES_IN }
     );
 
+
+
+    const decodedData = jwt.decode(token);
     this.token = token;
+    this.expiresAt = decodedData.exp;
 
     return token;
 }

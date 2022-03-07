@@ -1,10 +1,12 @@
 :root {
   --activeColor: #A239CA;
   --primaryTextColor: rgb(80, 80, 80);
+  --successColor: #4CAF50;
+  --errorColor: #F44336;
   --lightBGColor: rgb(240, 240, 240);
   --whiteColor: rgb(255, 255, 255);
   --lightGrayColor: #d3d3d3;
-  --grayColor: #a0a0a0;
+  --grayColor: #b4b4b4;
   --voidColor: #0E0B16;
   --boxShadow: 0 0 40px 10px rgba(8, 30, 40, 0.15);
   --boxShadowMin: 0 10px 24px 0 rgba(10, 20, 20, 0.12);
@@ -20,7 +22,7 @@
 *::-webkit-scrollbar {
   display: block;
   width: 8px;
-  height: 8px;
+  height: 4px;
 }
 
 *::-webkit-scrollbar-thumb {
@@ -129,7 +131,7 @@ iframe {
   background-color: var(--whiteColor);
   width: 100%;
   max-width: 600px;
-  padding: 2rem 2rem;
+  padding: 2rem;
   border-radius: 10px;
 
   margin: auto;
@@ -145,35 +147,40 @@ iframe {
   background-color: var(--whiteColor);
   width: 100%;
   max-width: 640px;
-  padding: 2rem 2rem;
+  padding: 2rem;
   border-radius: 10px;
-  margin: auto;
 
+  margin: auto;
   display: flex;
   flex-direction: column;
 
   transition: all .5s ease-in-out;
 }
 
-.app__flex .logo {
+.app__flex .logo,
+.app__flex-card .logo {
   cursor: pointer;
   display: flex;
   align-items: center;
+  margin-bottom: 1rem;
 }
 
-.app__flex .logo-img {
+.app__flex .logo-img,
+.app__flex-card .logo-img {
   width: auto;
   height: 60px;
 }
 
-.app__flex p.title {
-  margin: 1rem 0;
+.app__flex p.title,
+.app__flex-card p.title {
+  margin-bottom: 2rem;
   font-weight: 700;
   color: var(--voidColor);
   font-size: x-large;
 }
 
-.app__flex p.subtitle {
+.app__flex p.subtitle,
+.app__flex-card p.subtitle {
   margin: 1rem 0;
   color: var(--primaryTextColor);
   font-size: medium;
@@ -197,33 +204,41 @@ iframe {
     height: auto;
     min-width: fit-content;
     min-height: fit-content;
+    padding: 2rem;
 
     transition: all .5s ease-in-out;
   }
 
   .app__flex {
-    background-color: var(--lightBGColor);
+    background-color: transparent;
     border-radius: 0;
-    margin: 4rem 0;
+    margin: 2rem 0;
   }
 
   .app__flex-card {
     width: 100%;
     max-width: 100%;
-    padding: 2rem;
-    margin: 0 1rem;
+    margin: 2rem 0;
     border-radius: 0;
   }
 
-  .app__flex .logo-img {
+  .app__flex .logo-img,
+  .app__flex-card .logo-img {
     margin: auto;
   }
 
-  .app__flex p.title {
+  .app__flex p.title,
+  .app__flex-card p.title {
+    margin: auto;
+    margin-bottom: 2rem;
     text-align: center;
   }
 
-  .app__flex p.subtitle {
+  .app__flex p.subtitle,
+  .app__flex-card p.subtitle {
+    margin: auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
     text-align: center;
   }
 
@@ -378,4 +393,38 @@ textarea:focus {
   flex: 4;
   font-size: 1rem;
   margin-left: 10%;
+}
+
+.header-user-img {
+  width: 32px;
+  aspect-ratio: 1.0;
+  border-radius: 50%;
+  background-color: var(--lightGrayColor);
+  border: 1px solid var(--grayColor);
+  overflow: hidden;
+  object-fit: cover;
+
+  transition: all 0.5s ease-in-out;
+}
+
+.greenColor {
+  color: var(--successColor) !important;
+}
+
+.redColor {
+  color: var(--errorColor) !important;
+}
+
+.greenStatusBox {
+  color: var(--successColor) !important;
+  border: 1px solid var(--successColor) !important;
+  padding: 0.25rem 0.5rem;
+  border-radius: 20px;
+}
+
+.redStatusBox {
+  color: var(--errorColor) !important;
+  border: 1px solid var(--errorColor) !important;
+  padding: 0.25rem 0.5rem;
+  border-radius: 20px;
 }
