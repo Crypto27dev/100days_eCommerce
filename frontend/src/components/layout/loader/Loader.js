@@ -1,5 +1,4 @@
 import './Loader.css';
-import icon from '../../../assets/images/favicon.png';
 
 function Loader({
     fullScreen
@@ -39,30 +38,33 @@ function Loader({
                 style={{
                     width: "48px",
                     height: "48px",
-                    border: "3px solid #d4d4d4",
+                    border: "3px solid #d7d7d7",
                     borderRadius: "50%"
                 }}
             />
 
             <div className='loading-spinner-2'
                 style={{
-                    width: 8,
+                    width: 5,
                     height: "48px",
                     borderTop: "4px solid #A239CA",
                 }}
             />
 
-            <img className='icon'
+            <div className='loading-spinner-3'
                 style={{
-                    width: "24px",
-                    height: "24px",
-                    animation: "none",
-                    aspectRatio: "1/1",
-                    position: "absolute"
+                    width: 5,
+                    height: "48px",
+                    borderBottom: "4px solid #A239CA",
                 }}
-                src={icon}
-                alt='icon'
-                loading='lazy'
+            />
+
+            <div className='loading-spinner-4'
+                style={{
+                    width: 5,
+                    height: "48px",
+                    borderBottom: "4px solid #A239CA",
+                }}
             />
 
         </div>

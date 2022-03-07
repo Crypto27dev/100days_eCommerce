@@ -1,37 +1,71 @@
-import { StrictMode, Suspense } from 'react';
+import { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import { positions, transitions, Provider as AlertProvider } from 'react-alert';
-import AlertTemplate from 'react-alert-template-basic';
+import { BsPatchCheck, BsPatchExclamation, BsXCircleFill } from 'react-icons/bs';
+
 
 const options = {
   timeout: 5000,
-  position: positions.BOTTOM_CENTER,
-  transition: transitions.SCALE
+  position: positions.TOP_CENTER,
+  transition: transitions.SCALE,
+  offset: "10px"
 }
 
-const fallbackLoader = (
-  <div className='loading'
-    style={{
-      width: "100vw",
-      maxWidth: "100%",
-      height: "100vh",
-      backgroundColor: "#f0f0f0",
-      display: "grid",
-      placeItems: "center",
-      zIndex: "999"
-    }}>
+const AlertTemplate = ({ style, options, message, close }) => (
+  <div style={{
+    backgroundColor: options.type === 'success' ? '#4CAF50' : options.type === 'error' ? '#F44336' : '#2196F3',
+    color: "#fff",
+    padding: "1rem",
+    margin: "1rem",
+    marginTop: "1.5rem",
+    borderRadius: "0.5rem",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    boxShadow: "0 0 20px rgba(0, 0, 0, 0.1)",
+    zIndex: "999",
+    ...style
+  }}>
 
-    <div style={{
-      width: "5vmax",
-      height: "5vmax",
-      borderBottom: "3px solid #a139cab4",
-      borderRadius: "100%"
-    }}
-    ></div>
+    {
+      options.type === 'info' &&
+      <BsPatchExclamation />
+    }
+
+    {
+      options.type === 'success' &&
+      <BsPatchCheck />
+    }
+
+    {
+      options.type === 'error' &&
+      <BsPatchExclamation />
+    }
+
+    <div
+      style={{
+        marginLeft: "0.5rem",
+      }}
+    >
+      {message}
+    </div>
+
+    <button
+      style={{
+        marginLeft: "1rem",
+        cursor: "pointer",
+        color: "#fff"
+      }}
+      onClick={close}
+    >
+      <BsXCircleFill
+        size={24}
+      />
+    </button>
 
   </div>
 )
@@ -39,11 +73,9 @@ const fallbackLoader = (
 ReactDOM.render(
   <StrictMode>
     <Provider store={store}>
-      <Suspense fallback={fallbackLoader}>
-        <AlertProvider template={AlertTemplate} {...options}>
-          <App />
-        </AlertProvider>
-      </Suspense>
+      <AlertProvider template={AlertTemplate} {...options}>
+        <App />
+      </AlertProvider>
     </Provider>
   </StrictMode>,
   document.getElementById('root')

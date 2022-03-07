@@ -50,16 +50,7 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
         console.log(err.message);
     }
 
-    // Options for cookie
-    const options = {
-        expires: new Date(
-            Date.now + process.env.COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
-        ),
-        httpOnly: true
-    }
-
     res.status(201)
-        .cookie('token', token, options)
         .json({
             success: true,
             message: "User registered successfully.",
@@ -119,16 +110,8 @@ exports.loginUser = catchAsyncError(async (req, res, next) => {
         expiresAt = decodedData.exp;
     }
 
-    // Options for cookie
-    const options = {
-        expires: new Date(
-            Date.now + process.env.COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
-        ),
-        httpOnly: true
-    }
 
     res.status(200)
-        .cookie('token', token, options)
         .json({
             success: true,
             message: "Logged in successfully.",
@@ -142,11 +125,6 @@ exports.loginUser = catchAsyncError(async (req, res, next) => {
 
 // Logout User
 exports.logoutUser = catchAsyncError(async (req, res, next) => {
-
-    res.cookie('token', null, {
-        expires: new Date(Date.now()),
-        httpOnly: true
-    })
 
     res.status(200).json({
         success: true,
@@ -176,7 +154,11 @@ exports.forgotPassword = catchAsyncError(async (req, res, next) => {
 
     await user.save();
 
-    const resetPasswordUrl = `${req.protocol}://${req.get("host")}/auth/password/reset/${resetToken}`;
+    let resetPasswordUrl = `${req.protocol}://${req.get("host")}/auth/password/reset/${resetToken}`;
+
+    if (process.env.NODE_ENV !== "PRODUCTION") {
+        resetPasswordUrl = `http://localhost:3000/auth/password/reset/${resetToken}`;
+    }
 
     const message = `Hello ${user.name},
     \nYour password reset link is :- \n\n ${resetPasswordUrl}.
@@ -243,27 +225,12 @@ exports.resetPassword = catchAsyncError(async (req, res, next) => {
     user.resetPasswordToken = undefined;
     user.resetPasswordExpire = undefined;
 
-    const token = user.generateToken();
     await user.save();
-    const decodedData = jwt.decode(token);
-    const expiresAt = decodedData.exp;
-
-    // Options for cookie
-    const options = {
-        expires: new Date(
-            Date.now + process.env.COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
-        ),
-        httpOnly: true
-    }
 
     res.status(200)
-        .cookie('token', token, options)
         .json({
             success: true,
-            message: "Password changed successfully.",
-            token: token,
-            expiresAt: expiresAt,
-            result: user
+            message: "Password changed successfully."
         });
 
 })
@@ -322,16 +289,7 @@ exports.updatePassword = catchAsyncError(async (req, res, next) => {
     const decodedData = jwt.decode(token);
     const expiresAt = decodedData.exp;
 
-    // Options for cookie
-    const options = {
-        expires: new Date(
-            Date.now + process.env.COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
-        ),
-        httpOnly: true
-    }
-
     res.status(200)
-        .cookie('token', token, options)
         .json({
             success: true,
             message: "Password changed successfully.",
@@ -346,16 +304,12 @@ exports.updatePassword = catchAsyncError(async (req, res, next) => {
 // Update User Profile
 exports.updateUserProfile = catchAsyncError(async (req, res, next) => {
 
-    const { name, email, avatar, dob, gender } = req.body;
+    const { name, avatar, dob, gender } = req.body;
 
     const user = await User.findById(req.user.id);
 
     if (name) {
         user.name = name;
-    }
-
-    if (email) {
-        user.email = email;
     }
 
     if (dob) {
@@ -391,8 +345,7 @@ exports.updateUserProfile = catchAsyncError(async (req, res, next) => {
 
     res.status(200).json({
         success: true,
-        message: "User details updated.",
-        result: user
+        message: "User profile updated."
     })
 
 })

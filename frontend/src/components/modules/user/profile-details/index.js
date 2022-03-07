@@ -79,6 +79,22 @@ function ProfileDetails() {
                                     trailing={String(user.createdAt).substring(0, 10)}
                                 />
 
+                                {
+                                    user.gender &&
+                                    <CustomTile
+                                        leading={'Gender'}
+                                        trailing={user.gender}
+                                    />
+                                }
+
+                                {
+                                    (user.dob && user.dob !== undefined && user.dob !== "") &&
+                                    <CustomTile
+                                        leading={'DOB'}
+                                        trailing={user.dob}
+                                    />
+                                }
+
                                 <div className="actions">
                                     <Link to="/user/orders">My Orders <BiRightArrowAlt /> </Link>
                                     <Link to="/auth/password/update">Change Password <BiRightArrowAlt /> </Link>

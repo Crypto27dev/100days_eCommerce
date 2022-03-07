@@ -62,72 +62,76 @@ function UpdatePassword() {
 
     return (
         <>
-            {
-                loading ?
-                    <Loader fullScreen={true} />
-                    :
-                    <div className='app__flex-container'>
-                        <MetaData title="Change Password - NixLab Shop" />
-                        <form
-                            className="app__flex"
-                            onSubmit={updatePasswordSubmit}
-                        >
+            <div className='app__flex-container'>
+                <MetaData title="Change Password - NixLab Shop" />
+                <form
+                    className="app__flex"
+                    onSubmit={updatePasswordSubmit}
+                >
 
-                            <p className="title">
-                                Change Password
-                            </p>
+                    {
+                        loading &&
+                        <Loader />
+                    }
 
-                            <div className="form-control">
-                                <HiKey />
-                                <input
-                                    type="password"
-                                    placeholder="Old Password"
-                                    required
-                                    value={oldPassword}
-                                    onChange={(e) => setOldPassword(e.target.value)}
-                                />
-                            </div>
+                    <p className="title">
+                        Change Password
+                    </p>
 
-                            <div className="form-control">
-                                <HiLockClosed />
-                                <input
-                                    type="password"
-                                    placeholder="New Password"
-                                    required
-                                    value={newPassword}
-                                    onChange={(e) => setNewPassword(e.target.value)}
-                                />
-                            </div>
-                            <div className="form-control">
-                                <HiLockOpen />
-                                <input
-                                    type="password"
-                                    placeholder="Confirm Password"
-                                    required
-                                    value={confirmPassword}
-                                    onChange={(e) => setConfirmPassword(e.target.value)}
-                                />
-                            </div>
-                            <input
-                                type="submit"
-                                value="Change Password"
-                                className="rounded-filled-btn"
-                                style={{
-                                    marginTop: 20
-                                }}
-                            />
-
-                            <div className="form-control"
-                                style={{
-                                    margin: 0,
-                                    marginTop: 20
-                                }}
-                            >
-                                <Link to="/user/profile"><BiArrowBack /> Back to Profile</Link>
-                            </div>
-                        </form>
+                    <div className="form-control">
+                        <HiKey />
+                        <input
+                            type="password"
+                            placeholder="Old Password"
+                            required
+                            disabled={loading}
+                            value={oldPassword}
+                            onChange={(e) => setOldPassword(e.target.value)}
+                        />
                     </div>
-            }
+
+                    <div className="form-control">
+                        <HiLockClosed />
+                        <input
+                            type="password"
+                            placeholder="New Password"
+                            required
+                            disabled={loading}
+                            value={newPassword}
+                            onChange={(e) => setNewPassword(e.target.value)}
+                        />
+                    </div>
+                    <div className="form-control">
+                        <HiLockOpen />
+                        <input
+                            type="password"
+                            placeholder="Confirm Password"
+                            required
+                            disabled={loading}
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                        />
+                    </div>
+                    <input
+                        type="submit"
+                        value="Change Password"
+                        disabled={loading}
+                        className="rounded-filled-btn"
+                        style={{
+                            marginTop: 20
+                        }}
+                    />
+
+                    <div className="form-control"
+                        style={{
+                            margin: 0,
+                            marginTop: 20
+                        }}
+                    >
+                        <Link to="/user/profile"><BiArrowBack /> Back to Profile</Link>
+                    </div>
+                </form>
+            </div>
         </>
     )
 }

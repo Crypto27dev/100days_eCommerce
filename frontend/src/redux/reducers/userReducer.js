@@ -39,6 +39,8 @@ import {
     USER_DETAILS_SUCCESS,
     USER_DETAILS_FAIL,
     CLEAR_ERRORS,
+    FORGOT_PASSWORD_RESET,
+    RESET_PASSWORD_RESET,
 } from "../constants/userConstants";
 
 export const userReducer = (state = { user: {} }, action) => {
@@ -57,13 +59,15 @@ export const userReducer = (state = { user: {} }, action) => {
                 ...state,
                 loading: false,
                 isAuthenticated: true,
-                user: action.payload,
+                user: action.payload.user,
+                token: action.payload.token
             };
 
         case LOGOUT_SUCCESS:
             return {
                 loading: false,
                 user: null,
+                token: null,
                 isAuthenticated: false,
             };
         case LOGIN_FAIL:
@@ -73,6 +77,7 @@ export const userReducer = (state = { user: {} }, action) => {
                 loading: false,
                 isAuthenticated: false,
                 user: null,
+                token: null,
                 error: action.payload,
             };
 
@@ -81,6 +86,7 @@ export const userReducer = (state = { user: {} }, action) => {
                 loading: false,
                 isAuthenticated: false,
                 user: null,
+                token: null,
                 error: action.payload,
             };
 
@@ -193,6 +199,18 @@ export const forgotPasswordReducer = (state = {}, action) => {
                 ...state,
                 loading: false,
                 error: action.payload,
+            };
+
+        case FORGOT_PASSWORD_RESET:
+            return {
+                ...state,
+                message: null
+            };
+
+        case RESET_PASSWORD_RESET:
+            return {
+                ...state,
+                success: false
             };
 
         case CLEAR_ERRORS:

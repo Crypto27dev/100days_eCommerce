@@ -69,11 +69,18 @@ export const myOrders = () => async (dispatch) => {
 };
 
 // Get All Orders (admin)
-export const getAllOrders = () => async (dispatch) => {
+export const getAllOrders = (token) => async (dispatch) => {
     try {
         dispatch({ type: ALL_ORDERS_REQUEST });
 
-        const { data } = await axios.get("/api/v1/admin/orders");
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        };
+
+        const { data } = await axios.get("/api/v1/admin/orders", config);
 
         dispatch({
             type: ALL_ORDERS_SUCCESS,

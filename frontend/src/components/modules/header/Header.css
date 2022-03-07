@@ -10,7 +10,7 @@
     padding: 0 80px;
     margin: 0;
     overflow: hidden;
-    z-index: 999;
+    z-index: 99;
     transition: all 0.3s;
     display: flex;
     flex-direction: row;

@@ -67,97 +67,101 @@ function Register() {
 
     return (
         <>
-            {
-                loading ?
-                    <Loader fullScreen={true} />
-                    :
-                    <div className="app__flex-container">
-                        <MetaData title="Register - NixLab Shop" />
+            <div className="app__flex-container">
+                <MetaData title="Register - NixLab Shop" />
 
-                        <form
-                            className="app__flex"
-                            onSubmit={registerSubmit}
-                        >
+                <form
+                    className="app__flex"
+                    onSubmit={registerSubmit}
+                >
 
-                            <div className="logo"
-                                onClick={
-                                    () => {
-                                        navigate("/")
-                                    }
-                                }>
-                                <img className="logo-img"
-                                    width="100%"
-                                    height="100%"
-                                    src={Logo}
-                                    alt="logo-img"
-                                    loading="lazy"
-                                />
-                            </div>
+                    {
+                        loading &&
+                        <Loader />
+                    }
 
-                            <p className="title">
-                                Create an account
-                            </p>
-
-                            <div className="form-control">
-                                <MdFace />
-                                <input
-                                    type="text"
-                                    placeholder="Name"
-                                    required
-                                    name="name"
-                                    value={name}
-                                    onChange={registerDataChange}
-                                />
-                            </div>
-                            <div className="form-control">
-                                <HiMail />
-                                <input
-                                    type="email"
-                                    placeholder="Email"
-                                    required
-                                    name="email"
-                                    value={email}
-                                    onChange={registerDataChange}
-                                />
-                            </div>
-                            <div className="form-control">
-                                <HiLockClosed />
-                                <input
-                                    type="password"
-                                    placeholder="Password"
-                                    required
-                                    name="password"
-                                    value={password}
-                                    onChange={registerDataChange}
-                                />
-                            </div>
-
-                            <input
-                                type="submit"
-                                value="Register"
-                                className="rounded-filled-btn"
-                                style={{
-                                    marginTop: 20
-                                }}
-                            />
-
-                            <div className="form-control"
-                                style={{
-                                    margin: 0,
-                                    marginTop: 20
-                                }}
-                            >
-                                <span style={{
-                                    marginRight: 5
-                                }}>
-                                    Already registered?
-                                </span>
-                                <Link to="/auth/login">Login here</Link>
-                            </div>
-
-                        </form>
+                    <div className="logo"
+                        onClick={
+                            () => {
+                                navigate("/")
+                            }
+                        }>
+                        <img className="logo-img"
+                            width="100%"
+                            height="100%"
+                            src={Logo}
+                            alt="logo-img"
+                            loading="lazy"
+                        />
                     </div>
-            }
+
+                    <p className="title">
+                        Create an account
+                    </p>
+
+                    <div className="form-control">
+                        <MdFace />
+                        <input
+                            type="text"
+                            placeholder="Name"
+                            required
+                            disabled={loading}
+                            name="name"
+                            value={name}
+                            onChange={registerDataChange}
+                        />
+                    </div>
+                    <div className="form-control">
+                        <HiMail />
+                        <input
+                            type="email"
+                            placeholder="Email"
+                            required
+                            disabled={loading}
+                            name="email"
+                            value={email}
+                            onChange={registerDataChange}
+                        />
+                    </div>
+                    <div className="form-control">
+                        <HiLockClosed />
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            required
+                            disabled={loading}
+                            name="password"
+                            value={password}
+                            onChange={registerDataChange}
+                        />
+                    </div>
+
+                    <input
+                        type="submit"
+                        value="Register"
+                        disabled={loading}
+                        className="rounded-filled-btn"
+                        style={{
+                            marginTop: 20
+                        }}
+                    />
+
+                    <div className="form-control"
+                        style={{
+                            margin: 0,
+                            marginTop: 20
+                        }}
+                    >
+                        <span style={{
+                            marginRight: 5
+                        }}>
+                            Already registered?
+                        </span>
+                        <Link to="/auth/login">Login here</Link>
+                    </div>
+
+                </form>
+            </div>
         </>
     )
 }

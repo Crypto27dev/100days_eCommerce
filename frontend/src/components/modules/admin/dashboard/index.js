@@ -37,6 +37,8 @@ function Dashboard() {
 
     const dispatch = useDispatch();
 
+    const { token } = useSelector((state) => state.user);
+
     const { products } = useSelector((state) => state.products);
 
     const { orders } = useSelector((state) => state.allOrders);
@@ -87,14 +89,14 @@ function Dashboard() {
 
     useEffect(() => {
 
-        dispatch(getAdminProduct());
-        dispatch(getAllOrders());
-        dispatch(getAllUsers());
+        dispatch(getAdminProduct(token));
+        dispatch(getAllOrders(token));
+        dispatch(getAllUsers(token));
 
         return () => { }
 
     }, [
-        dispatch
+        dispatch, token
     ]);
 
     return (

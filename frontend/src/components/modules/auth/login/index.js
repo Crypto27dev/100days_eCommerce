@@ -8,7 +8,6 @@ import { clearErrors, login } from "../../../../redux/actions/userAction";
 import Loader from "../../../layout/loader/Loader";
 import MetaData from '../../../layout/MetaData';
 
-
 function Login() {
 
     const dispatch = useDispatch();
@@ -52,88 +51,91 @@ function Login() {
 
     return (
         <>
-            {
-                loading ?
-                    <Loader fullScreen={true} />
-                    :
-                    <div className="app__flex-container">
+            <div className="app__flex-container">
 
-                        <MetaData title="Login - NixLab Shop" />
+                <MetaData title="Login - NixLab Shop" />
 
-                        <form
-                            className="app__flex"
-                            onSubmit={loginSubmit}
-                        >
+                <form
+                    className="app__flex"
+                    onSubmit={loginSubmit}
+                >
 
-                            <div className="logo"
-                                onClick={
-                                    () => {
-                                        navigate("/")
-                                    }
-                                }>
-                                <img className="logo-img"
-                                    width="100%"
-                                    height="100%"
-                                    src={Logo}
-                                    alt="logo-img"
-                                    loading="lazy"
-                                />
-                            </div>
+                    {
+                        loading &&
+                        <Loader />
+                    }
 
-                            <p className="title">
-                                Login to account
-                            </p>
-
-                            <div className="form-control">
-                                <HiMail />
-                                <input
-                                    type="email"
-                                    placeholder="Email"
-                                    required
-                                    value={loginEmail}
-                                    onChange={(e) => setLoginEmail(e.target.value)}
-                                />
-                            </div>
-                            <div className="form-control">
-                                <HiLockClosed />
-                                <input
-                                    type="password"
-                                    placeholder="Password"
-                                    required
-                                    value={loginPassword}
-                                    onChange={(e) => setLoginPassword(e.target.value)}
-                                />
-                            </div>
-
-                            <div className="form-control">
-                                <Link to="/auth/password/forgot">Forgot Password ?</Link>
-                            </div>
-
-                            <input
-                                type="submit"
-                                value="Login"
-                                className="rounded-filled-btn"
-                                style={{
-                                    marginTop: 10
-                                }}
-                            />
-
-                            <div className="form-control"
-                                style={{
-                                    margin: 0,
-                                    marginTop: 20
-                                }}
-                            >
-                                <span style={{
-                                    marginRight: 5
-                                }}>
-                                    Don't have an account
-                                </span>
-                                <Link to="/auth/register">Register here</Link>
-                            </div>
-                        </form>
+                    <div className="logo"
+                        onClick={
+                            () => {
+                                navigate("/")
+                            }
+                        }>
+                        <img className="logo-img"
+                            width="100%"
+                            height="100%"
+                            src={Logo}
+                            alt="logo-img"
+                            loading="lazy"
+                        />
                     </div>
-            }
+
+                    <p className="title">
+                        Login to account
+                    </p>
+
+                    <div className="form-control">
+                        <HiMail />
+                        <input
+                            type="email"
+                            placeholder="Email"
+                            required
+                            disabled={loading}
+                            value={loginEmail}
+                            onChange={(e) => setLoginEmail(e.target.value)}
+                        />
+                    </div>
+                    <div className="form-control">
+                        <HiLockClosed />
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            required
+                            disabled={loading}
+                            value={loginPassword}
+                            onChange={(e) => setLoginPassword(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="form-control">
+                        <Link to="/auth/password/forgot">Forgot Password ?</Link>
+                    </div>
+
+                    <input
+                        type="submit"
+                        value="Login"
+                        disabled={loading}
+                        className="rounded-filled-btn"
+                        style={{
+                            marginTop: 10
+                        }}
+                    />
+
+                    <div className="form-control"
+                        style={{
+                            margin: 0,
+                            marginTop: 20
+                        }}
+                    >
+                        <span style={{
+                            marginRight: 5
+                        }}>
+                            Don't have an account
+                        </span>
+                        <Link to="/auth/register">Register here</Link>
+                    </div>
+                </form>
+            </div>
 
         </>
     )

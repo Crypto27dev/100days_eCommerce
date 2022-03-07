@@ -15,6 +15,16 @@
     animation: loadingRotate 1000ms linear infinite;
 }
 
+.loading-spinner-3 {
+    position: absolute;
+    animation: loadingRotate 1200ms linear infinite;
+}
+
+.loading-spinner-4 {
+    position: absolute;
+    animation: loadingRotate 1400ms linear infinite;
+}
+
 @keyframes loadingRotate {
     to {
         transform: rotateZ(-360deg);

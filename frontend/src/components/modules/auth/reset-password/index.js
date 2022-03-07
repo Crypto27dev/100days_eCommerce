@@ -11,6 +11,7 @@ import {
 import Loader from "../../../layout/loader/Loader";
 import MetaData from '../../../layout/MetaData';
 import Logo from '../../../../assets/images/logo.png';
+import { RESET_PASSWORD_RESET } from '../../../../redux/constants/userConstants';
 
 
 function ResetPassword() {
@@ -47,6 +48,10 @@ function ResetPassword() {
             alert.success("Password Updated Successfully");
 
             navigate("/auth/login");
+
+            dispatch({
+                type: RESET_PASSWORD_RESET,
+            });
         }
 
         return () => { }
@@ -57,81 +62,84 @@ function ResetPassword() {
 
     return (
         <>
-            {
-                loading ?
-                    <Loader fullScreen={true} />
-                    :
-                    <div className="app__flex-container">
-                        <MetaData title="Reset Password - NixLab Shop" />
-                        <form
-                            className="app__flex"
-                            onSubmit={resetPasswordSubmit}
-                        >
+            <div className="app__flex-container">
+                <MetaData title="Reset Password - NixLab Shop" />
+                <form
+                    className="app__flex"
+                    onSubmit={resetPasswordSubmit}
+                >
 
-                            <div className="logo"
-                                onClick={
-                                    () => {
-                                        navigate("/")
-                                    }
-                                }>
-                                <img className="logo-img"
-                                    width="100%"
-                                    height="100%"
-                                    src={Logo}
-                                    alt="logo-img"
-                                    loading="lazy"
-                                />
-                            </div>
+                    {
+                        loading &&
+                        <Loader />
+                    }
 
-                            <p className="title">
-                                Reset Password
-                            </p>
-
-                            <p className="subtitle">
-                                Create your new password
-                            </p>
-
-                            <div className="form-control">
-                                <HiLockClosed />
-                                <input
-                                    type="password"
-                                    placeholder="New Password"
-                                    required
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                />
-                            </div>
-                            <div className="form-control">
-                                <HiLockOpen />
-                                <input
-                                    type="password"
-                                    placeholder="Confirm Password"
-                                    required
-                                    value={confirmPassword}
-                                    onChange={(e) => setConfirmPassword(e.target.value)}
-                                />
-                            </div>
-
-                            <input
-                                type="submit"
-                                value="Reset Password"
-                                className="rounded-filled-btn"
-                                style={{
-                                    marginTop: 20
-                                }}
-                            />
-
-                            <div className="form-control"
-                                style={{
-                                    margin: 0,
-                                    marginTop: 20
-                                }}
-                            >
-                                <Link to="/auth/login"><BiArrowBack /> Back to Login</Link>
-                            </div>
-                        </form>
+                    <div className="logo"
+                        onClick={
+                            () => {
+                                navigate("/")
+                            }
+                        }>
+                        <img className="logo-img"
+                            width="100%"
+                            height="100%"
+                            src={Logo}
+                            alt="logo-img"
+                            loading="lazy"
+                        />
                     </div>
-            }
+
+                    <p className="title">
+                        Reset Password
+                    </p>
+
+                    <p className="subtitle">
+                        Create your new password
+                    </p>
+
+                    <div className="form-control">
+                        <HiLockClosed />
+                        <input
+                            type="password"
+                            placeholder="New Password"
+                            required
+                            disabled={loading}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+                    <div className="form-control">
+                        <HiLockOpen />
+                        <input
+                            type="password"
+                            placeholder="Confirm Password"
+                            required
+                            disabled={loading}
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                        />
+                    </div>
+
+                    <input
+                        type="submit"
+                        value="Reset Password"
+                        disabled={loading}
+                        className="rounded-filled-btn"
+                        style={{
+                            marginTop: 20
+                        }}
+                    />
+
+                    <div className="form-control"
+                        style={{
+                            margin: 0,
+                            marginTop: 20
+                        }}
+                    >
+                        <Link to="/auth/login"><BiArrowBack /> Back to Login</Link>
+                    </div>
+                </form>
+            </div>
 
         </>
     )

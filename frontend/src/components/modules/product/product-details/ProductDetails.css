@@ -1,9 +1,7 @@
 .ProductDetails {
-    background-color: var(--whiteColor);
     width: 100vw;
     max-width: 100%;
     padding: 2vmax;
-    margin-top: 80px;
     display: flex;
 }
 

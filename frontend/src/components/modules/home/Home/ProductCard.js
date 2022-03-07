@@ -13,8 +13,8 @@ function ProductCard({ product }) {
 
     return (
         <Link className='productCard'
-            to={`/product/${product._id}`}
-        > 
+            to={`/products/${product._id}`}
+        >
             <img className='productImg'
                 src={product.images[0].url}
                 alt={product.name}

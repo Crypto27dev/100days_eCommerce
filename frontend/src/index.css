@@ -159,12 +159,11 @@ iframe {
   cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
 }
 
 .app__flex .logo-img {
   width: auto;
-  height: 80px;
+  height: 60px;
 }
 
 .app__flex p.title {
@@ -195,15 +194,17 @@ iframe {
 @media screen and (max-width: 768px) {
   .app__flex-container {
     width: 100%;
+    height: auto;
     min-width: fit-content;
+    min-height: fit-content;
 
     transition: all .5s ease-in-out;
   }
 
   .app__flex {
     background-color: var(--lightBGColor);
-    align-items: flex-start;
     border-radius: 0;
+    margin: 4rem 0;
   }
 
   .app__flex-card {
@@ -215,8 +216,15 @@ iframe {
   }
 
   .app__flex .logo-img {
-    height: 60px;
     margin: auto;
+  }
+
+  .app__flex p.title {
+    text-align: center;
+  }
+
+  .app__flex p.subtitle {
+    text-align: center;
   }
 
   .app__flex .brand {
@@ -290,7 +298,6 @@ textarea:focus {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
   margin: 1rem 0;
 }
 
@@ -307,7 +314,7 @@ textarea:focus {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 5px 0;
+  margin-bottom: 5px;
 
   transition: all 0.3s ease-in-out;
 }

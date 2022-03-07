@@ -25,6 +25,7 @@ function ProductList() {
     const alert = useAlert();
     const navigate = useNavigate();
 
+    const { token } = useSelector((state) => state.user);
     const { error, products } = useSelector((state) => state.products);
     const { error: deleteError, isDeleted } = useSelector((state) => state.product);
 
@@ -49,12 +50,12 @@ function ProductList() {
             dispatch({ type: DELETE_PRODUCT_RESET });
         }
 
-        dispatch(getAdminProduct());
+        dispatch(getAdminProduct(token));
 
         return () => { }
 
     }, [
-        dispatch, alert, error,
+        dispatch, alert, error, token,
         deleteError, navigate, isDeleted
     ]);
 

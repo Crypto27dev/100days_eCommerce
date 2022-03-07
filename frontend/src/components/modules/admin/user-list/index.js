@@ -21,11 +21,12 @@ function UserList() {
     const alert = useAlert();
     const navigate = useNavigate();
 
+    const { token } = useSelector((state) => state.user);
     const { error, users } = useSelector((state) => state.allUsers);
     const { error: deleteError, isDeleted, message } = useSelector((state) => state.profile);
 
     const deleteUserHandler = (id) => {
-        dispatch(deleteUser(id));
+        dispatch(deleteUser(id, token));
     };
 
     const columns = [
@@ -127,7 +128,7 @@ function UserList() {
             dispatch({ type: DELETE_USER_RESET });
         }
 
-        dispatch(getAllUsers());
+        dispatch(getAllUsers(token));
 
         return () => { }
 

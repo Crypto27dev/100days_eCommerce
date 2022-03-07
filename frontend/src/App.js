@@ -12,6 +12,7 @@ const AuthModule = lazy(() => import('./components/modules/auth'));
 const HomeModule = lazy(() => import('./components/modules/home'));
 const UserModule = lazy(() => import('./components/modules/user'));
 const AdminModule = lazy(() => import('./components/modules/admin'));
+const ProductModule = lazy(() => import('./components/modules/product'));
 
 const routes = [
   {
@@ -40,6 +41,11 @@ const routes = [
   },
 
   {
+    path: 'products/*',
+    element: <ProductModule />
+  },
+
+  {
     path: '*',
     element: <NotFound />
   }
@@ -65,9 +71,13 @@ function App() {
       google: {
         families: ['Jost', 'Roboto', 'Droid Sans']
       }
-    })
+    });
 
-    dispatch(loadUser());
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      dispatch(loadUser(token));
+    }
 
     getStripeApiKey();
 

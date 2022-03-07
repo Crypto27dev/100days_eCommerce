@@ -4,8 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { BiArrowBack } from 'react-icons/bi';
-import { HiMail } from 'react-icons/hi';
-import { MdFace } from 'react-icons/md';
+import { MdFace, MdMale } from 'react-icons/md';
+import { FaBirthdayCake } from 'react-icons/fa';
 import {
     clearErrors,
     updateProfile,
@@ -23,11 +23,12 @@ function UpdateProfile() {
     const alert = useAlert();
     const navigate = useNavigate();
 
-    const { user } = useSelector((state) => state.user);
+    const { user, token } = useSelector((state) => state.user);
     const { error, loading, isUpdated } = useSelector((state) => state.profile);
 
     const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
+    const [dob, setDOB] = useState("");
+    const [gender, setGender] = useState("");
     const [avatar, setAvatar] = useState(null);
     const [avatarPreview, setAvatarPreview] = useState("/Profile.png");
 
@@ -36,10 +37,11 @@ function UpdateProfile() {
 
         const myForm = new FormData();
 
-        myForm.set("name", name);
-        myForm.set("email", email);
+        if (name) myForm.set("name", name);
+        if (gender) myForm.set("gender", gender);
+        if (dob) myForm.set("dob", dob);
         if (avatar) myForm.set("avatar", avatar);
-        dispatch(updateProfile(myForm));
+        dispatch(updateProfile(myForm, token));
     };
 
     const updateProfileDataChange = (e) => {
@@ -59,7 +61,8 @@ function UpdateProfile() {
 
         if (user) {
             setName(user.name);
-            setEmail(user.email);
+            setGender(user.gender);
+            setDOB(user.dob);
             setAvatarPreview(user.avatar?.url || "/Profile.png");
         }
 
@@ -69,8 +72,8 @@ function UpdateProfile() {
         }
 
         if (isUpdated) {
-            alert.success("Profile Updated Successfully");
-            dispatch(loadUser());
+            alert.success("Profile Updated Successfully.");
+            dispatch(loadUser(token));
 
             navigate("/user/profile");
 
@@ -82,7 +85,7 @@ function UpdateProfile() {
         return () => { }
     }, [
         alert, dispatch, error, isUpdated,
-        navigate, user
+        navigate, user, token
     ])
 
     return (
@@ -100,7 +103,7 @@ function UpdateProfile() {
 
                     {
                         loading &&
-                        <Loader fullScreen={false} />
+                        <Loader />
                     }
 
                     <p className="title">
@@ -117,6 +120,7 @@ function UpdateProfile() {
                             type="file"
                             name="avatar"
                             accept="image/*"
+                            disabled={loading}
                             onChange={updateProfileDataChange}
                         />
                     </div>
@@ -127,6 +131,7 @@ function UpdateProfile() {
                             type="text"
                             placeholder="Name"
                             required
+                            disabled={loading}
                             name="name"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
@@ -134,20 +139,36 @@ function UpdateProfile() {
                     </div>
 
                     <div className="form-control">
-                        <HiMail />
+                        <MdMale />
+                        <select onChange={(e) => setGender(e.target.value)}
+                            value={gender}
+                            disabled={loading}
+                        >
+                            <option value="" disabled={loading}>Select</option>
+                            <option value="Male" disabled={loading}>Male</option>
+                            <option value="Female" disabled={loading}>Female</option>
+                            <option value="Others" disabled={loading}>Others</option>
+                        </select>
+                    </div>
+
+                    <div className="form-control">
+                        <FaBirthdayCake />
                         <input
-                            type="email"
-                            placeholder="Email"
-                            required
-                            name="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            type="date"
+                            placeholder="DOB"
+                            disabled={loading}
+                            min="1950-01-01"
+                            max="2016-12-31"
+                            name="dob"
+                            value={dob}
+                            onChange={(e) => setDOB(e.target.value)}
                         />
                     </div>
 
                     <input
                         type="submit"
                         value="Update"
+                        disabled={loading}
                         className="rounded-filled-btn"
                         style={{
                             marginTop: 20

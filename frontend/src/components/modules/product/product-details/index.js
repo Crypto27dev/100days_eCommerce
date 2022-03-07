@@ -3,11 +3,8 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Carousel from 'react-material-ui-carousel';
-import Loader from '../layout/loader/Loader';
-import MetaData from '../layout/MetaData';
 import { useAlert } from "react-alert";
 import Rating from '@mui/material/Rating';
-import ReviewCard from './ReviewCard';
 import {
     Dialog,
     DialogActions,
@@ -17,11 +14,15 @@ import {
 } from '@mui/material';
 import {
     getProductDetails, clearErrors, newReview
-} from '../../redux/actions/productAction';
+} from '../../../../redux/actions/productAction';
 import {
     addItemsToCart
-} from '../../redux/actions/cartAction';
-import { NEW_REVIEW_RESET } from '../../redux/constants/productConstants';
+} from '../../../../redux/actions/cartAction';
+import { NEW_REVIEW_RESET } from '../../../../redux/constants/productConstants';
+import Loader from '../../../layout/loader/Loader';
+import MetaData from '../../../layout/MetaData';
+import ReviewCard from '../../../common/ReviewCard';
+import AppWrap from '../../../hoc/AppWrap';
 
 
 function ProductDetails() {
@@ -110,14 +111,10 @@ function ProductDetails() {
     ])
 
     return (
-        <div>
+        <div className='app__top-margin'>
             {
                 loading ?
-                    <div style={{
-                        marginTop: 120
-                    }}>
-                        <Loader fullScreen={true} />
-                    </div>
+                    <Loader fullScreen={true} />
                     :
                     <div>
                         <MetaData title={`${product.name} -- Ecommerce`} />
@@ -251,4 +248,4 @@ function ProductDetails() {
     )
 }
 
-export default ProductDetails;
+export default AppWrap(ProductDetails);
