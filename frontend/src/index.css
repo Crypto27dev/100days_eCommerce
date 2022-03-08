@@ -120,6 +120,7 @@ iframe {
   background-color: var(--lightBGColor);
 
   padding: 8rem 0;
+  padding-top: 6rem;
   padding-top: 20%;
 
   overflow: hidden;
@@ -199,6 +200,7 @@ iframe {
 
     margin: auto;
     padding: 10rem 0;
+    padding-top: 8rem;
     padding-top: 10%;
 
     transition: all .5s ease-in-out;
@@ -212,6 +214,7 @@ iframe {
     min-width: fit-content;
     min-height: fit-content;
     padding: 4rem 0;
+    padding-top: 2rem;
 
     transition: all .5s ease-in-out;
   }
