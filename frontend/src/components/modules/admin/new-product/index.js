@@ -6,12 +6,20 @@ import { useAlert } from "react-alert";
 import { MdAttachMoney, MdCategory, MdDescription, MdSpellcheck, MdStore } from 'react-icons/md';
 import { NEW_PRODUCT_RESET } from "../../../../redux/constants/productConstants";
 import { clearErrors, createProduct } from "../../../../redux/actions/productAction";
-import { categories } from '../../../../assets/data/categoryData';
 import SideBar from "../sidebar";
 import MetaData from "../../../layout/MetaData";
 import AppWrap from '../../../hoc/AppWrap';
 import Loader from '../../../layout/loader/Loader';
 
+
+const categories = [
+    "Laptop",
+    "Mobile Phone",
+    "Men's Wear",
+    "Women's Wear",
+    "Accessories",
+    "Camera"
+];
 
 function NewProduct() {
 

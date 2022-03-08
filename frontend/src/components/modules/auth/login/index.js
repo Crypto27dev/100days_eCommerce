@@ -89,6 +89,7 @@ function Login() {
                         <input
                             type="email"
                             placeholder="Email"
+                            name='email'
                             required
                             disabled={loading}
                             value={loginEmail}
@@ -100,6 +101,7 @@ function Login() {
                         <input
                             type="password"
                             placeholder="Password"
+                            name='password'
                             required
                             disabled={loading}
                             value={loginPassword}

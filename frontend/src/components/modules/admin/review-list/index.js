@@ -5,7 +5,7 @@ import { useAlert } from "react-alert";
 import { useNavigate } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
 import DeleteIcon from "@mui/icons-material/Delete";
-import { MdStar } from 'react-icons/md';
+import { MdStar, MdSearch } from 'react-icons/md';
 import { DELETE_REVIEW_RESET } from "../../../../redux/constants/productConstants";
 import {
     clearErrors,
@@ -23,6 +23,7 @@ function ProductReviewList() {
     const alert = useAlert();
     const navigate = useNavigate();
 
+    const { token } = useSelector((state) => state.user);
     const { error: deleteError, isDeleted } = useSelector(
         (state) => state.review
     );
@@ -34,12 +35,12 @@ function ProductReviewList() {
     const [productId, setProductId] = useState("");
 
     const deleteReviewHandler = (reviewId) => {
-        dispatch(deleteReviews(reviewId, productId));
+        dispatch(deleteReviews(reviewId, productId, token));
     };
 
     const productReviewsSubmitHandler = (e) => {
         e.preventDefault();
-        dispatch(getAllReviews(productId));
+        dispatch(getAllReviews(productId, token));
     };
 
     const columns = [
@@ -61,7 +62,7 @@ function ProductReviewList() {
         {
             field: "comment",
             headerName: "Comment",
-            minWidth: 350,
+            minWidth: 220,
             flex: 1,
         },
 
@@ -69,9 +70,8 @@ function ProductReviewList() {
             field: "rating",
             headerName: "Rating",
             type: "number",
-            minWidth: 180,
+            minWidth: 80,
             flex: 0.4,
-
             cellClassName: (params) => {
                 return params.getValue(params.id, "rating") >= 3
                     ? "greenColor"
@@ -82,8 +82,8 @@ function ProductReviewList() {
         {
             field: "actions",
             flex: 0.3,
-            headerName: "Actions",
-            minWidth: 150,
+            headerName: "",
+            minWidth: 80,
             type: "number",
             sortable: false,
             renderCell: (params) => {
@@ -116,7 +116,7 @@ function ProductReviewList() {
 
     useEffect(() => {
         if (productId.length === 24) {
-            dispatch(getAllReviews(productId));
+            dispatch(getAllReviews(productId, token));
         }
         if (error) {
             alert.error(error);
@@ -138,7 +138,7 @@ function ProductReviewList() {
 
     }, [
         dispatch, alert, error, deleteError,
-        navigate, isDeleted, productId
+        navigate, isDeleted, productId, token
     ]);
 
     return (
@@ -157,29 +157,34 @@ function ProductReviewList() {
                     </div>
 
                     <form
-                        className="app__flex-card"
                         onSubmit={productReviewsSubmitHandler}
+                        className="search-box"
                     >
-                        <div>
+                        <div className='form-control'>
                             <MdStar />
                             <input
                                 type="text"
                                 placeholder="Product Id"
                                 required
+                                disabled={loading}
                                 value={productId}
                                 onChange={(e) => setProductId(e.target.value)}
                             />
                         </div>
 
                         <button
-                            id="createProductBtn"
                             type="submit"
                             disabled={
                                 loading ? true : false || productId === "" ? true : false
                             }
                         >
-                            Search
+                            {
+                                loading ?
+                                    "Searching..." :
+                                    <> <MdSearch />  <span>Search</span> </>
+                            }
                         </button>
+
                     </form>
 
                     {reviews && reviews.length > 0 ? (
@@ -191,7 +196,7 @@ function ProductReviewList() {
                             className="custom-list-table"
                         />
                     ) : (
-                        <h1>No Reviews Found</h1>
+                        <p>No Reviews yet.</p>
                     )}
                 </div>
             </div>

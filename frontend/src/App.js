@@ -13,6 +13,7 @@ const HomeModule = lazy(() => import('./components/modules/home'));
 const UserModule = lazy(() => import('./components/modules/user'));
 const AdminModule = lazy(() => import('./components/modules/admin'));
 const ProductModule = lazy(() => import('./components/modules/product'));
+const CartModule = lazy(() => import('./components/modules/cart'));
 
 const routes = [
   {
@@ -43,6 +44,11 @@ const routes = [
   {
     path: 'products/*',
     element: <ProductModule />
+  },
+
+  {
+    path: 'cart/*',
+    element: <CartModule />
   },
 
   {

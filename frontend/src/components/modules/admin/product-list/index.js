@@ -26,7 +26,7 @@ function ProductList() {
     const navigate = useNavigate();
 
     const { token } = useSelector((state) => state.user);
-    const { error, products } = useSelector((state) => state.products);
+    const { error, products, loading } = useSelector((state) => state.products);
     const { error: deleteError, isDeleted } = useSelector((state) => state.product);
 
     const deleteProductHandler = (id) => {
@@ -165,6 +165,7 @@ function ProductList() {
                         rows={rows}
                         columns={columns}
                         pageSize={10}
+                        loading={loading}
                         disableSelectionOnClick
                         className="custom-list-table"
                     />

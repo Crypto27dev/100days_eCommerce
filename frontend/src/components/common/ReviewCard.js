@@ -1,5 +1,5 @@
 import Rating from '@mui/material/Rating';
-import profilePng from "../../assets/images/Profile.png";
+import profilePng from "../../assets/images/profile.jpg";
 
 function ReviewCard({ review }) {
     const options = {

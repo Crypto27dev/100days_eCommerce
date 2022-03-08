@@ -1,15 +1,14 @@
 .image-container {
     position: absolute;
-    top: -15%;
+    top: -10%;
     left: 0;
     right: 0;
-    width: 200px;
-    height: 200px;
+    width: 12rem;
+    height: 12rem;
     border-radius: 50%;
     margin: auto;
-    background-color: var(--lightGrayColor);
-    border: 1px solid #dfdfdf;
     overflow: hidden;
+    border: 1px solid var(--lightGrayColor);
 
     transition: all .5s ease-in-out;
 }
@@ -24,9 +23,9 @@
 
 .edit-profile-btn {
     position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 18px;
+    top: 1.2rem;
+    right: 1.2rem;
+    font-size: 1.2rem;
     text-decoration: none;
     color: var(--activeColor);
 
@@ -40,14 +39,14 @@
 }
 
 .edit-profile-btn svg {
-    width: 18px;
-    height: 18px;
+    width: 1.2rem;
+    height: 1.2rem;
     margin-right: 5px;
 }
 
 .profile-details {
     position: relative;
-    margin-top: 15%;
+    margin-top: 20%;
     transition: all .5s ease-in-out;
 
     width: 100%;

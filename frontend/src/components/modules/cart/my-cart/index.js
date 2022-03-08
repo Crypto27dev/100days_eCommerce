@@ -1,12 +1,13 @@
 import "./Cart.css";
-import CartItemCard from "./CartItemCard";
+import CartItemCard from "../cart-item-card";
 import { useSelector, useDispatch } from "react-redux";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 import { Link, useNavigate } from "react-router-dom";
 import {
     addItemsToCart, removeItemsFromCart
-} from "../../redux/actions/cartAction";
-import MetaData from '../layout/MetaData';
+} from "../../../../redux/actions/cartAction";
+import MetaData from '../../../layout/MetaData';
+import AppWrap from "../../../hoc/AppWrap";
 
 
 function Cart() {
@@ -119,4 +120,4 @@ function Cart() {
     )
 }
 
-export default Cart;
+export default AppWrap(Cart);

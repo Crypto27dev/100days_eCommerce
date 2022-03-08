@@ -1,10 +1,9 @@
-import './UpdateProfile.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { BiArrowBack } from 'react-icons/bi';
-import { MdCake, MdFace, MdMale } from 'react-icons/md';
+import { MdCake, MdFace, MdMale, MdPhotoCamera } from 'react-icons/md';
 import {
     clearErrors,
     updateProfile,
@@ -14,6 +13,7 @@ import { UPDATE_PROFILE_RESET } from '../../../../redux/constants/userConstants'
 import Loader from "../../../layout/loader/Loader";
 import MetaData from '../../../layout/MetaData';
 import AppWrap from '../../../hoc/AppWrap';
+import profilePng from "../../../../assets/images/profile.jpg";
 
 
 function UpdateProfile() {
@@ -21,6 +21,7 @@ function UpdateProfile() {
     const dispatch = useDispatch();
     const alert = useAlert();
     const navigate = useNavigate();
+    const imageRef = useRef();
 
     const { user, token } = useSelector((state) => state.user);
     const { error, loading, isUpdated } = useSelector((state) => state.profile);
@@ -29,7 +30,7 @@ function UpdateProfile() {
     const [dob, setDOB] = useState("");
     const [gender, setGender] = useState("");
     const [avatar, setAvatar] = useState(null);
-    const [avatarPreview, setAvatarPreview] = useState("/Profile.png");
+    const [avatarPreview, setAvatarPreview] = useState(profilePng);
 
     const updateProfileSubmit = (e) => {
         e.preventDefault();
@@ -62,7 +63,7 @@ function UpdateProfile() {
             setName(user.name);
             setGender(user.gender);
             setDOB(user.dob);
-            setAvatarPreview(user.avatar?.url || "/Profile.png");
+            setAvatarPreview(user.avatar?.url || profilePng);
         }
 
         if (error) {
@@ -109,16 +110,29 @@ function UpdateProfile() {
                         Update Profile
                     </p>
 
-                    <img className='preview-img'
-                        src={avatarPreview}
-                        alt="Avatar Preview"
-                    />
+                    <div className="image-input-preview">
 
-                    <div className="file-input">
+                        <img className='preview-img'
+                            src={avatarPreview}
+                            alt="Avatar Preview"
+                            onClick={
+                                () => imageRef.current.click()
+                            }
+                        />
+
+                        <button type="button"
+                            onClick={
+                                () => imageRef.current.click()
+                            }
+                        >
+                            <MdPhotoCamera />
+                        </button>
+
                         <input
                             type="file"
                             name="avatar"
                             accept="image/*"
+                            ref={imageRef}
                             disabled={loading}
                             onChange={updateProfileDataChange}
                         />

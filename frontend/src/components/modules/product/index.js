@@ -1,5 +1,5 @@
 import { lazy } from 'react';
-import { TraverseRoutes, ProtectedRoute } from '../../route';
+import { TraverseRoutes } from '../../route';
 
 const ProductDetails = lazy(() => import('./product-details'));
 

@@ -218,19 +218,19 @@ exports.createProductReview = catchAsyncError(async (req, res, next) => {
 
     }
     else {
-
         product.reviews.push(review);
         product.numOfReviews = product.reviews.length;
-
     }
 
     let total = 0;
+    
     product.reviews.forEach(doc => {
         total += doc.rating;
     })
+
     product.ratings = total / product.reviews.length;
 
-    await product.save({ validateBeforeSave: false });
+    await product.save();
 
     res.status(200).json({
         success: true,

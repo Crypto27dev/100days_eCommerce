@@ -121,7 +121,6 @@ iframe {
 
   padding: 8rem 0;
   padding-top: 6rem;
-  padding-top: 20%;
 
   overflow: hidden;
   display: flex;
@@ -199,9 +198,8 @@ iframe {
     min-width: 80%;
 
     margin: auto;
-    padding: 10rem 0;
+    padding: 10rem 2rem;
     padding-top: 8rem;
-    padding-top: 10%;
 
     transition: all .5s ease-in-out;
   }
@@ -213,8 +211,7 @@ iframe {
     height: auto;
     min-width: fit-content;
     min-height: fit-content;
-    padding: 4rem 0;
-    padding-top: 2rem;
+    padding: 4rem 1rem;
 
     transition: all .5s ease-in-out;
   }
@@ -300,12 +297,21 @@ textarea {
 
   padding: 0.6rem 0.5rem;
   color: var(--activeColor);
+  outline: none;
 }
 
 .form-control>textarea {
   width: 100%;
   min-width: 100%;
   max-width: 100%;
+}
+
+.form-control>select {
+  appearance: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+  background-repeat: no-repeat, repeat;
+  background-position: right .7em top 50%, 0 0;
+  background-size: 0.75rem auto, 100%;
 }
 
 .form-control>input:focus,
@@ -334,6 +340,48 @@ textarea:focus {
   opacity: 0.75;
 }
 
+.image-input-preview {
+  position: relative;
+  width: 10rem;
+  height: 10rem;
+  margin: 1rem auto;
+  margin-top: 0;
+}
+
+.image-input-preview .preview-img {
+  width: 100%;
+  margin: auto;
+  object-fit: cover;
+  aspect-ratio: 1.0;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid var(--lightGrayColor);
+}
+
+.image-input-preview>input {
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.image-input-preview>button {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+
+  background-color: var(--activeColor);
+  padding: 0.5rem;
+  color: var(--whiteColor);
+  border-radius: 50%;
+
+}
+
+.image-input-preview>button>svg {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
 .file-input {
   width: 100%;
   display: flex;
@@ -341,7 +389,14 @@ textarea:focus {
   margin: 1rem 0;
 }
 
-.file-input>input::file-selector-button {
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+  margin: 0;
+}
+
+input::file-selector-button {
   cursor: pointer;
   border: none;
   outline: none;
@@ -359,7 +414,7 @@ textarea:focus {
   transition: all 0.3s ease-in-out;
 }
 
-.file-input>input::file-selector-button:hover {
+input::file-selector-button:hover {
   opacity: 0.75;
 }
 
@@ -425,13 +480,12 @@ textarea:focus {
 }
 
 .header-user-img {
-  width: 32px;
+  width: 2rem;
   aspect-ratio: 1.0;
   border-radius: 50%;
-  background-color: var(--lightGrayColor);
-  border: 1px solid var(--grayColor);
   overflow: hidden;
   object-fit: cover;
+  border: 1px solid var(--lightGrayColor);
 
   transition: all 0.5s ease-in-out;
 }

@@ -6,7 +6,6 @@ import {
     FiUser,
     FiShoppingCart,
     FiSearch,
-    FiSettings,
     FiLogOut,
     FiList
 } from "react-icons/fi";
@@ -15,6 +14,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Badge from '@mui/material/Badge';
 import Logo from '../../../assets/images/logo.png';
+import profilePng from "../../../assets/images/profile.jpg";
 
 
 function Header() {
@@ -157,14 +157,10 @@ function Header() {
                                     }
                                 }>
 
-                                {
-                                    user.avatar ?
-                                        <img className='header-user-img'
-                                            src={user.avatar.url}
-                                            alt="user"
-                                        /> :
-                                        <FiSettings />
-                                }
+                                <img className='header-user-img'
+                                    src={user.avatar ? user.avatar.url : profilePng}
+                                    alt="user"
+                                />
 
                             </div>
                             <Menu

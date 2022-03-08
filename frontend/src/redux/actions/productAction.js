@@ -240,7 +240,10 @@ export const getAllReviews = (id, token) => async (dispatch) => {
             }
         };
 
-        const { data } = await axios.get(`/api/v1/reviews?id=${id}`, config);
+        const { data } = await axios.get(
+            `/api/v1/reviews?id=${id}`,
+            config
+        );
 
         dispatch({
             type: ALL_REVIEW_SUCCESS,

@@ -1,4 +1,4 @@
-import './Profile.css';
+import '../Profile.css';
 import { useEffect } from 'react';
 import { useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
@@ -8,6 +8,7 @@ import AppWrap from '../../../hoc/AppWrap';
 import { FiEdit } from 'react-icons/fi';
 import { BiRightArrowAlt } from 'react-icons/bi';
 import CustomTile from '../../../common/CustomTile';
+import profilePng from "../../../../assets/images/profile.jpg";
 
 
 function ProfileDetails() {
@@ -41,7 +42,7 @@ function ProfileDetails() {
 
                             <div className='image-container'>
                                 <img
-                                    src={user.avatar ? user.avatar.url : ""}
+                                    src={user.avatar ? user.avatar.url : profilePng}
                                     alt={user.name}
                                 />
                             </div>

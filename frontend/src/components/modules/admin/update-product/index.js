@@ -135,6 +135,7 @@ function UpdateProduct() {
                         encType="multipart/form-data"
                         onSubmit={updateProductSubmitHandler}
                     >
+
                         {
                             loading &&
                             <div style={{
@@ -153,6 +154,7 @@ function UpdateProduct() {
                             <MdSpellcheck />
                             <input
                                 type="text"
+                                name='name'
                                 placeholder="Product Name"
                                 required
                                 value={name}
@@ -161,22 +163,24 @@ function UpdateProduct() {
                         </div>
 
                         <div className='form-control'>
-                            <MdAttachMoney />
+                            <MdDescription />
                             <input
-                                type="number"
-                                placeholder="Price"
-                                required
-                                onChange={(e) => setPrice(e.target.value)}
-                                value={price}
+                                name='description'
+                                placeholder="Product Description"
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
                             />
                         </div>
 
                         <div className='form-control'>
-                            <MdDescription />
+                            <MdAttachMoney />
                             <input
-                                placeholder="Product Description"
-                                value={description}
-                                onChange={(e) => setDescription(e.target.value)}
+                                type="number"
+                                name='price'
+                                placeholder="Price"
+                                required
+                                onChange={(e) => setPrice(e.target.value)}
+                                value={price}
                             />
                         </div>
 

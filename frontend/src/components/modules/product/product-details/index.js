@@ -27,8 +27,8 @@ import AppWrap from '../../../hoc/AppWrap';
 
 function ProductDetails() {
 
+    const { token } = useSelector((state) => state.user);
     const { product, loading, error } = useSelector(state => state.productDetails);
-
     const { success, error: reviewError } = useSelector((state) => state.newReview);
 
     const dispatch = useDispatch();
@@ -63,7 +63,7 @@ function ProductDetails() {
     };
 
     const addToCartHandler = () => {
-        dispatch(addItemsToCart(id, quantity));
+        dispatch(addItemsToCart(id, quantity, token));
         alert.success("Item Added To Cart");
     };
 
@@ -78,7 +78,7 @@ function ProductDetails() {
         myForm.set("comment", comment);
         myForm.set("productId", id);
 
-        dispatch(newReview(myForm));
+        dispatch(newReview(myForm, token));
 
         setOpen(false);
     };

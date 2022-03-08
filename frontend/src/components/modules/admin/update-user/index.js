@@ -25,7 +25,7 @@ function UpdateUser() {
 
     const { id } = useParams();
 
-    const { token } = useSelector((state) => state.user);
+    const { token, user: currentUser } = useSelector((state) => state.user);
     const { loading, error, user } = useSelector((state) => state.userDetails);
     const {
         loading: updateLoading,
@@ -206,7 +206,7 @@ function UpdateUser() {
                                     }}
                                     type="submit"
                                     disabled={
-                                        updateLoading ? true : false || role === "user" ? true : false
+                                        updateLoading ? true : false || currentUser.role === "user" ? true : false
                                     }
                                 >
                                     Update
