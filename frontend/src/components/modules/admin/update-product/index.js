@@ -1,21 +1,20 @@
+import '../Dashboard.css';
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useAlert } from "react-alert";
-import { Button } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
-import AccountTreeIcon from "@mui/icons-material/AccountTree";
-import DescriptionIcon from "@mui/icons-material/Description";
-import StorageIcon from "@mui/icons-material/Storage";
-import SpellcheckIcon from "@mui/icons-material/Spellcheck";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import SideBar from "./Sidebar";
-import MetaData from "../layout/MetaData";
-import { UPDATE_PRODUCT_RESET } from "../../redux/constants/productConstants";
+import { MdAttachMoney, MdCategory, MdDescription, MdSpellcheck, MdStore } from 'react-icons/md';
+import { UPDATE_PRODUCT_RESET } from "../../../../redux/constants/productConstants";
 import {
     clearErrors,
     updateProduct,
     getProductDetails,
-} from "../../redux/actions/productAction";
+} from "../../../../redux/actions/productAction";
+import SideBar from "../sidebar";
+import MetaData from "../../../layout/MetaData";
+import AppWrap from "../../../hoc/AppWrap";
+import Loader from '../../../layout/loader/Loader';
+
 
 function UpdateProduct() {
 
@@ -25,6 +24,7 @@ function UpdateProduct() {
 
     const { id } = useParams();
 
+    const { token } = useSelector((state) => state.user);
     const { error, product } = useSelector((state) => state.productDetails);
     const { loading, error: updateError, isUpdated } = useSelector((state) => state.product);
 
@@ -60,7 +60,8 @@ function UpdateProduct() {
         images.forEach((image) => {
             myForm.append("images", image);
         });
-        dispatch(updateProduct(id, myForm));
+        dispatch(updateProduct(id, myForm, token));
+        dispatch(getProductDetails(id));
     };
 
     const updateProductImagesChange = (e) => {
@@ -119,23 +120,37 @@ function UpdateProduct() {
     ]);
 
     return (
-        <div style={{
-            marginTop: 80
-        }}>
+        <div className="app__top-margin">
 
-            <MetaData title="Update Product" />
-            <div className="dashboard">
-                <SideBar />
-                <div className="newProductContainer">
+            <MetaData title="Edit Product - Admin Panel" />
+
+            <div className="app__dashboard">
+
+                <SideBar active="products" />
+
+                <div className="app__dashboard-container">
+
                     <form
-                        className="createProductForm"
+                        className="app__flex-card"
                         encType="multipart/form-data"
                         onSubmit={updateProductSubmitHandler}
                     >
-                        <h1>Create Product</h1>
+                        {
+                            loading &&
+                            <div style={{
+                                marginBottom: 10
+                            }}
+                            >
+                                <Loader />
+                            </div>
+                        }
 
-                        <div>
-                            <SpellcheckIcon />
+                        <p className="title">
+                            Edit Product
+                        </p>
+
+                        <div className='form-control' >
+                            <MdSpellcheck />
                             <input
                                 type="text"
                                 placeholder="Product Name"
@@ -144,8 +159,9 @@ function UpdateProduct() {
                                 onChange={(e) => setName(e.target.value)}
                             />
                         </div>
-                        <div>
-                            <AttachMoneyIcon />
+
+                        <div className='form-control'>
+                            <MdAttachMoney />
                             <input
                                 type="number"
                                 placeholder="Price"
@@ -155,20 +171,17 @@ function UpdateProduct() {
                             />
                         </div>
 
-                        <div>
-                            <DescriptionIcon />
-
-                            <textarea
+                        <div className='form-control'>
+                            <MdDescription />
+                            <input
                                 placeholder="Product Description"
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
-                                cols="30"
-                                rows="1"
-                            ></textarea>
+                            />
                         </div>
 
-                        <div>
-                            <AccountTreeIcon />
+                        <div className='form-control'>
+                            <MdCategory />
                             <select
                                 value={category}
                                 onChange={(e) => setCategory(e.target.value)}
@@ -182,8 +195,8 @@ function UpdateProduct() {
                             </select>
                         </div>
 
-                        <div>
-                            <StorageIcon />
+                        <div className='form-control'>
+                            <MdStore />
                             <input
                                 type="number"
                                 placeholder="Stock"
@@ -193,7 +206,7 @@ function UpdateProduct() {
                             />
                         </div>
 
-                        <div id="createProductFormFile">
+                        <div className="file-input">
                             <input
                                 type="file"
                                 name="avatar"
@@ -203,26 +216,37 @@ function UpdateProduct() {
                             />
                         </div>
 
-                        <div id="createProductFormImage">
+                        <div className='image-list-preview'>
                             {oldImages &&
                                 oldImages.map((image, index) => (
-                                    <img key={index} src={image.url} alt="Old Product Preview" />
+                                    <img
+                                        key={index}
+                                        src={image.url}
+                                        alt="Old Product Preview"
+                                    />
                                 ))}
                         </div>
 
-                        <div id="createProductFormImage">
+                        <div className='image-list-preview'>
                             {imagesPreview.map((image, index) => (
-                                <img key={index} src={image} alt="Product Preview" />
+                                <img
+                                    key={index}
+                                    src={image}
+                                    alt="Product Preview"
+                                />
                             ))}
                         </div>
 
-                        <Button
-                            id="createProductBtn"
+                        <button
+                            className="rounded-filled-btn"
                             type="submit"
+                            style={{
+                                marginTop: 20
+                            }}
                             disabled={loading ? true : false}
                         >
                             Update
-                        </Button>
+                        </button>
                     </form>
                 </div>
             </div>
@@ -231,4 +255,4 @@ function UpdateProduct() {
     )
 }
 
-export default UpdateProduct;
+export default AppWrap(UpdateProduct);

@@ -1,20 +1,20 @@
-import './ProductReviewList.css';
+import '../Dashboard.css';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { useAlert } from "react-alert";
 import { useNavigate } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
 import DeleteIcon from "@mui/icons-material/Delete";
-import StarIcon from "@mui/icons-material/Star";
-import { Button } from '@mui/material';
-import MetaData from "../layout/MetaData";
-import SideBar from "../sidebar/Sidebar";
-import { DELETE_REVIEW_RESET } from "../../redux/constants/productConstants";
+import { MdStar } from 'react-icons/md';
+import { DELETE_REVIEW_RESET } from "../../../../redux/constants/productConstants";
 import {
     clearErrors,
     getAllReviews,
     deleteReviews
-} from "../../redux/actions/productAction";
+} from "../../../../redux/actions/productAction";
+import MetaData from "../../../layout/MetaData";
+import SideBar from "../sidebar";
+import AppWrap from '../../../hoc/AppWrap';
 
 
 function ProductReviewList() {
@@ -89,13 +89,13 @@ function ProductReviewList() {
             renderCell: (params) => {
                 return (
                     <>
-                        <Button
+                        <button
                             onClick={() =>
                                 deleteReviewHandler(params.getValue(params.id, "id"))
                             }
                         >
                             <DeleteIcon />
-                        </Button>
+                        </button>
                     </>
                 );
             },
@@ -142,22 +142,26 @@ function ProductReviewList() {
     ]);
 
     return (
-        <div style={{
-            marginTop: 80
-        }}>
-            <MetaData title={`All Reviews - Admin`} />
+        <div className='app__top-margin'>
 
-            <div className="dashboard">
-                <SideBar />
-                <div className="productReviewsContainer">
+            <MetaData title={`Reviews - Admin Panel`} />
+
+            <div className="app__dashboard">
+
+                <SideBar active={"products"} />
+
+                <div className="app__dashboard-container">
+
+                    <div className='title'>
+                        Reviews
+                    </div>
+
                     <form
-                        className="productReviewsForm"
+                        className="app__flex-card"
                         onSubmit={productReviewsSubmitHandler}
                     >
-                        <h1 className="productReviewsFormHeading">ALL REVIEWS</h1>
-
                         <div>
-                            <StarIcon />
+                            <MdStar />
                             <input
                                 type="text"
                                 placeholder="Product Id"
@@ -167,7 +171,7 @@ function ProductReviewList() {
                             />
                         </div>
 
-                        <Button
+                        <button
                             id="createProductBtn"
                             type="submit"
                             disabled={
@@ -175,7 +179,7 @@ function ProductReviewList() {
                             }
                         >
                             Search
-                        </Button>
+                        </button>
                     </form>
 
                     {reviews && reviews.length > 0 ? (
@@ -184,11 +188,10 @@ function ProductReviewList() {
                             columns={columns}
                             pageSize={10}
                             disableSelectionOnClick
-                            className="productListTable"
-                            autoHeight
+                            className="custom-list-table"
                         />
                     ) : (
-                        <h1 className="productReviewsFormHeading">No Reviews Found</h1>
+                        <h1>No Reviews Found</h1>
                     )}
                 </div>
             </div>
@@ -196,4 +199,4 @@ function ProductReviewList() {
     )
 }
 
-export default ProductReviewList;
+export default AppWrap(ProductReviewList);

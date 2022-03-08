@@ -356,7 +356,7 @@ export const updateUser = (id, userData, token) => async (dispatch) => {
 
         const config = {
             headers: {
-                "Content-Type": "multipart/form-data",
+                "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
             }
         };

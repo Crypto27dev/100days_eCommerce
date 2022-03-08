@@ -370,9 +370,9 @@ exports.getCustomUserDetails = catchAsyncError(async (req, res, next) => {
 
 
 // Update User Role -- Admin
-exports.updateUserRole = catchAsyncError(async (req, res, next) => {
+exports.updateUserDetails = catchAsyncError(async (req, res, next) => {
 
-    const { role } = req.body;
+    const { name, email, dob, gender, role } = req.body;
 
     const user = await User.findById(req.params.id);
 
@@ -380,13 +380,31 @@ exports.updateUserRole = catchAsyncError(async (req, res, next) => {
         return next(new ErrorHandler("User not found.", 404));
     }
 
-    user.role = String(role).toLowerCase();
+    if (name) {
+        user.name = name;
+    }
+
+    if (email) {
+        user.email = email;
+    }
+
+    if (dob) {
+        user.dob = dob;
+    }
+
+    if (gender) {
+        user.gender = gender;
+    }
+
+    if (role) {
+        user.role = String(role).toLowerCase();
+    }
 
     await user.save();
 
     res.status(200).json({
         success: true,
-        message: "User role updated."
+        message: "User details updated."
     })
 
 })

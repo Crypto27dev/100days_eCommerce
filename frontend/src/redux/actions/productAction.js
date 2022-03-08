@@ -142,12 +142,15 @@ export const createProduct = (productData, token) => async (dispatch) => {
 };
 
 // Update Product
-export const updateProduct = (id, productData) => async (dispatch) => {
+export const updateProduct = (id, productData, token) => async (dispatch) => {
     try {
         dispatch({ type: UPDATE_PRODUCT_REQUEST });
 
         const config = {
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "multipart/form-data",
+                "Authorization": `Bearer ${token}`
+            }
         };
 
         const { data } = await axios.put(

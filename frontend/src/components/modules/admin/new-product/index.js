@@ -3,11 +3,7 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { useAlert } from "react-alert";
-import AccountTreeIcon from "@mui/icons-material/AccountTree";
-import DescriptionIcon from "@mui/icons-material/Description";
-import StorageIcon from "@mui/icons-material/Storage";
-import SpellcheckIcon from "@mui/icons-material/Spellcheck";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import { MdAttachMoney, MdCategory, MdDescription, MdSpellcheck, MdStore } from 'react-icons/md';
 import { NEW_PRODUCT_RESET } from "../../../../redux/constants/productConstants";
 import { clearErrors, createProduct } from "../../../../redux/actions/productAction";
 import { categories } from '../../../../assets/data/categoryData';
@@ -23,6 +19,7 @@ function NewProduct() {
     const alert = useAlert();
     const navigate = useNavigate();
 
+    const { token } = useSelector((state) => state.user);
     const { loading, error, success } = useSelector((state) => state.newProduct);
 
     const [name, setName] = useState("");
@@ -47,7 +44,7 @@ function NewProduct() {
         images.forEach((image) => {
             myForm.append("images", image);
         });
-        dispatch(createProduct(myForm));
+        dispatch(createProduct(myForm, token));
     };
 
     const createProductImagesChange = (e) => {
@@ -118,7 +115,7 @@ function NewProduct() {
                         </p>
 
                         <div className='form-control'>
-                            <SpellcheckIcon />
+                            <MdSpellcheck />
                             <input
                                 type="text"
                                 placeholder="Product Name"
@@ -129,7 +126,16 @@ function NewProduct() {
                         </div>
 
                         <div className='form-control'>
-                            <AttachMoneyIcon />
+                            <MdDescription />
+                            <input
+                                placeholder="Product Description"
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                            />
+                        </div>
+
+                        <div className='form-control'>
+                            <MdAttachMoney />
                             <input
                                 type="number"
                                 placeholder="Price"
@@ -139,18 +145,7 @@ function NewProduct() {
                         </div>
 
                         <div className='form-control'>
-                            <DescriptionIcon />
-                            <textarea
-                                placeholder="Product Description"
-                                value={description}
-                                onChange={(e) => setDescription(e.target.value)}
-                                cols="30"
-                                rows="1"
-                            ></textarea>
-                        </div>
-
-                        <div className='form-control'>
-                            <AccountTreeIcon />
+                            <MdCategory />
                             <select onChange={(e) => setCategory(e.target.value)}>
                                 <option value="">Choose Category</option>
                                 {categories.map((cate) => (
@@ -162,7 +157,7 @@ function NewProduct() {
                         </div>
 
                         <div className='form-control'>
-                            <StorageIcon />
+                            <MdStore />
                             <input
                                 type="number"
                                 placeholder="Stock"

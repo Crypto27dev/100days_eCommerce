@@ -7,6 +7,7 @@
   --whiteColor: rgb(255, 255, 255);
   --lightGrayColor: #d3d3d3;
   --grayColor: #b4b4b4;
+  --darkGrayColor: #8d8d8d;
   --voidColor: #0E0B16;
   --boxShadow: 0 0 40px 10px rgba(8, 30, 40, 0.15);
   --boxShadowMin: 0 10px 24px 0 rgba(10, 20, 20, 0.12);
@@ -116,13 +117,16 @@ iframe {
   position: relative;
   width: 100%;
   min-width: 100%;
-  min-height: 100vh;
   background-color: var(--lightBGColor);
-  overflow: hidden;
 
+  padding: 8rem 0;
+  padding-top: 20%;
+
+  overflow: hidden;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  overflow: hidden;
 
   transition: all .5s ease-in-out;
 }
@@ -138,6 +142,7 @@ iframe {
   display: flex;
   flex-direction: column;
 
+  box-shadow: 0 0 20px rgba(51, 51, 51, 0.1);
   transition: all .5s ease-in-out;
 }
 
@@ -154,6 +159,7 @@ iframe {
   display: flex;
   flex-direction: column;
 
+  box-shadow: 0 0 20px rgba(51, 51, 51, 0.1);
   transition: all .5s ease-in-out;
 }
 
@@ -190,9 +196,10 @@ iframe {
   .app__flex-container {
     width: 80%;
     min-width: 80%;
-    min-height: 100vh;
 
-    margin: 2rem 10%;
+    margin: auto;
+    padding: 10rem 0;
+    padding-top: 10%;
 
     transition: all .5s ease-in-out;
   }
@@ -204,7 +211,7 @@ iframe {
     height: auto;
     min-width: fit-content;
     min-height: fit-content;
-    padding: 2rem;
+    padding: 4rem 0;
 
     transition: all .5s ease-in-out;
   }
@@ -212,14 +219,15 @@ iframe {
   .app__flex {
     background-color: transparent;
     border-radius: 0;
-    margin: 2rem 0;
+    box-shadow: none;
   }
 
   .app__flex-card {
     width: 100%;
     max-width: 100%;
-    margin: 2rem 0;
-    border-radius: 0;
+    border-radius: 5px;
+
+    margin: 0 1rem;
   }
 
   .app__flex .logo-img,
@@ -248,32 +256,47 @@ iframe {
 }
 
 .form-control {
-  display: flex;
+  position: relative;
   width: 100%;
+
+  display: flex;
   align-items: center;
+  height: 2.5rem;
+
   margin: 1rem 0;
 }
 
 .form-control>svg {
-  position: absolute;
-  transform: translateX(0.5rem);
-  font-size: 1.2rem;
-  color: var(--grayColor);
+  width: 40px;
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: 1.0;
+  padding: 0.5rem;
+
+  border-radius: 5px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  background-color: #a139ca33;
+  color: #a139caa4;
 }
 
 .form-control>input,
 select,
 textarea {
-  padding: 0.5rem 2.2rem;
-  padding-right: 1rem;
   width: 100%;
+  height: 100%;
   box-sizing: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.267);
-  border-radius: 4px;
+  border: 1px solid rgba(50, 50, 50, 0.2);
+  border-radius: 5px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+
   font-family: 'Roboto', sans-serif;
-  font-size: 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  padding: 0.6rem 0.5rem;
   color: var(--activeColor);
-  outline: none;
 }
 
 .form-control>textarea {
@@ -289,7 +312,6 @@ textarea:focus {
 }
 
 .form-control>a {
-  color: rgba(0, 0, 0, 0.651);
   text-decoration: none;
   font-size: 18px;
   font-weight: 600;
@@ -357,6 +379,10 @@ textarea:focus {
 .rounded-filled-btn:hover {
   opacity: 0.75;
 }
+
+/* @media screen and (max-width: 768px) {
+
+} */
 
 .custom-item-tile {
   width: 100%;

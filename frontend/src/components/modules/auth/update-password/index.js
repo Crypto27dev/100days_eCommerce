@@ -64,9 +64,11 @@ function UpdatePassword() {
         <div className='app__top-margin'>
 
             <div className='app__flex-container'>
+            
                 <MetaData title="Change Password - NixLab Shop" />
+
                 <form
-                    className="app__flex"
+                    className="app__flex-card"
                     onSubmit={updatePasswordSubmit}
                 >
 

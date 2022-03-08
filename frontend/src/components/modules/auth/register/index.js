@@ -153,7 +153,8 @@ function Register() {
                         }}
                     >
                         <span style={{
-                            marginRight: 5
+                            marginRight: 5,
+                            fontWeight: 600
                         }}>
                             Already registered?
                         </span>

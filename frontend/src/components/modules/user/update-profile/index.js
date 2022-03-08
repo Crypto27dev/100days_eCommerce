@@ -4,8 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { BiArrowBack } from 'react-icons/bi';
-import { MdFace, MdMale } from 'react-icons/md';
-import { FaBirthdayCake } from 'react-icons/fa';
+import { MdCake, MdFace, MdMale } from 'react-icons/md';
 import {
     clearErrors,
     updateProfile,
@@ -152,7 +151,7 @@ function UpdateProfile() {
                     </div>
 
                     <div className="form-control">
-                        <FaBirthdayCake />
+                        <MdCake />
                         <input
                             type="date"
                             placeholder="DOB"

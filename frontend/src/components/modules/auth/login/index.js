@@ -128,9 +128,10 @@ function Login() {
                         }}
                     >
                         <span style={{
-                            marginRight: 5
+                            marginRight: 5,
+                            fontWeight: 600
                         }}>
-                            Don't have an account
+                            Don't have an account?
                         </span>
                         <Link to="/auth/register">Register here</Link>
                     </div>

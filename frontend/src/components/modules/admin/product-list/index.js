@@ -153,9 +153,13 @@ function ProductList() {
 
                     <div className='title'>
                         Products
-
-                        <Link to="/admin/product/new"><MdPostAdd /> Add</Link>
                     </div>
+
+                    <Link className='action-btn'
+                        to="/admin/product/new">
+                        <MdPostAdd />
+                        Add
+                    </Link>
 
                     <DataGrid
                         rows={rows}

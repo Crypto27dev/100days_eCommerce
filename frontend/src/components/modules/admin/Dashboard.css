@@ -1,34 +1,38 @@
 .app__dashboard {
-    width: 100vw;
+    width: 100%;
     max-width: 100%;
     background-color: var(--lighBGColor);
 
     display: grid;
-    grid-template-columns: 1fr 5fr;
+    grid-template-columns: 1fr 8fr;
     position: relative;
 }
 
 .app__dashboard-container {
     width: 100%;
+    max-width: 100%;
     padding: 2rem;
 
     display: flex;
     flex-direction: column;
-    align-items: stretch;
+    align-items: center;
+    overflow: hidden;
 }
 
 .app__dashboard-container .title {
+    position: relative;
     font-size: x-large;
     font-weight: bold;
     margin-bottom: 1rem;
     color: var(--voidColor);
 
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
 }
 
-.app__dashboard-container .title>a {
+.app__dashboard-container a.action-btn {
     font-size: 1rem;
     text-decoration: none;
     color: var(--activeColor);
@@ -36,19 +40,20 @@
     border: 1px solid var(--activeColor);
     border-radius: 40px;
     padding: 0.5rem 1rem;
+    margin-bottom: 1rem;
 
-    display: flex;
-    align-items: center;
+    align-self: flex-start;
+
     transition: all .3s ease-in-out;
 }
 
-.app__dashboard-container .title>a>svg {
+.app__dashboard-container a.action-btn>a>svg {
     width: 20px;
     height: 20px;
     margin-right: 5px;
 }
 
-.app__dashboard-container .title>a:hover {
+.app__dashboard-container a.action-btn:hover {
     background-color: var(--activeColor);
     color: var(--whiteColor);
 }
@@ -74,22 +79,32 @@
 }
 
 @media screen and (max-width: 768px) {
+
+    .app__dashboard {
+        grid-template-columns: 1fr 6fr;
+    }
+
     .app__dashboard-container {
-        padding: 2rem 1rem;
+        width: 100%;
+        padding: 1rem;
     }
 
     .app__dashboard-container .title {
+        margin-left: 1rem;
         margin-bottom: 1rem;
     }
 }
 
 .custom-list-table {
+    width: 100%;
     background-color: var(--whiteColor);
     border-radius: 10px;
+    text-align: center;
 }
 
 .custom-list-table div {
     color: var(--primaryTextColor);
+    text-align: center;
 }
 
 .custom-list-table a,

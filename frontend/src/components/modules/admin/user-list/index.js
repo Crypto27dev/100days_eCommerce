@@ -31,7 +31,7 @@ function UserList() {
     const navigate = useNavigate();
 
     const { token } = useSelector((state) => state.user);
-    const { error, users } = useSelector((state) => state.allUsers);
+    const { error, users, loading } = useSelector((state) => state.allUsers);
     const { error: deleteError, isDeleted, message } = useSelector((state) => state.profile);
 
     const deleteUserHandler = (id) => {
@@ -48,7 +48,7 @@ function UserList() {
         },
 
         {
-            field: "id",
+            field: "imgUrl",
             headerName: "User",
             minWidth: 80,
             flex: 0.3,
@@ -74,16 +74,31 @@ function UserList() {
             headerName: "Role",
             minWidth: 100,
             flex: 0.3,
-            renderCell: (params) => {
-                return <div className={params.value === "admin" ? "greenStatusBox" : "redStatusBox"}
-                > {params.value} </div>
-            },
+            renderCell: (params) => (
+                <div
+                    className={
+                        params.value === "admin" ?
+                            "greenStatusBox" :
+                            "redStatusBox"
+                    }
+                >
+                    {params.value}
+                </div>
+            ),
+        },
+
+        {
+            field: "id",
+            headerName: "User ID",
+            minWidth: 210,
+            flex: 1,
         },
 
         {
             field: "actions",
             headerName: "",
             minWidth: 100,
+            flex: 0.5,
             sortable: false,
             renderCell: (params) => {
                 return (
@@ -111,7 +126,8 @@ function UserList() {
         users.forEach((item, i) => {
             rows.push({
                 ind: (i + 1),
-                id: item.avatar.url,
+                id: item._id,
+                imgUrl: item.avatar.url,
                 role: item.role,
                 email: item.email,
                 name: item.name,
@@ -162,6 +178,7 @@ function UserList() {
                         rows={rows}
                         columns={columns}
                         pageSize={10}
+                        loading={loading}
                         disableSelectionOnClick
                         className="custom-list-table"
                     />
