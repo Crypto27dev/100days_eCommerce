@@ -113,6 +113,7 @@
 }
 
 .price-qty-container>h1 {
+    font-size: 2rem;
     margin-right: 5rem;
 }
 
@@ -229,7 +230,7 @@
     position: relative;
 }
 
-.review-dialog .actions{
+.review-dialog .actions {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -237,7 +238,7 @@
     margin-top: 1rem;
 }
 
-.review-dialog .actions>button{
+.review-dialog .actions>button {
     padding: 0.5rem 2rem;
     font-weight: normal;
     width: fit-content;
@@ -268,6 +269,18 @@
     .product-details-box {
         flex: 1;
         border-top-right-radius: 0;
+    }
+
+    .product-details-box .price-qty-container {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+
+    .price-qty-container>h1 {
+        font-size: 1.5rem;
+        margin-right: 0;
+        margin-bottom: 1rem;
     }
 
 }

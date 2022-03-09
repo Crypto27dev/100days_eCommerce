@@ -25,6 +25,7 @@
     box-shadow: 0 0 20px rgba(51, 51, 51, 0.1);
 
     flex: 8;
+    height: fit-content;
 
     margin: 0 1rem;
 }
@@ -46,9 +47,10 @@
     position: relative;
     width: 100%;
 
+    padding: 1rem 0;
+
     display: flex;
     flex-direction: column;
-    padding: 1rem 0;
 
     border-bottom: 1px solid #e6e6e6;
 }
@@ -67,12 +69,15 @@
     display: flex;
     flex-direction: row;
     align-items: flex-start;
+
+    padding: 0 1rem;
 }
 
 .cart-item-card .item-img {
     position: relative;
     width: 10rem;
-    height: 10rem;
+    height: auto;
+    max-height: 10rem;
 
     display: flex;
     flex-direction: column;
@@ -80,14 +85,15 @@
     justify-content: flex-start;
 }
 
-.cart-item-card .item-img>img {
+.cart-item-card .item-img img {
     width: 100%;
-    aspect-ratio: 1.0;
+    height: auto;
+    max-height: 10rem;
     object-fit: contain;
 }
 
 .cart-item-card .details {
-    margin-left: 2rem;
+    margin-left: 1rem;
 
     display: flex;
     flex-direction: column;
@@ -112,19 +118,34 @@
     margin-top: 2rem;
 }
 
-.actions {
+.item-container .actions {
     display: flex;
-    align-items: center;
+    flex-direction: column;
 
     margin: 1.5rem 1rem;
     margin-bottom: 0;
 }
 
 .actions .cart-item-remove-btn {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
-    margin-left: 2rem;
+
+    padding-top: 1rem;
+    margin-top: 1rem;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    border-top: 1px solid #e6e6e6;
+
+    color: var(--errorColor);
+}
+
+.actions .cart-item-remove-btn>svg {
+    margin-right: 0.5rem;
 }
 
 .actions .cart-item-remove-btn:hover {
@@ -220,5 +241,28 @@
 
         margin: 0 1rem;
         margin-top: 1rem;
+    }
+
+    .cart-item-card .item-img {
+        position: relative;
+        width: 8rem;
+        height: auto;
+        max-height: 8rem;
+    }
+
+    .cart-item-card .item-img img {
+        width: 100%;
+        height: auto;
+        max-height: 8rem;
+        object-fit: contain;
+    }
+
+    .cart-item-card .details {
+        margin-left: 0;
+    }
+
+    .item-container .actions .cart-item-remove-btn {
+        font-size: 1rem;
+        font-weight: 600;
     }
 }

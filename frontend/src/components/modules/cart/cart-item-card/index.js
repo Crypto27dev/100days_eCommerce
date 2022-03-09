@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import {
     addItemsToCart, removeItemsFromCart
 } from "../../../../redux/actions/cartAction";
+import { AiFillDelete } from 'react-icons/ai';
+
 
 function CartItemCard({ item }) {
 
@@ -76,7 +78,7 @@ function CartItemCard({ item }) {
 
                 <button className="cart-item-remove-btn"
                     onClick={() => deleteCartItems(item.product)}>
-                    Remove
+                    <AiFillDelete /> Remove
                 </button>
 
             </div>

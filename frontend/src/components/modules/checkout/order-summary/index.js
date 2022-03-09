@@ -1,12 +1,13 @@
 import './ConfirmOrder.css';
-import React from 'react';
-import MetaData from '../layout/MetaData';
-import CheckoutSteps from './CheckoutSteps';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { Typography } from '@mui/material';
+import AppWrap from '../../../hoc/AppWrap';
+import MetaData from '../../../layout/MetaData';
+import CheckoutSteps from '../checkout-steps';
 
-function ConfirmOrder() {
+
+function OrderSummary() {
 
     const navigate = useNavigate();
 
@@ -40,13 +41,15 @@ function ConfirmOrder() {
     };
 
     return (
-        <div style={{
-            marginTop: 100
-        }}>
-            <MetaData title="Confirm Order" />
-            <CheckoutSteps activeStep={1} />
-            <div className="confirmOrderPage">
-                <div>
+        <div className='app__top-margin'>
+
+            <MetaData title="Order Summary - NixLab Shop" />
+
+            <div className="flex-container">
+
+                <CheckoutSteps activeStep={1} />
+
+                <div className='app__flex-card'>
                     <div className="confirmshippingArea">
                         <Typography>Shipping Info</Typography>
                         <div className="confirmshippingAreaBox">
@@ -117,4 +120,4 @@ function ConfirmOrder() {
     )
 }
 
-export default ConfirmOrder;
+export default AppWrap(OrderSummary);

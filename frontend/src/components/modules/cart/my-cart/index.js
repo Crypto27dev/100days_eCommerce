@@ -46,7 +46,7 @@ function Cart() {
                 setDelCharge(0)
             }
 
-            setSubTotal(total + discount + delCharge);
+            setSubTotal((total + delCharge) - discount);
         }
 
         calculateTotalAmount();
@@ -120,7 +120,15 @@ function Cart() {
                                         </p>
 
                                         <p className="subtitle">
-                                            {`₹${discount}`}
+                                            {
+                                                discount > 0 ?
+                                                    <div className="greenColor">
+                                                        {`- ₹${discount}`}
+                                                    </div>
+                                                    :
+                                                    "₹0"
+
+                                            }
                                         </p>
                                     </div>
 
