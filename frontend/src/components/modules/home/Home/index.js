@@ -34,56 +34,44 @@ function Home() {
     ])
 
     return (
-        <div style={{
-            marginTop: 80,
-            marginBottom: 60
-        }}>
+        <div className='app__top-margin'>
 
             <MetaData title="Welcome to NixLab Shop" />
 
-            {/* <div className="category-area">
+            <div className="flex-container">
 
-                {
-                    categories.map((cat, i) => (
-                        <div key={i}
-                            className='category-item'>
-                            {cat.name}
-                        </div>
-                    ))
-                }
+                <div className="homeHeading">
+                    Featured Products
+                </div>
 
-            </div> */}
+                <div className="product-list-container"
+                >
+                    {
+                        loading ?
+                            <Loader />
+                            :
+                            products.map((product, i) => {
+                                return <ProductCard
+                                    key={i}
+                                    product={product}
+                                />
+                            })
+                    }
+                </div>
 
-            <div className="homeHeading">
-                Featured Products
+                {/* <Link style={{
+                    textAlign: "center",
+                    display: "block",
+                    margin: "20px auto",
+                    marginBottom: 0,
+                    fontWeight: 700
+                }}
+                    to='/products'
+                >
+                    View more
+                </Link> */}
+
             </div>
-
-            <div className="customContainer"
-            >
-                {
-                    loading ?
-                        <Loader />
-                        :
-                        products.map((product, i) => {
-                            return <ProductCard
-                                key={i}
-                                product={product}
-                            />
-                        })
-                }
-            </div>
-
-            <Link style={{
-                textAlign: "center",
-                display: "block",
-                margin: "20px auto",
-                marginBottom: 0,
-                fontWeight: 700
-            }}
-                to='/products'
-            >
-                View more
-            </Link>
 
         </div>
     )

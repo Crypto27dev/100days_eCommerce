@@ -12,10 +12,10 @@ function ProductCard({ product }) {
     };
 
     return (
-        <Link className='productCard'
+        <Link className='product-card'
             to={`/products/${product._id}`}
         >
-            <img className='productImg'
+            <img className='product-img'
                 src={product.images[0].url}
                 alt={product.name}
                 loading="lazy"

@@ -12,15 +12,6 @@ import AppWrap from '../../../hoc/AppWrap';
 import Loader from '../../../layout/loader/Loader';
 
 
-const categories = [
-    "Laptop",
-    "Mobile Phone",
-    "Men's Wear",
-    "Women's Wear",
-    "Accessories",
-    "Camera"
-];
-
 function NewProduct() {
 
     const dispatch = useDispatch();
@@ -37,6 +28,15 @@ function NewProduct() {
     const [stock, setStock] = useState(0);
     const [images, setImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([]);
+
+    const categories = [
+        "Laptop",
+        "Mobile Phone",
+        "Men's Wear",
+        "Women's Wear",
+        "Accessories",
+        "Camera"
+    ];
 
     const createProductSubmitHandler = (e) => {
         e.preventDefault();
@@ -154,11 +154,14 @@ function NewProduct() {
 
                         <div className='form-control'>
                             <MdCategory />
-                            <select onChange={(e) => setCategory(e.target.value)}>
-                                <option value="">Choose Category</option>
+                            <select
+                                name='category'
+                                value={category}
+                                onChange={(e) => setCategory(e.target.value)}>
+                                <option value="">Select</option>
                                 {categories.map((cate) => (
-                                    <option key={cate.id} value={cate.name}>
-                                        {cate.name}
+                                    <option key={cate} value={cate}>
+                                        {cate}
                                     </option>
                                 ))}
                             </select>

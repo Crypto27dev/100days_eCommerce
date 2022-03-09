@@ -1,8 +1,14 @@
 import React from 'react';
 import './Footer.css';
-import playStore from '../../../assets/images/playstore.png';
-import appStore from '../../../assets/images/Appstore.png';
 import logo from '../../../assets/images/logo.png';
+import { Link } from 'react-router-dom';
+import {
+    FaInstagram,
+    FaGithub,
+    FaLinkedin,
+    FaTwitter
+} from 'react-icons/fa';
+
 
 function Footer() {
     return (
@@ -10,49 +16,61 @@ function Footer() {
 
             <div className="left-footer">
 
-                <h4>Download App for Android and iOS mobile phone.</h4>
+                <Link to="/">Home</Link>
 
-                <img
-                    src={playStore}
-                    alt='playstore'
-                    loading='lazy'
-                    width="100%"
-                    height="auto" />
+                <Link to="/products">Products</Link>
 
-                <img
-                    src={appStore}
-                    alt='Appstore'
-                    loading='lazy'
-                    width="100%"
-                    height="auto" />
+                <Link to="/about">About</Link>
+
+                <Link to="/contact">Contact Us</Link>
 
             </div>
 
             <div className="mid-footer">
 
-                <img className='footer-logo'
-                    src={logo}
-                    alt='logo'
-                    width='100%'
-                    height='auto'
-                    loading='lazy'
-                />
+                <Link to="/">
+                    <img className='footer-logo'
+                        src={logo}
+                        alt='logo'
+                        width='100%'
+                        height='auto'
+                        loading='lazy'
+                    />
+                </Link>
 
-                <p>High Quality is our first priority.</p>
-
-                <p>Copyrights 2021-2022 &copy; NixRajput</p>
+                <p>Copyrights 2021-2022 &copy;NixLab Technologies</p>
 
             </div>
 
             <div className="right-footer">
 
-                <h4>
-                    Follow Us
-                </h4>
+                <a href='http://github.com/nixrajput'
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    <FaGithub />
+                </a>
 
-                <a href='http://instagram.com/nixrajput'>Instagram</a>
-                <a href='http://twitter.com/nixrajput_'>Twitter</a>
-                <a href='http://facebook.com/nixrajput07'>Facebook</a>
+                <a href='http://instagram.com/nixrajput'
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    <FaInstagram />
+                </a>
+
+                <a href='http://linkedin.com/in/nixrajput'
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    <FaLinkedin />
+                </a>
+
+                <a href='http://twitter.com/nixrajput07'
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    <FaTwitter />
+                </a>
 
             </div>
 
