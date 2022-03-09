@@ -1,20 +1,4 @@
-.flex-container {
-    position: relative;
-    width: 100%;
-    min-width: 100%;
-    background-color: var(--lightBGColor);
-
-    padding: 2rem 0;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: hidden;
-
-    transition: all .5s ease-in-out;
-}
-
-.homeHeading {
+.head-text {
     text-align: center;
     font-size: 1.5rem;
     font-weight: 700;

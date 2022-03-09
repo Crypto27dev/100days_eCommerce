@@ -5,7 +5,7 @@
   --errorColor: #F44336;
   --lightBGColor: rgb(240, 240, 240);
   --whiteColor: rgb(255, 255, 255);
-  --lightGrayColor: #d3d3d3;
+  --lightGrayColor: #dbdbdb;
   --grayColor: #b4b4b4;
   --darkGrayColor: #8d8d8d;
   --voidColor: #0E0B16;
@@ -130,6 +130,22 @@ iframe {
   transition: all .5s ease-in-out;
 }
 
+.flex-container {
+  position: relative;
+  width: 100%;
+  min-width: 100%;
+  background-color: var(--lightBGColor);
+
+  padding: 2rem 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+
+  transition: all .5s ease-in-out;
+}
+
 .app__flex {
   background-color: var(--whiteColor);
   width: 100%;
@@ -189,6 +205,11 @@ iframe {
   margin: 1rem 0;
   color: var(--primaryTextColor);
   font-size: medium;
+}
+
+.divider {
+  border-bottom: 1px solid var(--lightGrayColor);
+  margin: 0.5rem 0;
 }
 
 @media screen and (min-width: 1368px) {

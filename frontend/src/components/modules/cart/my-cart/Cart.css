@@ -1,3 +1,146 @@
+.app__cart-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+
+    transition: all .5s ease-in-out;
+}
+
+.app__cart-container .box-header {
+    width: 100%;
+    padding: 1rem;
+    border-bottom: 1px solid var(--lightGrayColor);
+}
+
+.app__cart-container .box-header>p {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.app__cart-container .cart-items {
+    position: relative;
+    background-color: var(--whiteColor);
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(51, 51, 51, 0.1);
+
+    flex: 8;
+
+    margin: 0 1rem;
+}
+
+
+.app__cart-container .cart-amount-box {
+    position: relative;
+    background-color: var(--whiteColor);
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(51, 51, 51, 0.1);
+
+    flex: 3;
+
+    margin: 0 1rem;
+}
+
+.app__cart-container .cart-items .item-container {
+    position: relative;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 0;
+}
+
+.cart-item-card {
+    position: relative;
+
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+
+    margin: 1rem;
+    margin-top: 0;
+}
+
+.cart-item-card:last-child {
+    margin-bottom: 0;
+}
+
+.cart-item-card .item-img {
+    position: relative;
+    width: 10rem;
+    height: 10rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.cart-item-card .item-img>img {
+    width: 100%;
+    aspect-ratio: 1.0;
+    object-fit: contain;
+}
+
+.cart-item-card .details {
+    margin-left: 2rem;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-item-card .details>a {
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+
+    color: var(--primaryTextColor);
+    margin-bottom: 1rem;
+}
+
+.cart-item-card .details>a:hover {
+    color: var(--activeColor);
+}
+
+.cart-item-card .details>span {
+    color: var(--voidColor);
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.cart-item-card .details>p {
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+
+    margin-top: 1rem;
+}
+
+.cart-item-card .details>p:hover {
+    color: var(--activeColor);
+}
+
+
+@media screen and (max-width: 768px) {
+    .app__cart-container {
+        flex-direction: column;
+    }
+
+    .app__cart-container .cart-items {
+        flex: 1;
+
+        margin: 0 1rem;
+    }
+
+
+    .app__cart-container .cart-amount-box {
+        flex: 1;
+
+        margin: 0 1rem;
+        margin-top: 1rem;
+    }
+}
+
 .emptyCart {
     margin: auto;
     text-align: center;

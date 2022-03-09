@@ -42,11 +42,9 @@ function Cart() {
     };
 
     return (
-        <div style={{
-            marginTop: 80
-        }}>
+        <div className="app__top-margin">
 
-            <MetaData title={`My Cart`} />
+            <MetaData title={`Cart - NixLab Shop`} />
 
             {
                 cartItems.length === 0 ?
@@ -59,59 +57,80 @@ function Cart() {
                         <Link to="/products">View Products</Link>
                     </div>
                     :
-                    <div>
-                        <div className="cartPage">
-                            <div className="cartHeader">
-                                <p>Product</p>
-                                <p>Quantity</p>
-                                <p>Subtotal</p>
+                    <div className="flex-container">
+                        <div className="app__cart-container">
+
+                            <div className="cart-items">
+
+                                <div className="box-header">
+                                    <p>My Cart {`(${cartItems.length})`}</p>
+                                </div>
+
+                                {cartItems &&
+                                    cartItems.map((item) => (
+                                        <div key={item.product}
+                                            className="item-container"
+                                        >
+                                            <CartItemCard
+                                                item={item}
+                                                deleteCartItems={deleteCartItems}
+                                            />
+
+                                            {/* <p className="cartSubtotal">
+                                                {`₹${item.price * item.quantity}`}
+                                            </p> */}
+
+                                            {/* <div className="cartInput">
+                                                <button
+                                                    onClick={() =>
+                                                        decreaseQuantity(item.product, item.quantity)
+                                                    }
+                                                >
+                                                    -
+                                                </button>
+                                                <input type="number" value={item.quantity} readOnly />
+                                                <button
+                                                    onClick={() =>
+                                                        increaseQuantity(
+                                                            item.product,
+                                                            item.quantity,
+                                                            item.stock
+                                                        )
+                                                    }>
+                                                    +
+                                                </button>
+                                            </div> */}
+
+                                        </div>
+                                    ))}
+
                             </div>
 
-                            {cartItems &&
-                                cartItems.map((item) => (
-                                    <div key={item.product}
-                                        className="cartContainer"
-                                    >
-                                        <CartItemCard item={item} deleteCartItems={deleteCartItems} />
-                                        <div className="cartInput">
-                                            <button
-                                                onClick={() =>
-                                                    decreaseQuantity(item.product, item.quantity)
-                                                }
-                                            >
-                                                -
-                                            </button>
-                                            <input type="number" value={item.quantity} readOnly />
-                                            <button
-                                                onClick={() =>
-                                                    increaseQuantity(
-                                                        item.product,
-                                                        item.quantity,
-                                                        item.stock
-                                                    )
-                                                }>
-                                                +
-                                            </button>
-                                        </div>
-                                        <p className="cartSubtotal">{`₹${item.price * item.quantity
-                                            }`}</p>
-                                    </div>
-                                ))}
+                            <div className="cart-amount-box">
 
-                            <div className="cartGrossProfit">
-                                <div></div>
-                                <div className="cartGrossProfitBox">
+                                <div className="box-header">
+                                    <p>Price Details</p>
+                                </div>
+
+                                <div className="">
                                     <p>Gross Total</p>
                                     <p>{`₹${cartItems.reduce(
                                         (acc, item) => acc + item.quantity * item.price,
                                         0
                                     )}`}</p>
                                 </div>
-                                <div></div>
-                                <div className="checkOutBtn">
-                                    <button onClick={checkoutHandler}>Check Out</button>
+
+                                <div style={{
+                                    margin: "1rem"
+                                }}>
+                                    <button className="rounded-filled-btn"
+                                        onClick={checkoutHandler}>
+                                        Place Order
+                                    </button>
                                 </div>
+
                             </div>
+
                         </div>
                     </div>
             }

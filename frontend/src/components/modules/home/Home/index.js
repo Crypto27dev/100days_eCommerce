@@ -40,7 +40,7 @@ function Home() {
 
             <div className="flex-container">
 
-                <div className="homeHeading">
+                <div className="head-text">
                     Featured Products
                 </div>
 

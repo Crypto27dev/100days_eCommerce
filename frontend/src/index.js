@@ -10,7 +10,7 @@ import { BsPatchCheck, BsPatchExclamation, BsXCircleFill } from 'react-icons/bs'
 
 const options = {
   timeout: 5000,
-  position: positions.TOP_CENTER,
+  position: positions.BOTTOM_CENTER,
   transition: transitions.SCALE,
   offset: "10px"
 }
@@ -20,8 +20,7 @@ const AlertTemplate = ({ style, options, message, close }) => (
     backgroundColor: options.type === 'success' ? '#4CAF50' : options.type === 'error' ? '#F44336' : '#2196F3',
     color: "#fff",
     padding: "1rem",
-    margin: "1rem",
-    marginTop: "1.5rem",
+    margin: "2rem 1rem",
     borderRadius: "0.5rem",
     display: "flex",
     flexDirection: "row",
