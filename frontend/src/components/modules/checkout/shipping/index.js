@@ -35,7 +35,14 @@ function Shipping() {
             return;
         }
         dispatch(
-            saveShippingInfo({ address, city, state, country, pinCode, phoneNo })
+            saveShippingInfo({
+                address,
+                city,
+                state,
+                country,
+                pinCode,
+                phoneNo
+            })
         );
         navigate("/checkout/summary");
     };

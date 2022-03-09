@@ -3,6 +3,7 @@ import { TraverseRoutes, ProtectedRoute } from '../../route';
 
 const Shipping = lazy(() => import('./shipping'));
 const OrderSummary = lazy(() => import('./order-summary'));
+const Payment = lazy(() => import('./payment'));
 
 const routes = [
     {
@@ -13,6 +14,11 @@ const routes = [
     {
         path: 'summary',
         element: <ProtectedRoute> <OrderSummary /> </ProtectedRoute>
+    },
+
+    {
+        path: 'payment',
+        element: <ProtectedRoute> <Payment /> </ProtectedRoute>
     }
 
 ]

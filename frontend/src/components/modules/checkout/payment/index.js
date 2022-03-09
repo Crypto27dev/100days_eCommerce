@@ -1,15 +1,11 @@
 import './Payment.css';
 import { useEffect, useRef, useState } from 'react';
-import CheckoutSteps from './CheckoutSteps';
-import MetaData from '../layout/MetaData';
 import { useAlert } from 'react-alert';
 import { useSelector, useDispatch } from 'react-redux';
-import { Typography } from '@mui/material';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import EventIcon from '@mui/icons-material/Event';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import { useNavigate } from 'react-router-dom';
-import Loader from '../layout/loader/Loader';
 import axios from 'axios';
 import {
     CardNumberElement,
@@ -18,7 +14,11 @@ import {
     useStripe,
     useElements
 } from '@stripe/react-stripe-js';
-import { createOrder, clearErrors } from '../../redux/actions/orderAction';
+import { createOrder, clearErrors } from '../../../../redux/actions/orderAction';
+import CheckoutSteps from '../checkout-steps';
+import MetaData from '../../../layout/MetaData';
+import Loader from '../../../layout/loader/Loader';
+import AppWrap from '../../../hoc/AppWrap';
 
 
 function Payment() {
@@ -131,27 +131,29 @@ function Payment() {
     }, [dispatch, error, alert]);
 
     return (
-        <div style={{
-            marginTop: 100
-        }}>
+        <div className='app__top-margin'>
 
-            <MetaData title="Payment" />
+            <MetaData title="Payment - NixLab Shop" />
+
             <CheckoutSteps activeStep={2} />
-            <div className="paymentContainer">
-                <form className="paymentForm"
+
+            <div className="flex-container">
+
+                <form className="app__flex-card"
                     onSubmit={(e) => submitHandler(e)}
                 >
 
-                    <Typography>Card Info</Typography>
-                    <div>
+                    <div className='form-control'>
                         <CreditCardIcon />
                         <CardNumberElement className="paymentInput" />
                     </div>
-                    <div>
+
+                    <div className='form-control'>
                         <EventIcon />
                         <CardExpiryElement className="paymentInput" />
                     </div>
-                    <div>
+
+                    <div className='form-control'>
                         <VpnKeyIcon />
                         <CardCvcElement className="paymentInput" />
                     </div>
@@ -175,4 +177,4 @@ function Payment() {
     )
 }
 
-export default Payment;
+export default AppWrap(Payment);

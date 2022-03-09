@@ -1,7 +1,7 @@
-import './ConfirmOrder.css';
+import '../Checkout.css';
+import '../../cart/Cart.css';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { Typography } from '@mui/material';
 import AppWrap from '../../../hoc/AppWrap';
 import MetaData from '../../../layout/MetaData';
 import CheckoutSteps from '../checkout-steps';
@@ -19,11 +19,11 @@ function OrderSummary() {
         0
     );
 
-    const shippingCharges = subtotal > 1000 ? 0 : 100;
+    const shippingCharges = subtotal > 1000 ? 0 : 50;
 
     const tax = subtotal * 0.18;
 
-    const totalPrice = subtotal + tax + shippingCharges;
+    const totalPrice = subtotal + tax;
 
     const address = `${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.state}, ${shippingInfo.pinCode}, ${shippingInfo.country}`;
 
@@ -37,7 +37,7 @@ function OrderSummary() {
 
         sessionStorage.setItem("orderInfo", JSON.stringify(data));
 
-        navigate("/process/payment");
+        navigate("/checkout/payment");
     };
 
     return (
@@ -49,72 +49,115 @@ function OrderSummary() {
 
                 <CheckoutSteps activeStep={1} />
 
-                <div className='app__flex-card'>
-                    <div className="confirmshippingArea">
-                        <Typography>Shipping Info</Typography>
-                        <div className="confirmshippingAreaBox">
-                            <div>
-                                <p>Name:</p>
+                <div className='app__checkout-container'
+                    style={{
+                        marginTop: "2rem"
+                    }}>
+
+                    <div className="summary-items">
+
+                        <div className="box-header">
+                            <p>Shipping Info</p>
+                        </div>
+
+                        <div className="shipping-info">
+                            <div className='info-tile'>
+                                <p>Name</p>
                                 <span>{user.name}</span>
                             </div>
-                            <div>
-                                <p>Phone:</p>
+
+                            <div className='info-tile'>
+                                <p>Phone</p>
                                 <span>{shippingInfo.phoneNo}</span>
                             </div>
-                            <div>
-                                <p>Address:</p>
+
+                            <div className='info-tile'>
+                                <p>Address</p>
                                 <span>{address}</span>
                             </div>
                         </div>
-                    </div>
-                    <div className="confirmCartItems">
-                        <Typography>Your Cart Items:</Typography>
-                        <div className="confirmCartItemsContainer">
-                            {cartItems &&
-                                cartItems.map((item) => (
-                                    <div key={item.product}>
-                                        <img src={item.image} alt="Product" />
-                                        <Link to={`/product/${item.product}`}>
-                                            {item.name}
-                                        </Link>{" "}
-                                        <span>
-                                            {item.quantity} X ₹{item.price} ={" "}
-                                            <b>₹{item.price * item.quantity}</b>
-                                        </span>
-                                    </div>
-                                ))}
+
+                        <div className='cart-items'>
+
+                            <div className="box-header">
+                                <p>Your Cart Items</p>
+                            </div>
+
+                            <div className="item-list">
+                                {cartItems &&
+                                    cartItems.map((item) => (
+                                        <div key={item.product}
+                                            className="item-card"
+                                        >
+                                            <img src={item.image} alt="Product" />
+
+                                            <div className="details">
+                                                <Link to={`/product/${item.product}`}>
+                                                    {item.name}
+                                                </Link>
+                                                <span>
+                                                    {item.quantity} X ₹{item.price} ={" "}
+                                                    <b>₹{item.price * item.quantity}</b>
+                                                </span>
+                                            </div>
+
+                                        </div>
+                                    ))}
+                            </div>
                         </div>
                     </div>
-                </div>
-                {/*  */}
-                <div>
-                    <div className="orderSummary">
-                        <Typography>Order Summery</Typography>
-                        <div>
-                            <div>
-                                <p>Subtotal:</p>
-                                <span>₹{subtotal}</span>
+
+                    <div className='cart-amount-box'>
+
+                        <div className="box-header">
+                            <p>Order Summary</p>
+                        </div>
+
+                        <div className="sub-amount-box">
+
+                            <div className="price-tile">
+                                <p className='title'>
+                                    Subtotal
+                                </p>
+
+                                <p className="subtitle">
+                                    ₹{subtotal}
+                                </p>
                             </div>
-                            <div>
-                                <p>Shipping Charges:</p>
-                                <span>₹{shippingCharges}</span>
-                            </div>
-                            <div>
-                                <p>GST:</p>
-                                <span>₹{tax}</span>
+
+                            <div className="price-tile">
+                                <p className='title'>
+                                    GST
+                                </p>
+
+                                <p className="subtitle">
+                                    ₹{tax}
+                                </p>
                             </div>
                         </div>
 
-                        <div className="orderSummaryTotal">
-                            <p>
-                                <b>Total:</b>
+                        <div className="total-amount">
+
+                            <p className="title">
+                                Total
                             </p>
-                            <span>₹{totalPrice}</span>
+
+                            <p className="subtitle">
+                                {`₹${totalPrice}`}
+                            </p>
                         </div>
 
-                        <button onClick={proceedToPayment}>Proceed To Payment</button>
+                        <div className="check-out-btn">
+                            <button className="rounded-filled-btn"
+                                onClick={proceedToPayment}>
+                                Proceed To Payment
+                            </button>
+                        </div>
+
                     </div>
+
                 </div>
+
             </div>
         </div>
     )

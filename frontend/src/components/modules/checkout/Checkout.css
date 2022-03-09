@@ -1,115 +1,122 @@
-.shippingContainer {
-    width: 100vw;
-    max-width: 100%;
+.app__checkout-container {
+    position: relative;
+    width: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: row;
+
+    transition: all .5s ease-in-out;
+}
+
+.app__checkout-container .box-header {
+    width: 100%;
+    padding: 1rem;
+    border-bottom: 1px solid var(--lightGrayColor);
+}
+
+.app__checkout-container .box-header>p {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.app__checkout-container .summary-items {
+    position: relative;
+    background-color: var(--whiteColor);
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(51, 51, 51, 0.1);
+
+    flex: 8;
+    height: fit-content;
+
+    margin: 0 1rem;
+}
+
+.app__checkout-container .cart-amount-box {
+    position: relative;
+    height: fit-content;
+    background-color: var(--whiteColor);
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(51, 51, 51, 0.1);
+
+    flex: 3;
+
+    margin: 0 1rem;
+}
+
+.summary-items .shipping-info {
+    padding: 1rem;
+    border-bottom: 1px solid var(--lightGrayColor);
+}
+
+.shipping-info .info-tile {
+    display: flex;
     flex-direction: column;
-    margin-top: 20px;
-    padding-bottom: 60px;
+    margin-bottom: 1rem;
 }
 
-.shippingBox {
-    background-color: white;
-    width: 25vw;
-    min-width: 480px;
-    height: 80vh;
-    box-sizing: border-box;
-    overflow: hidden;
+.info-tile>p {
+    font-size: 1.1rem;
+    font-weight: 600;
 }
 
-.shippingHeading {
-    text-align: center;
-    color: rgba(0, 0, 0, 0.664);
-    font: 600 16px "Roboto";
-    padding: 1.3vmax;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.205);
-    width: 50%;
-    margin: auto;
+.info-tile>span {
+    font-size: 1rem;
+    margin-top: 0.25rem;
 }
 
-.shippingForm {
+.info-tile:last-child {
+    margin-bottom: 0;
+}
+
+.summary-items .cart-items .item-list {
+    padding: 1rem;
+}
+
+.item-list .item-card {
+    display: flex;
+    flex-direction: row;
+}
+
+.item-list .item-card img {
+    width: 10rem;
+    height: auto;
+    max-height: 10rem;
+    object-fit: contain;
+}
+
+.item-list .item-card .details {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin: auto;
-    padding: 2vmax;
-    justify-content: space-evenly;
-    height: 90%;
-    transition: all 0.5s;
 }
 
-.shippingForm>div {
-    display: flex;
-    width: 100%;
-    align-items: center;
+.item-list .item-card .details>a {
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-decoration: none;
+
+    color: var(--primaryTextColor);
+    margin-bottom: 1rem;
 }
 
-.shippingForm>div>input,
-.shippingForm>div>select {
-    padding: 1vmax 4vmax;
-    padding-right: 1vmax;
-    width: 100%;
-    box-sizing: border-box;
-    border: 1px solid rgba(0, 0, 0, 0.267);
-    border-radius: 4px;
-    font: 300 16px cursive;
-    outline: none;
-}
-
-.shippingForm>div>svg {
-    position: absolute;
-    transform: translateX(1vmax);
-    font-size: 1.6vmax;
-    color: rgba(0, 0, 0, 0.623);
-}
-
-.shippingBtn {
-    border: none;
-    background-color: var(--activeColor);
-    color: white;
-    font: 300 16px "Roboto";
-    width: 100%;
-    padding: 1vmax;
-    min-height: 48px;
-    cursor: pointer;
-    transition: all 0.5s;
-    outline: none;
-    margin: 2vmax;
-}
-
-.shippingBtn:hover {
-    background-color: rgb(179, 66, 46);
+.item-list .item-card .details>a:hover {
+    color: var(--activeColor);
 }
 
 @media screen and (max-width: 768px) {
-    .shippingBox {
-        width: 100vw;
-        height: 95vh;
+    .app__checkout-container {
+        flex-direction: column;
     }
 
-    .shippingHeading {
-        font: 400 6vw "Roboto";
-        padding: 5vw;
+    .app__checkout-container .summary-items {
+        flex: 1;
+
+        margin: 0 1rem;
     }
 
-    .shippingForm {
-        padding: 10vw;
-    }
 
-    .shippingForm>div>input,
-    .shippingForm>div>select {
-        padding: 2.5vw 10vw;
-        font: 300 4vw cursive;
-    }
+    .app__checkout-container .cart-amount-box {
+        flex: 1;
 
-    .shippingForm>div>svg {
-        font-size: 6vw;
-        transform: translateX(3vw);
-    }
-
-    .shippingBtn {
-        font: 300 4vw "Roboto";
-        padding: 2.5vw;
+        margin: 0 1rem;
+        margin-top: 1rem;
     }
 }

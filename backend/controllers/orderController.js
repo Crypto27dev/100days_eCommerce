@@ -118,7 +118,7 @@ exports.updateOrder = catchAsyncError(async (req, res, next) => {
         order.deliveredAt = Date.now();
     }
 
-    await order.save({ validateBeforeSave: false });
+    await order.save();
 
     res.status(200).json({
         success: true,
@@ -133,7 +133,7 @@ async function updateStock(id, qty) {
 
     product.stock -= qty;
 
-    await product.save({ validateBeforeSave: false });
+    await product.save();
 
 }
 

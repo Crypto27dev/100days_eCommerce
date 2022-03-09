@@ -30,7 +30,7 @@ function Cart() {
                 0)
 
             if (total > 20000) {
-                setDiscount(total * 10 / 100)
+                setDiscount(total * 0.10)
             }
             else if (total > 10000) {
                 setDiscount(1000)
