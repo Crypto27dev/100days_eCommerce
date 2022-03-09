@@ -1,13 +1,14 @@
 import { lazy } from 'react';
-import { TraverseRoutes, ProtectedRoute } from '../../route';
+import { TraverseRoutes } from '../../route';
 
 const Cart = lazy(() => import('./my-cart'));
 
 const routes = [
     {
         path: '',
-        element: <ProtectedRoute> <Cart /> </ProtectedRoute>
+        element: <Cart />
     }
+
 ]
 
 const CartModule = () => <TraverseRoutes routes={routes} />;

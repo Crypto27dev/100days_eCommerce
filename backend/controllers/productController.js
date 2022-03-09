@@ -200,10 +200,14 @@ exports.createProductReview = catchAsyncError(async (req, res, next) => {
         user: req.user._id,
         name: req.user.name,
         rating: Number(rating),
-        comment
+        comment: comment
     }
 
     const product = await Product.findById(productId);
+
+    if (!product) {
+        return next(new ErrorHandler("Product not found.", 404));
+    }
 
     const isReviewed = product.reviews.find(doc => doc.user.toString() === req.user._id.toString());
 
@@ -223,7 +227,7 @@ exports.createProductReview = catchAsyncError(async (req, res, next) => {
     }
 
     let total = 0;
-    
+
     product.reviews.forEach(doc => {
         total += doc.rating;
     })

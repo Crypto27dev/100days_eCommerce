@@ -1,45 +1,60 @@
-import "./Cart.css";
+import "../Cart.css";
 import CartItemCard from "../cart-item-card";
-import { useSelector, useDispatch } from "react-redux";
-import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import {
-    addItemsToCart, removeItemsFromCart
-} from "../../../../redux/actions/cartAction";
+import { BsCartX } from 'react-icons/bs';
 import MetaData from '../../../layout/MetaData';
 import AppWrap from "../../../hoc/AppWrap";
+import { useEffect, useState } from "react";
 
 
 function Cart() {
 
-    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const { cartItems } = useSelector((state) => state.cart);
 
-    const increaseQuantity = (id, quantity, stock) => {
-        const newQty = quantity + 1;
-        if (stock <= quantity) {
-            return;
-        }
-        dispatch(addItemsToCart(id, newQty));
-    };
-
-    const decreaseQuantity = (id, quantity) => {
-        const newQty = quantity - 1;
-        if (1 >= quantity) {
-            return;
-        }
-        dispatch(addItemsToCart(id, newQty));
-    };
-
-    const deleteCartItems = (id) => {
-        dispatch(removeItemsFromCart(id));
-    };
+    const [subTotal, setSubTotal] = useState(0);
+    const [discount, setDiscount] = useState(0);
+    const [delCharge, setDelCharge] = useState(0);
 
     const checkoutHandler = () => {
-        navigate("/login?redirect=shipping");
+        navigate("/auth/login?redirect=checkout/shipping");
     };
+
+    useEffect(() => {
+
+        const calculateTotalAmount = () => {
+            const total = cartItems.reduce(
+                (acc, item) => acc + item.quantity * item.price,
+                0)
+
+            if (total > 20000) {
+                setDiscount(total * 10 / 100)
+            }
+            else if (total > 10000) {
+                setDiscount(1000)
+            }
+            else {
+                setDiscount(0)
+            }
+
+            if (total < 1000) {
+                setDelCharge(50)
+            }
+            else {
+                setDelCharge(0)
+            }
+
+            setSubTotal(total + discount + delCharge);
+        }
+
+        calculateTotalAmount();
+
+        return () => { }
+    }, [
+        cartItems, delCharge, discount
+    ])
 
     return (
         <div className="app__top-margin">
@@ -48,13 +63,12 @@ function Cart() {
 
             {
                 cartItems.length === 0 ?
-                    <div className="emptyCart">
-                        <RemoveShoppingCartIcon />
+                    <div className="app__flex-container empty-cart">
+                        <BsCartX />
 
-                        <p style={{
-                            marginTop: 10
-                        }}>No Product in Your Cart</p>
-                        <Link to="/products">View Products</Link>
+                        <p>Your cart is empty.</p>
+
+                        <Link to="/">Continue Shopping</Link>
                     </div>
                     :
                     <div className="flex-container">
@@ -68,40 +82,10 @@ function Cart() {
 
                                 {cartItems &&
                                     cartItems.map((item) => (
-                                        <div key={item.product}
-                                            className="item-container"
-                                        >
-                                            <CartItemCard
-                                                item={item}
-                                                deleteCartItems={deleteCartItems}
-                                            />
-
-                                            {/* <p className="cartSubtotal">
-                                                {`₹${item.price * item.quantity}`}
-                                            </p> */}
-
-                                            {/* <div className="cartInput">
-                                                <button
-                                                    onClick={() =>
-                                                        decreaseQuantity(item.product, item.quantity)
-                                                    }
-                                                >
-                                                    -
-                                                </button>
-                                                <input type="number" value={item.quantity} readOnly />
-                                                <button
-                                                    onClick={() =>
-                                                        increaseQuantity(
-                                                            item.product,
-                                                            item.quantity,
-                                                            item.stock
-                                                        )
-                                                    }>
-                                                    +
-                                                </button>
-                                            </div> */}
-
-                                        </div>
+                                        <CartItemCard
+                                            key={item.product}
+                                            item={item}
+                                        />
                                     ))}
 
                             </div>
@@ -112,17 +96,63 @@ function Cart() {
                                     <p>Price Details</p>
                                 </div>
 
-                                <div className="">
-                                    <p>Gross Total</p>
-                                    <p>{`₹${cartItems.reduce(
-                                        (acc, item) => acc + item.quantity * item.price,
-                                        0
-                                    )}`}</p>
+                                <div className="sub-amount-box">
+
+                                    <div className="price-tile">
+                                        <p className="title">
+                                            Price ({`${cartItems.reduce(
+                                                (qty, item) => qty + item.quantity,
+                                                0
+                                            )} items`})
+                                        </p>
+
+                                        <p className="subtitle">
+                                            {`₹${cartItems.reduce(
+                                                (amt, item) => amt + item.quantity * item.price,
+                                                0
+                                            )}`}
+                                        </p>
+                                    </div>
+
+                                    <div className="price-tile">
+                                        <p className="title">
+                                            Discount
+                                        </p>
+
+                                        <p className="subtitle">
+                                            {`₹${discount}`}
+                                        </p>
+                                    </div>
+
+                                    <div className="price-tile">
+                                        <p className="title">
+                                            Delivery Charges
+                                        </p>
+
+                                        <p className="subtitle">
+                                            {
+                                                delCharge > 0 ?
+                                                    `₹${delCharge}` :
+                                                    <div className="greenColor">
+                                                        FREE
+                                                    </div>
+                                            }
+                                        </p>
+                                    </div>
+
                                 </div>
 
-                                <div style={{
-                                    margin: "1rem"
-                                }}>
+                                <div className="total-amount">
+                                    <p className="title">
+                                        Total Amount
+                                    </p>
+
+                                    <p className="subtitle">
+                                        {`₹${subTotal}`}
+                                    </p>
+                                </div>
+
+                                <div className="check-out-btn">
                                     <button className="rounded-filled-btn"
                                         onClick={checkoutHandler}>
                                         Place Order

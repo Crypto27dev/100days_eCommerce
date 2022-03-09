@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import ProductCard from './ProductCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAlert } from 'react-alert';
-import { Link } from 'react-router-dom';
 import { getProducts, clearErrors } from '../../../../redux/actions/productAction';
 import Loader from '../../../layout/loader/Loader';
 import MetaData from '../../../layout/MetaData';
@@ -58,18 +57,6 @@ function Home() {
                             })
                     }
                 </div>
-
-                {/* <Link style={{
-                    textAlign: "center",
-                    display: "block",
-                    margin: "20px auto",
-                    marginBottom: 0,
-                    fontWeight: 700
-                }}
-                    to='/products'
-                >
-                    View more
-                </Link> */}
 
             </div>
 

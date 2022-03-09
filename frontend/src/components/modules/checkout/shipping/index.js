@@ -1,13 +1,8 @@
-import './Shipping.css';
+import '../Checkout.css';
 import { useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
-import {
-    saveShippingInfo
-} from "../../redux/actions/cartAction";
-import MetaData from '../layout/MetaData';
-import CheckoutSteps from './CheckoutSteps';
 import { Country, State } from "country-state-city";
 import PinDropIcon from "@mui/icons-material/PinDrop";
 import HomeIcon from "@mui/icons-material/Home";
@@ -15,6 +10,12 @@ import LocationCityIcon from "@mui/icons-material/LocationCity";
 import PublicIcon from "@mui/icons-material/Public";
 import PhoneIcon from "@mui/icons-material/Phone";
 import TransferWithinAStationIcon from "@mui/icons-material/TransferWithinAStation";
+import MetaData from '../../../layout/MetaData';
+import CheckoutSteps from '../checkout-steps';
+import {
+    saveShippingInfo
+} from "../../../../redux/actions/cartAction";
+import AppWrap from '../../../hoc/AppWrap';
 
 
 function Shipping() {
@@ -160,4 +161,4 @@ function Shipping() {
     )
 }
 
-export default Shipping;
+export default AppWrap(Shipping);

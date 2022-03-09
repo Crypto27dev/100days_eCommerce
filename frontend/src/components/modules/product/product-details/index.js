@@ -1,17 +1,17 @@
-import './ProductDetails.css';
+import '../Product.css';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Carousel from 'react-material-ui-carousel';
 import { useAlert } from "react-alert";
 import Rating from '@mui/material/Rating';
 import {
     Dialog,
-    DialogActions,
     DialogContent,
-    DialogTitle,
-    Button
+    DialogTitle
 } from '@mui/material';
+import { FaStar, FaCartPlus } from 'react-icons/fa';
+import { MdFlashOn } from 'react-icons/md';
 import {
     getProductDetails, clearErrors, newReview
 } from '../../../../redux/actions/productAction';
@@ -27,21 +27,15 @@ import AppWrap from '../../../hoc/AppWrap';
 
 function ProductDetails() {
 
-    const { token } = useSelector((state) => state.user);
+    const { token, isAuthenticated } = useSelector((state) => state.user);
     const { product, loading, error } = useSelector(state => state.productDetails);
     const { success, error: reviewError } = useSelector((state) => state.newReview);
 
     const dispatch = useDispatch();
     const alert = useAlert();
+    const navigate = useNavigate();
 
     const { id } = useParams();
-
-    const options = {
-        size: "large",
-        value: product.ratings,
-        readOnly: true,
-        precision: 0.5,
-    };
 
     const [quantity, setQuantity] = useState(1);
     const [open, setOpen] = useState(false);
@@ -65,6 +59,12 @@ function ProductDetails() {
     const addToCartHandler = () => {
         dispatch(addItemsToCart(id, quantity, token));
         alert.success("Item Added To Cart");
+    };
+
+    const buyProductHandler = () => {
+        dispatch(addItemsToCart(id, quantity, token));
+        alert.success("Item Added To Cart");
+        navigate("/cart");
     };
 
     const submitReviewToggle = () => {
@@ -96,7 +96,7 @@ function ProductDetails() {
         }
 
         if (success) {
-            alert.success("Review Submitted Successfully");
+            alert.success("Review Added Successfully.");
             dispatch({ type: NEW_REVIEW_RESET });
         }
 
@@ -112,137 +112,206 @@ function ProductDetails() {
 
     return (
         <div className='app__top-margin'>
-            {
-                loading ?
-                    <Loader fullScreen={true} />
-                    :
-                    <div>
-                        <MetaData title={`${product.name} -- Ecommerce`} />
+            <div className='flex-container'>
 
-                        <div className="ProductDetails">
-                            <div>
-                                <Carousel
-                                    stopAutoPlayOnHover
-                                    interval={5000}
-                                >
-                                    {
-                                        product.images &&
-                                        product.images.map((item, i) => {
+                {
+                    loading &&
+                    <Loader />
+                }
 
-                                            return (
-                                                <img
-                                                    className='CarouselImage'
-                                                    key={i}
-                                                    src={item.url}
-                                                    alt={`${i} Slide`}
-                                                />
-                                            )
+                <MetaData title={`${product.name} - NixLab Shop`} />
 
-                                        })
-                                    }
-                                </Carousel>
+                <div className="product-details-container">
+
+                    <div className='product-carousel-box'>
+
+                        {
+                            product.images &&
+                            <Carousel
+                                stopAutoPlayOnHover
+                                interval={10000}
+                            >
+                                {product.images.map((item, i) => {
+                                    return (
+                                        <img
+                                            className='carousel-img'
+                                            key={i}
+                                            src={item.url}
+                                            alt={`${i} Slide`}
+                                        />
+                                    )
+
+                                })
+                                }
+                            </Carousel>
+                        }
+
+                        <div className="actions">
+                            <button
+                                className='rounded-filled-btn cart-btn'
+                                disabled={product.Stock < 1 ? true : false}
+                                onClick={addToCartHandler}
+                            >
+                                <FaCartPlus /> Add to Cart
+                            </button>
+
+                            <button
+                                className='rounded-filled-btn buy-btn'
+                                disabled={product.Stock < 1 ? true : false}
+                                onClick={buyProductHandler}
+                            >
+                                <MdFlashOn /> Buy Now
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className='product-details-box'>
+
+                        <div className="name">
+                            {product.name}
+                        </div>
+
+                        <div className="rating-container">
+
+                            <div className="rating-box"
+                                style={{
+                                    backgroundColor: product.ratings <= 0 ? "gray" : product.ratings < 2 ? "red" : product.ratings < 4 ? "orange" : "green"
+                                }}
+                            >
+                                <span>{product.ratings}</span>
+                                <FaStar />
                             </div>
 
-                            <div>
-                                <div className="detailsBlock-1">
-                                    <h2>{product.name}</h2>
-                                    <p>Product # {product._id}</p>
-                                </div>
+                            <p>{product.numOfReviews} Reviews</p>
+                        </div>
 
-                                <div className="detailsBlock-2">
-                                    <Rating {...options} />
-                                    <span className="detailsBlock-2-span">
-                                        {" "}
-                                        ({product.numOfReviews} Reviews)
-                                    </span>
-                                </div>
+                        <div className="price-qty-container">
+                            <h1>{`₹${product.price}`}</h1>
 
-                                <div className="detailsBlock-3">
-                                    <h1>{`₹${product.price}`}</h1>
-                                    <div className="detailsBlock-3-1">
-                                        <div className="detailsBlock-3-1-1">
-                                            <button onClick={decreaseQuantity}>-</button>
-                                            <input readOnly type="number" value={quantity} />
-                                            <button onClick={increaseQuantity}>+</button>
-                                        </div>
-                                        <button
-                                            disabled={product.Stock < 1 ? true : false}
-                                            onClick={addToCartHandler}
-                                        >
-                                            Add to Cart
-                                        </button>
-                                    </div>
+                            <div className="qty-input">
+                                <button onClick={decreaseQuantity}>-</button>
+                                <input readOnly type="number" value={quantity} />
+                                <button onClick={increaseQuantity}>+</button>
+                            </div>
+                        </div>
 
-                                    <p>
-                                        Status:
-                                        <b style={{
-                                            color: product.Stock < 1 ? "red" : "green"
-                                        }}>
-                                            {product.Stock < 1 ? "OutOfStock" : "InStock"}
-                                        </b>
-                                    </p>
-                                </div>
+                        <div className="stock-status-container">
+                            <span style={{
+                                fontSize: "1.1rem",
+                                color: product.stock < 1 ? "red" : product.stock < 5 ? "orange" : "green"
+                            }}>
+                                {product.stock < 1 ? "Out Of Stock" : product.stock < 5 ? "Only Few Left" : "Available"}
+                            </span>
+                        </div>
 
-                                <div className="detailsBlock-4">
-                                    Description : <p>{product.description}</p>
-                                </div>
+                        <div className="description-container">
+                            <div className="title">
+                                Description
+                            </div>
 
-                                <button
-                                    onClick={submitReviewToggle}
-                                    className="submitReview">
-                                    Submit Review
-                                </button>
+                            <p>
+                                {
+                                    product.description ?
+                                        product.description :
+                                        "No description."
+                                }
+                            </p>
+                        </div>
 
+                        <div className="review-container">
+
+                            <div className="title">
+
+                                <p>Reviews & Ratings</p>
+
+                                {
+                                    isAuthenticated &&
+                                    <button
+                                        onClick={submitReviewToggle}
+                                        className="review-btn">
+                                        Add Review
+                                    </button>
+                                }
+
+                            </div>
+
+                            <div className="review-list">
+                                {
+                                    product.reviews && product.reviews.length > 0 ?
+                                        product.reviews.map((review) => (
+                                            <ReviewCard
+                                                key={review._id}
+                                                review={review}
+                                            />
+                                        )) :
+                                        <p className='no-review'>
+                                            No Reviews.
+                                        </p>
+                                }
                             </div>
 
                         </div>
 
-                        <h3 className="reviewsHeading">REVIEWS</h3>
-
-                        <Dialog
-                            aria-labelledby="simple-dialog-title"
-                            open={open}
-                            onClose={submitReviewToggle}
-                        >
-                            <DialogTitle>Submit Review</DialogTitle>
-                            <DialogContent className="submitDialog">
-                                <Rating
-                                    onChange={(e) => setRating(e.target.value)}
-                                    value={rating}
-                                    size="large"
-                                />
-
-                                <textarea
-                                    className="submitDialogTextArea"
-                                    cols="30"
-                                    rows="5"
-                                    value={comment}
-                                    onChange={(e) => setComment(e.target.value)}
-                                ></textarea>
-                            </DialogContent>
-                            <DialogActions>
-                                <Button onClick={submitReviewToggle} color="secondary">
-                                    Cancel
-                                </Button>
-                                <Button onClick={reviewSubmitHandler} color="primary">
-                                    Submit
-                                </Button>
-                            </DialogActions>
-                        </Dialog>
-
-                        {product.reviews && product.reviews[0] ? (
-                            <div className="reviews">
-                                {product.reviews &&
-                                    product.reviews.map((review) => (
-                                        <ReviewCard key={review._id} review={review} />
-                                    ))}
-                            </div>
-                        ) : (
-                            <p className="noReviews">No Reviews Yet</p>
-                        )}
-
                     </div>
-            }
+                </div>
+
+                <Dialog
+                    aria-labelledby="review-dialog-title"
+                    open={open}
+                    onClose={submitReviewToggle}
+                >
+                    <DialogTitle>Add Review</DialogTitle>
+
+                    <DialogContent className="review-dialog">
+
+                        <form onSubmit={reviewSubmitHandler}>
+
+                            <Rating
+                                onChange={(e) => setRating(e.target.value)}
+                                value={rating}
+                                size="large"
+                            />
+
+                            <textarea
+                                style={{
+                                    minWidth: "100%",
+                                    maxWidth: "100%",
+                                    minHeight: "5rem",
+                                    marginTop: "1rem"
+                                }}
+                                cols="30"
+                                rows="5"
+                                required
+                                value={comment}
+                                onChange={(e) => setComment(e.target.value)}
+                            />
+
+                            <div className="actions">
+
+                                <button type="button"
+                                    onClick={submitReviewToggle}
+                                    className="rounded-filled-btn"
+                                    style={{
+                                        marginRight: "1rem",
+                                        backgroundColor: "var(--footerColor)"
+                                    }}
+                                >
+                                    Cancel
+                                </button>
+
+                                <button type="submit"
+                                    className="rounded-filled-btn"
+                                >
+                                    Submit
+                                </button>
+                            </div>
+
+                        </form>
+
+                    </DialogContent>
+                </Dialog>
+
+            </div>
 
         </div>
     )

@@ -8,6 +8,7 @@
   --lightGrayColor: #dbdbdb;
   --grayColor: #b4b4b4;
   --darkGrayColor: #8d8d8d;
+  --footerColor: #3b2c41;
   --voidColor: #0E0B16;
   --boxShadow: 0 0 40px 10px rgba(8, 30, 40, 0.15);
   --boxShadowMin: 0 10px 24px 0 rgba(10, 20, 20, 0.12);
@@ -210,6 +211,45 @@ iframe {
 .divider {
   border-bottom: 1px solid var(--lightGrayColor);
   margin: 0.5rem 0;
+}
+
+.qty-input {
+  display: flex;
+  align-items: center;
+}
+
+.qty-input>button {
+  border: none;
+  outline: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  cursor: pointer;
+
+  border: 1px solid var(--lightGrayColor);
+  border-radius: 50%;
+
+  font-size: 1.5rem;
+
+  transition: all 0.3s ease-in-out;
+}
+
+.qty-input>button:hover {
+  background-color: var(--lightGrayColor);
+}
+
+.qty-input>input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  width: 3rem;
+  height: 2rem;
+
+  margin: 0 0.5rem;
+
+  border: 1px solid var(--lightGrayColor);
+
+  font-weight: 600;
+  text-align: center;
 }
 
 @media screen and (min-width: 1368px) {

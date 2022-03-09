@@ -4,7 +4,6 @@ import {
     applyMiddleware
 } from 'redux';
 import thunk from 'redux-thunk';
-import { composeWithDevTools } from 'redux-devtools-extension';
 import { productsReducer, productDetailsReducer, newReviewReducer, productReducer, newProductReducer, reviewReducer, productReviewsReducer } from './reducers/productReducer';
 import { allUsersReducer, forgotPasswordReducer, profileReducer, userDetailsReducer, userReducer } from './reducers/userReducer';
 import { cartReducer } from './reducers/cartReducer';
@@ -38,7 +37,7 @@ const middleware = [thunk];
 const store = createStore(
     reducer,
     initialState,
-    composeWithDevTools(applyMiddleware(...middleware))
+    applyMiddleware(...middleware)
 )
 
 export default store;
