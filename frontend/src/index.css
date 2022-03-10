@@ -150,7 +150,7 @@ iframe {
 .app__flex {
   background-color: var(--whiteColor);
   width: 100%;
-  max-width: 600px;
+  max-width: 40rem;
   padding: 2rem;
   border-radius: 10px;
 
@@ -167,7 +167,7 @@ iframe {
   position: relative;
   background-color: var(--whiteColor);
   width: 100%;
-  max-width: 640px;
+  max-width: 50rem;
   padding: 2rem;
   border-radius: 10px;
 
@@ -272,6 +272,14 @@ iframe {
   margin-bottom: 0;
 }
 
+.lg-padding-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  padding: 0 1rem;
+}
+
 @media screen and (min-width: 1368px) {
   .app__flex-container {
     width: 80%;
@@ -334,20 +342,21 @@ iframe {
     text-align: center;
   }
 
-  .app__flex .brand {
-    text-align: center;
+  .lg-padding-container {
+    padding: 0;
   }
 }
 
 .form-control {
   position: relative;
   width: 100%;
+  max-width: 50rem;
 
   display: flex;
   align-items: center;
   height: 2.5rem;
 
-  margin: 1rem 0;
+  margin: 1rem auto;
 }
 
 .form-control>svg {
@@ -501,13 +510,15 @@ input[type="file"]::file-selector-button:hover {
   font-size: 1rem;
   font-weight: 600;
   width: 100%;
+  max-width: 50rem;
   font-family: 'Roboto', sans-serif;
   padding: 1rem;
-  min-height: 48px;
+  min-height: 3rem;
   cursor: pointer;
   transition: all 0.5s ease-in-out;
-  border-radius: 4px;
+  border-radius: 0.25rem;
   outline: none;
+  margin: auto;
 }
 
 .rounded-filled-btn:hover {

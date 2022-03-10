@@ -30,14 +30,14 @@ function MyOrders() {
         {
             field: "id",
             headerName: "Order ID",
-            minWidth: 240,
+            minWidth: 200,
             flex: 1
         },
 
         {
             field: "status",
             headerName: "Status",
-            minWidth: 150,
+            minWidth: 100,
             flex: 0.5,
             cellClassName: (params) => {
                 return params.getValue(params.id, "status") === "Delivered"
@@ -45,12 +45,12 @@ function MyOrders() {
                     : "redColor";
             },
         },
-        
+
         {
             field: "itemsQty",
             headerName: "Items Qty",
             type: "number",
-            minWidth: 150,
+            minWidth: 80,
             flex: 0.3,
         },
 
@@ -58,7 +58,7 @@ function MyOrders() {
             field: "amount",
             headerName: "Amount",
             type: "number",
-            minWidth: 150,
+            minWidth: 100,
             flex: 0.5,
         },
 
@@ -93,6 +93,7 @@ function MyOrders() {
         });
 
     useEffect(() => {
+
         if (error) {
             alert.error(error);
             dispatch(clearErrors());
@@ -113,19 +114,21 @@ function MyOrders() {
                 {
                     loading ?
                         <div style={{
-                            marginTop: "4rem"
+                            margin: "2rem"
                         }}>
                             <Loader />
                         </div>
                         :
-                        <DataGrid
-                            rows={rows}
-                            columns={columns}
-                            pageSize={10}
-                            disableSelectionOnClick
-                            loading={loading}
-                            className="custom-list-table"
-                        />
+                        <div className='lg-padding-container'>
+                            <DataGrid
+                                rows={rows}
+                                columns={columns}
+                                disableSelectionOnClick
+                                loading={loading}
+                                autoHeight
+                                className="custom-list-table"
+                            />
+                        </div>
                 }
 
             </div>

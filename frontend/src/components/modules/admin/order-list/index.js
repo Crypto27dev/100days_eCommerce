@@ -158,9 +158,9 @@ function OrderList() {
                     <DataGrid
                         rows={rows}
                         columns={columns}
-                        pageSize={10}
                         disableSelectionOnClick
                         loading={loading}
+                        autoHeight
                         className="custom-list-table"
                     />
                 </div>

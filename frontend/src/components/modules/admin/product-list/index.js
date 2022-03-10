@@ -164,8 +164,8 @@ function ProductList() {
                     <DataGrid
                         rows={rows}
                         columns={columns}
-                        pageSize={10}
                         loading={loading}
+                        autoHeight
                         disableSelectionOnClick
                         className="custom-list-table"
                     />

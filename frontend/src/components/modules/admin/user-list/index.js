@@ -63,8 +63,8 @@ function UserList() {
         },
 
         {
-            field: "email",
-            headerName: "Email",
+            field: "id",
+            headerName: "User ID",
             minWidth: 200,
             flex: 1,
         },
@@ -85,13 +85,6 @@ function UserList() {
                     {params.value}
                 </div>
             ),
-        },
-
-        {
-            field: "id",
-            headerName: "User ID",
-            minWidth: 210,
-            flex: 1,
         },
 
         {
@@ -177,8 +170,8 @@ function UserList() {
                     <DataGrid
                         rows={rows}
                         columns={columns}
-                        pageSize={10}
                         loading={loading}
+                        autoHeight
                         disableSelectionOnClick
                         className="custom-list-table"
                     />

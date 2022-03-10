@@ -170,7 +170,7 @@ function ProcessOrder() {
                                                     <img src={item.image} alt="Product" />
 
                                                     <div className="details">
-                                                        <Link to={`/product/${item.product}`}>
+                                                        <Link to={`/products/${item.product}`}>
                                                             {item.name}
                                                         </Link>
                                                         <span>

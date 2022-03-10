@@ -1,0 +1,64 @@
+.order-details-box {
+    width: 100%;
+    max-width: 60rem;
+    position: relative;
+    background-color: var(--whiteColor);
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(51, 51, 51, 0.1);
+
+    height: fit-content;
+
+    margin: 0 1rem;
+}
+
+.order-details-box .box-header {
+    width: 100%;
+    padding: 1rem;
+    border-bottom: 1px solid var(--lightGrayColor);
+}
+
+.order-details-box .box-header>p {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.order-details-box .details-box {
+    padding: 1rem;
+    border-bottom: 1px solid var(--lightGrayColor);
+}
+
+.item-list {
+    padding: 1rem;
+    border-bottom: 1px solid var(--lightGrayColor);
+}
+
+.item-list .item-card {
+    display: flex;
+    flex-direction: row;
+}
+
+.item-list .item-card img {
+    width: 10rem;
+    height: auto;
+    max-height: 10rem;
+    object-fit: contain;
+}
+
+.item-list .item-card .details {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
+}
+
+.item-list .item-card .details>a {
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-decoration: none;
+
+    color: var(--primaryTextColor);
+    margin-bottom: 1rem;
+}
+
+.item-list .item-card .details>a:hover {
+    color: var(--activeColor);
+}
