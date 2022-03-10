@@ -252,6 +252,26 @@ iframe {
   text-align: center;
 }
 
+.info-tile {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.info-tile>p {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.info-tile>span {
+  font-size: 1rem;
+  margin-top: 0.25rem;
+}
+
+.info-tile:last-child {
+  margin-bottom: 0;
+}
+
 @media screen and (min-width: 1368px) {
   .app__flex-container {
     width: 80%;
@@ -554,6 +574,10 @@ input[type="file"]::file-selector-button:hover {
   color: var(--errorColor) !important;
 }
 
+.orangeColor {
+  color: rgb(255, 180, 20);
+}
+
 .greenStatusBox {
   color: var(--successColor) !important;
   border: 1px solid var(--successColor) !important;
@@ -566,4 +590,42 @@ input[type="file"]::file-selector-button:hover {
   border: 1px solid var(--errorColor) !important;
   padding: 0.25rem 0.5rem;
   border-radius: 20px;
+}
+
+.redStatusBox {
+  color: rgb(255, 180, 20) !important;
+  border: 1px solid rgb(255, 180, 20) !important;
+  padding: 0.25rem 0.5rem;
+  border-radius: 20px;
+}
+
+.custom-list-table {
+  width: 100%;
+  background-color: var(--whiteColor);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.custom-list-table div {
+  color: var(--primaryTextColor);
+  text-align: center;
+}
+
+.custom-list-table a,
+.custom-list-table button {
+  color: var(--activeColor);
+  transition: all 0.5s;
+}
+
+.custom-list-table a:hover {
+  opacity: 0.75;
+}
+
+.custom-list-table button:hover {
+  color: var(--errorColor);
+}
+
+.MuiDataGrid-columnHeader div {
+  color: var(--voidColor);
+  font-weight: 600;
 }

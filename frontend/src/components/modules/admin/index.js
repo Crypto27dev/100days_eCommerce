@@ -9,6 +9,7 @@ const OrderList = lazy(() => import("./order-list"));
 const EditUser = lazy(() => import("./update-user"));
 const EditProduct = lazy(() => import("./update-product"));
 const ReviewList = lazy(() => import("./review-list"));
+const EditOrder = lazy(() => import('./process-order'));
 
 const routes = [
     {
@@ -44,6 +45,11 @@ const routes = [
     {
         path: 'orders',
         element: <ProtectedRoute isAdmin={true}> <OrderList /> </ProtectedRoute>
+    },
+
+    {
+        path: 'orders/:id',
+        element: <ProtectedRoute isAdmin={true}> <EditOrder /> </ProtectedRoute>
     },
 
     {

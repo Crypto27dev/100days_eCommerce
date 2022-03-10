@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useAlert } from "react-alert";
 import { Country, State } from "country-state-city";
 import { FaCity, FaGlobe, FaHome, FaKey, FaLocationArrow, FaPhone } from 'react-icons/fa';
 import {
@@ -15,7 +14,6 @@ import CheckoutSteps from '../checkout-steps';
 function Shipping() {
 
     const dispatch = useDispatch();
-    const alert = useAlert();
     const navigate = useNavigate();
 
     const { shippingInfo } = useSelector((state) => state.cart);
@@ -30,10 +28,6 @@ function Shipping() {
     const shippingSubmit = (e) => {
         e.preventDefault();
 
-        if (phoneNo.length < 10 || phoneNo.length > 10) {
-            alert.error("Phone Number should be 10 digits Long");
-            return;
-        }
         dispatch(
             saveShippingInfo({
                 address,

@@ -25,7 +25,7 @@ function OrderList() {
     const navigate = useNavigate();
 
     const { token } = useSelector((state) => state.user);
-    const { error, orders } = useSelector((state) => state.allOrders);
+    const { error, orders, loading } = useSelector((state) => state.allOrders);
     const { error: deleteError, isDeleted } = useSelector((state) => state.order);
 
     const deleteOrderHandler = (id) => {
@@ -54,7 +54,7 @@ function OrderList() {
             minWidth: 150,
             flex: 0.5,
             renderCell: (params) => {
-                return <div className={params.value === "Delivered" ? "greenStatusBox" : "redStatusBox"}
+                return <div className={params.value === "Delivered" ? "greenStatusBox" : params.value === "Shipped" ? "orangeStatusBox" : "redStatusBox"}
                 > {params.value} </div>
             }
         },
@@ -84,7 +84,7 @@ function OrderList() {
             renderCell: (params) => {
                 return (
                     <>
-                        <Link to={`/admin/order/${params.getValue(params.id, "id")}`}>
+                        <Link to={`/admin/orders/${params.getValue(params.id, "id")}`}>
                             <EditIcon />
                         </Link>
 
@@ -160,6 +160,7 @@ function OrderList() {
                         columns={columns}
                         pageSize={10}
                         disableSelectionOnClick
+                        loading={loading}
                         className="custom-list-table"
                     />
                 </div>

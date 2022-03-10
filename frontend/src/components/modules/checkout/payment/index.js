@@ -1,10 +1,8 @@
-import './Payment.css';
+import '../Checkout.css';
 import { useEffect, useRef, useState } from 'react';
 import { useAlert } from 'react-alert';
 import { useSelector, useDispatch } from 'react-redux';
-import CreditCardIcon from '@mui/icons-material/CreditCard';
-import EventIcon from '@mui/icons-material/Event';
-import VpnKeyIcon from '@mui/icons-material/VpnKey';
+import { FaCalendarAlt, FaCreditCard, FaKey } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import {
@@ -30,16 +28,17 @@ function Payment() {
     const elements = useElements();
     const payBtn = useRef(null);
 
-    const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
-
     const { shippingInfo, cartItems } = useSelector((state) => state.cart);
-    const { user } = useSelector((state) => state.user);
+    const { user, token } = useSelector((state) => state.user);
     const { error } = useSelector((state) => state.newOrder);
 
     const [loading, setLoading] = useState(false);
 
+    const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
+
     const paymentData = {
-        amount: Math.round(orderInfo.totalPrice * 100)
+        amount: Math.round(orderInfo.totalPrice * 100),
+        email: user.email
     };
 
     const order = {
@@ -61,10 +60,14 @@ function Payment() {
             const config = {
                 headers: {
                     "Content-Type": "application/json",
-                },
+                    "Authorization": `Bearer ${token}`
+                }
             };
+
+            console.log(token);
+
             const { data } = await axios.post(
-                "/api/v1/payment/process",
+                "/api/v1/payment/create",
                 paymentData,
                 config
             );
@@ -102,11 +105,11 @@ function Payment() {
                         status: result.paymentIntent.status,
                     };
 
-                    dispatch(createOrder(order));
+                    dispatch(createOrder(order, token));
 
                     setLoading(false);
 
-                    navigate("/success");
+                    navigate("/checkout/success");
 
                 } else {
                     setLoading(false);
@@ -116,6 +119,7 @@ function Payment() {
         } catch (error) {
             payBtn.current.disabled = false;
             setLoading(false);
+            console.log(error.response.data.message)
             alert.error(error.response.data.message);
         }
     };
@@ -135,46 +139,61 @@ function Payment() {
 
             <MetaData title="Payment - NixLab Shop" />
 
-            <CheckoutSteps activeStep={2} />
-
             <div className="flex-container">
 
+                <CheckoutSteps activeStep={2} />
+
                 <form className="app__flex-card"
+                    style={{
+                        marginTop: "2rem"
+                    }}
                     onSubmit={(e) => submitHandler(e)}
                 >
 
-                    <div className='form-control'>
-                        <CreditCardIcon />
-                        <CardNumberElement className="paymentInput" />
-                    </div>
-
-                    <div className='form-control'>
-                        <EventIcon />
-                        <CardExpiryElement className="paymentInput" />
-                    </div>
-
-                    <div className='form-control'>
-                        <VpnKeyIcon />
-                        <CardCvcElement className="paymentInput" />
-                    </div>
-
                     {
-                        loading ?
+                        loading &&
+                        <div style={{
+                            marginBottom: "1rem"
+                        }}>
                             <Loader />
-                            :
-                            <input
-                                type="submit"
-                                value={`Pay ₹${orderInfo && orderInfo.totalPrice}`}
-                                ref={payBtn}
-                                className="paymentFormBtn"
-                            />
+                        </div>
                     }
 
+                    <div className='form-control'>
+                        <FaCreditCard />
+                        <CardNumberElement className="payment-input" />
+                    </div>
+
+                    <div className='form-control'>
+                        <FaCalendarAlt />
+                        <CardExpiryElement className="payment-input" />
+                    </div>
+
+                    <div className='form-control'>
+                        <FaKey />
+                        <CardCvcElement
+                            className="payment-input"
+                        />
+                    </div>
+
+                    <input
+                        type="submit"
+                        value={`Pay ₹${orderInfo && orderInfo.totalPrice}`}
+                        ref={payBtn}
+                        className="rounded-filled-btn"
+                        disabled={loading}
+                        style={{
+                            marginTop: "1rem"
+                        }}
+                    />
+
                 </form>
+
             </div>
 
         </div>
     )
+
 }
 
 export default AppWrap(Payment);

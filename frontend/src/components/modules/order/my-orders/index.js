@@ -1,14 +1,14 @@
-import './MyOrders.css';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
-import MetaData from "../../layout/MetaData";
-import Loader from "../../layout/loader/Loader";
 import LaunchIcon from "@mui/icons-material/Launch";
 import { DataGrid } from '@mui/x-data-grid';
-import { Typography } from "@mui/material";
-import { clearErrors, myOrders } from "../../../redux/actions/orderAction";
+import { clearErrors, myOrders } from "../../../../redux/actions/orderAction";
+import AppWrap from '../../../hoc/AppWrap';
+import MetaData from "../../../layout/MetaData";
+import Loader from "../../../layout/loader/Loader";
+
 
 function MyOrders() {
 
@@ -16,10 +16,23 @@ function MyOrders() {
     const alert = useAlert();
 
     const { loading, error, orders } = useSelector((state) => state.myOrders);
-    const { user } = useSelector((state) => state.user);
+    const { token } = useSelector((state) => state.user);
 
     const columns = [
-        { field: "id", headerName: "Order ID", minWidth: 300, flex: 1 },
+
+        {
+            field: "ind",
+            headerName: "S. No.",
+            minWidth: 100,
+            flex: 0.5
+        },
+
+        {
+            field: "id",
+            headerName: "Order ID",
+            minWidth: 240,
+            flex: 1
+        },
 
         {
             field: "status",
@@ -32,6 +45,7 @@ function MyOrders() {
                     : "redColor";
             },
         },
+        
         {
             field: "itemsQty",
             headerName: "Items Qty",
@@ -44,31 +58,33 @@ function MyOrders() {
             field: "amount",
             headerName: "Amount",
             type: "number",
-            minWidth: 270,
+            minWidth: 150,
             flex: 0.5,
         },
 
         {
             field: "actions",
             flex: 0.3,
-            headerName: "Actions",
-            minWidth: 150,
+            headerName: "",
+            minWidth: 80,
             type: "number",
             sortable: false,
             renderCell: (params) => {
                 return (
-                    <Link to={`/order/${params.getValue(params.id, "id")}`}>
+                    <Link to={`/orders/${params.getValue(params.id, "id")}`}>
                         <LaunchIcon />
                     </Link>
                 );
             },
         },
     ];
+
     const rows = [];
 
     orders &&
-        orders.forEach((item, index) => {
+        orders.forEach((item, i) => {
             rows.push({
+                ind: (i + 1),
                 itemsQty: item.orderItems.length,
                 id: item._id,
                 status: item.orderStatus,
@@ -82,41 +98,39 @@ function MyOrders() {
             dispatch(clearErrors());
         }
 
-        dispatch(myOrders());
+        dispatch(myOrders(token));
 
         return () => { }
 
-    }, [dispatch, alert, error]);
+    }, [dispatch, alert, error, token]);
 
     return (
-        <div style={{
-            marginTop: 80
-        }}>
+        <div className='app__top-margin'>
+            <MetaData title={`My Orders - NixLab Shop`} />
 
-            <MetaData title={`${user.name} - Orders`} />
+            <div className="flex-container">
 
-            {
-                loading ?
-                    <Loader fullScreen={true} /> :
-                    <div className="myOrdersPage">
+                {
+                    loading ?
+                        <div style={{
+                            marginTop: "4rem"
+                        }}>
+                            <Loader />
+                        </div>
+                        :
                         <DataGrid
                             rows={rows}
                             columns={columns}
                             pageSize={10}
                             disableSelectionOnClick
-                            className="myOrdersTable"
-                            autoHeight
+                            loading={loading}
+                            className="custom-list-table"
                         />
+                }
 
-                        <Typography
-                            id="myOrdersHeading">
-                            {user.name}'s Orders
-                        </Typography>
-                    </div>
-            }
-
+            </div>
         </div>
     )
 }
 
-export default MyOrders;
+export default AppWrap(MyOrders);

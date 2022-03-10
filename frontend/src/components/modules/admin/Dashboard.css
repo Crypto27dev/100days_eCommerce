@@ -109,6 +109,75 @@
     margin-right: 5px;
 }
 
+.app__order-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.app__order-container .shipping-info-box {
+    position: relative;
+    background-color: var(--whiteColor);
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(51, 51, 51, 0.1);
+
+    height: fit-content;
+
+    margin: 0 1rem;
+}
+
+.app__order-container .shipping-info-box .box-header {
+    width: 100%;
+    padding: 1rem;
+    border-bottom: 1px solid var(--lightGrayColor);
+}
+
+.app__order-container .shipping-info-box .box-header>p {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.app__order-container .shipping-info-box .order-details {
+    padding: 1rem;
+    border-bottom: 1px solid var(--lightGrayColor);
+}
+
+.item-list {
+    padding: 1rem;
+    border-bottom: 1px solid var(--lightGrayColor);
+}
+
+.item-list .item-card {
+    display: flex;
+    flex-direction: row;
+}
+
+.item-list .item-card img {
+    width: 10rem;
+    height: auto;
+    max-height: 10rem;
+    object-fit: contain;
+}
+
+.item-list .item-card .details {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
+}
+
+.item-list .item-card .details>a {
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-decoration: none;
+
+    color: var(--primaryTextColor);
+    margin-bottom: 1rem;
+}
+
+.item-list .item-card .details>a:hover {
+    color: var(--activeColor);
+}
+
 @media screen and (max-width: 768px) {
 
     .app__dashboard {
@@ -131,126 +200,5 @@
 
     .search-box button>span {
         display: none;
-    }
-}
-
-.custom-list-table {
-    width: 100%;
-    background-color: var(--whiteColor);
-    border-radius: 10px;
-    text-align: center;
-}
-
-.custom-list-table div {
-    color: var(--primaryTextColor);
-    text-align: center;
-}
-
-.custom-list-table a,
-.custom-list-table button {
-    color: var(--activeColor);
-    transition: all 0.5s;
-}
-
-.custom-list-table a:hover {
-    opacity: 0.75;
-}
-
-.custom-list-table button:hover {
-    color: var(--errorColor);
-}
-
-.MuiDataGrid-columnHeader div {
-    color: var(--voidColor);
-    font-weight: 600;
-}
-
-.dashboardContainer {
-    border-left: 1px solid rgba(0, 0, 0, 0.13);
-    padding: 3rem 0;
-}
-
-.dashboardContainer>h1 {
-    color: rgba(0, 0, 0, 0.733);
-    font: 300 2rem "Roboto";
-    text-align: center;
-    width: 50%;
-    padding: 1.5rem;
-    margin: auto;
-}
-
-.dashboardSummary {
-    margin: 2rem 0;
-}
-
-.dashboardSummary>div {
-    display: flex;
-    background-color: white;
-    justify-content: center;
-}
-
-.dashboardSummary>div>p {
-    background-color: rgba(70, 117, 218, 0.932);
-    color: white;
-    font: 300 1.3rem "Roboto";
-    text-align: center;
-    padding: 1.5rem;
-    width: 100%;
-    margin: 0 2rem;
-}
-
-.dashboardSummaryBox2>a {
-    color: rgb(0, 0, 0);
-    font: 300 2rem "Roboto";
-    text-align: center;
-    background-color: rgb(255, 233, 174);
-    text-decoration: none;
-    padding: 2rem;
-    margin: 2rem;
-    aspect-ratio: 1.0;
-    border-radius: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-.dashboardSummaryBox2>a:first-child {
-    background-color: rgb(255, 110, 110);
-    color: rgb(255, 255, 255);
-}
-
-.dashboardSummaryBox2>a:last-child {
-    background-color: rgb(51, 51, 51);
-    color: rgb(255, 255, 255);
-}
-
-.lineChart {
-    width: 80%;
-    margin: auto;
-}
-
-.doughnutChart {
-    width: 30vmax;
-    margin: auto;
-}
-
-@media screen and (max-width: 768px) {
-    .dashboard {
-        grid-template-columns: 1fr;
-    }
-
-    .dashboardContainer {
-        border-left: none;
-    }
-
-    .dashboardSummary>div>p {
-        margin: 0;
-    }
-
-    .dashboardSummaryBox2>a {
-        padding: 0.5rem;
-        margin: 1rem;
-        font: 300 0.9rem "Roboto";
     }
 }

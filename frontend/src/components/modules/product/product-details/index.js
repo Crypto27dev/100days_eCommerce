@@ -112,14 +112,15 @@ function ProductDetails() {
 
     return (
         <div className='app__top-margin'>
+
+            <MetaData title={`Buy ${product.name} - NixLab Shop`} />
+
             <div className='flex-container'>
 
                 {
                     loading &&
                     <Loader />
                 }
-
-                <MetaData title={`${product.name} - NixLab Shop`} />
 
                 <div className="product-details-container">
 

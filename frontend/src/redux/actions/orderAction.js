@@ -17,10 +17,10 @@ import {
     ORDER_DETAILS_REQUEST,
     ORDER_DETAILS_SUCCESS,
     ORDER_DETAILS_FAIL,
-    CLEAR_ERRORS,
+    CLEAR_ERRORS
 } from "../constants/orderConstants";
-
 import axios from "axios";
+
 
 // Create Order
 export const createOrder = (order, token) => async (dispatch) => {
@@ -44,6 +44,7 @@ export const createOrder = (order, token) => async (dispatch) => {
             type: CREATE_ORDER_SUCCESS,
             payload: data.result
         });
+
     } catch (error) {
         dispatch({
             type: CREATE_ORDER_FAIL,

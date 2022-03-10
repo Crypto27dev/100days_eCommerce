@@ -2,7 +2,6 @@ import { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter as Router, Navigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import WebFont from 'webfontloader';
-// import axios from 'axios';
 import { loadUser } from './redux/actions/userAction';
 import { TraverseRoutes } from './components/route';
 import Loader from './components/layout/loader/Loader';
@@ -15,6 +14,7 @@ const AdminModule = lazy(() => import('./components/modules/admin'));
 const ProductModule = lazy(() => import('./components/modules/product'));
 const CartModule = lazy(() => import('./components/modules/cart'));
 const CheckoutModule = lazy(() => import('./components/modules/checkout'));
+const OrderModule = lazy(() => import('./components/modules/order'));
 
 const routes = [
   {
@@ -58,6 +58,11 @@ const routes = [
   },
 
   {
+    path: 'orders/*',
+    element: <OrderModule />
+  },
+
+  {
     path: '*',
     element: <NotFound />
   }
@@ -66,16 +71,6 @@ const routes = [
 function App() {
 
   const dispatch = useDispatch();
-
-  // const [stripeApiKey, setStripeApiKey] = useState("");
-
-  // async function getStripeApiKey() {
-
-  //   const { data } = await axios.get("/api/v1/stripe/key");
-
-  //   setStripeApiKey(data.key);
-
-  // }
 
   useEffect(() => {
 
@@ -90,8 +85,6 @@ function App() {
     if (token) {
       dispatch(loadUser(token));
     }
-
-    // getStripeApiKey();
 
     return () => { }
 
@@ -112,67 +105,7 @@ function App() {
 
       {/* <Routes>
 
-        <Route path="/" element={<Home />} />
-
-        <Route path="/product/:id" element={<ProductDetails />} />
-
-        <Route path="/products" element={<Products />} />
-
-        <Route path="/products/:keyword" element={<Products />} />
-
-        <Route path="/search" element={<Search />} />
-
-        <Route path="/login" element={<LoginSignup />} />
-
-        <Route path="/register" element={<Register />} />
-
-        <Route path="/account" element={
-          <ProtectedRoute>
-            <Profile />
-          </ProtectedRoute>
-        } />
-
-        <Route path="/me/update" element={
-          <ProtectedRoute>
-            <UpdateProfile />
-          </ProtectedRoute>
-        } />
-
-        <Route path="/password/update" element={
-          <ProtectedRoute>
-            <UpdatePassword />
-          </ProtectedRoute>
-        } />
-
-        <Route path="/password/forgot" element={<ForgotPassword />} />
-
-        <Route path="/password/reset/:token" element={<ResetPassword />} />
-
-        <Route path="/cart" element={<Cart />} />
-
-        <Route path="/shipping" element={
-          <ProtectedRoute>
-            <Shipping />
-          </ProtectedRoute>
-        } />
-
-        {
-          stripeApiKey &&
-          <Route path="/process/payment" element={
-            <Elements stripe={loadStripe(stripeApiKey)}>
-              <ProtectedRoute>
-                <Payment />
-              </ProtectedRoute>
-            </Elements>
-          } />
-        }
-
-        <Route path="/success" element={
-          <ProtectedRoute>
-            <OrderSuccess />
-          </ProtectedRoute>
-        } />
-
+        
         <Route path="/orders" element={
           <ProtectedRoute>
             <MyOrders />
