@@ -88,19 +88,19 @@ function OrderDetails() {
                                     </span>
                                 </div>
 
-                                <Typography>Order Status</Typography>
-                                <div className="orderDetailsContainerBox">
-                                    <div>
-                                        <p
-                                            className={
-                                                order.orderStatus && order.orderStatus === "Delivered"
-                                                    ? "greenColor"
-                                                    : "redColor"
-                                            }
-                                        >
-                                            {order.orderStatus && order.orderStatus}
-                                        </p>
-                                    </div>
+                                <div className="info-tile">
+                                    <p>
+                                        Order Status
+                                    </p>
+                                    <span
+                                        className={
+                                            order.orderStatus && order.orderStatus === "Delivered"
+                                                ? "greenColor"
+                                                : "redColor"
+                                        }
+                                    >
+                                        {order.orderStatus && order.orderStatus}
+                                    </span>
                                 </div>
                             </div>
 
