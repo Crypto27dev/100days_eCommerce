@@ -125,7 +125,7 @@ function Header() {
                 <div className='header-icon'
                     onClick={
                         () => {
-                            navigate("/search");
+                            navigate("/products/search");
                         }
                     }>
                     <FiSearch />

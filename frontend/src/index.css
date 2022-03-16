@@ -629,6 +629,14 @@ input[type="file"]::file-selector-button:hover {
   justify-content: center;
 }
 
+@media screen and (max-width: 768px) {
+  .product-list-container {
+    align-items: center;
+    margin: 0;
+    margin-bottom: 1rem;
+  }
+}
+
 .greenColor {
   color: var(--successColor) !important;
 }

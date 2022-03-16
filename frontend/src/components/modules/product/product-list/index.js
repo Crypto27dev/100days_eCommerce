@@ -1,7 +1,6 @@
 import '../Product.css';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Slider } from '@mui/material';
 import { useAlert } from 'react-alert';
 import { useParams } from 'react-router-dom';
 import Pagination from '@mui/material/Pagination';
@@ -38,7 +37,8 @@ const Products = () => {
     const alert = useAlert();
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [price, setPrice] = useState([0, 500000]);
+    const [minPrice, setMinPrice] = useState(0);
+    const [maxPrice, setMaxPrice] = useState(500000);
     const [category, setCategory] = useState(categories[0]);
     const [ratings, setRatings] = useState(0);
 
@@ -48,11 +48,9 @@ const Products = () => {
         setCurrentPage(v);
     };
 
-    const priceHandler = (event, newPrice) => {
-        setPrice(newPrice);
-    };
-
     let count = filteredProductsCount;
+
+    const totalPages = Math.ceil(productsCount / resultPerPage);
 
     useEffect(() => {
 
@@ -61,11 +59,11 @@ const Products = () => {
             dispatch(clearErrors());
         }
 
-        dispatch(getProducts(keyword, currentPage, price, category, ratings));
+        dispatch(getProducts(keyword, currentPage, minPrice, maxPrice, category, ratings));
         return () => { }
     }, [
-        dispatch, error, alert, keyword,
-        currentPage, price, category, ratings
+        dispatch, error, alert, keyword, currentPage,
+        minPrice, maxPrice, category, ratings
     ])
 
     return (
@@ -79,22 +77,9 @@ const Products = () => {
 
                     <div className="filter-box">
 
-                        <div className="price-filter">
-
-                            <h2>
-                                Price Between
-                            </h2>
-
-                            <Slider
-                                value={price}
-                                onChange={priceHandler}
-                                valueLabelDisplay="auto"
-                                aria-labelledby="range-slider"
-                                min={0}
-                                max={500000}
-                            />
-
-                        </div>
+                        <h1>
+                            Filters
+                        </h1>
 
                         <div className='category-filter'>
 
@@ -102,36 +87,75 @@ const Products = () => {
                                 Categories
                             </h2>
 
-                            <ul className="categoryBox">
-                                {categories.map((category) => (
+                            <ul className="category-list">
+                                {categories.map((item) => (
                                     <li
-                                        className="category-link"
-                                        key={category}
-                                        onClick={() => setCategory(category)}
+                                        className={category === item ? "category-link selected" : "category-link"}
+                                        item key={item}
+                                        onClick={() => setCategory(item)}
                                     >
-                                        {category}
+                                        {item}
                                     </li>
                                 ))}
                             </ul>
 
                         </div>
 
+                        <div className="price-filter">
+
+                            <h2>
+                                Price
+                            </h2>
+
+                            <div className="price-range-input">
+
+                                <select onChange={(e) => setMinPrice(e.target.value)}
+                                    value={minPrice}
+                                >
+                                    <option value="0">MIN</option>
+                                    <option value="100">₹100</option>
+                                    <option value="500">₹500</option>
+                                    <option value="1000">₹1000</option>
+                                    <option value="2000">₹2000</option>
+                                </select>
+
+                                <span>
+                                    to
+                                </span>
+
+                                <select onChange={(e) => setMaxPrice(e.target.value)}
+                                    value={maxPrice}
+                                >
+                                    <option value="50000">MAX</option>
+                                    <option value="100">₹100</option>
+                                    <option value="500">₹500</option>
+                                    <option value="1500">₹1500</option>
+                                    <option value="2500">₹2500</option>
+                                    <option value="5000">₹5000</option>
+                                    <option value="10000">₹10000</option>
+                                    <option value="50000">₹50000+</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+
                         <div className='rating-filter'>
 
                             <h2>
-                                Ratings Above
+                                Ratings
                             </h2>
 
-                            <Slider
+
+                            <select onChange={(e) => setRatings(e.target.value)}
                                 value={ratings}
-                                onChange={(e, newRating) => {
-                                    setRatings(newRating);
-                                }}
-                                aria-labelledby="continuous-slider"
-                                valueLabelDisplay="auto"
-                                min={0}
-                                max={5}
-                            />
+                            >
+                                <option value="0">0★ & above</option>
+                                <option value="4">4★ & above</option>
+                                <option value="3">3★ & above</option>
+                                <option value="2">2★ & above</option>
+                                <option value="1">1★ & above</option>
+                            </select>
 
                         </div>
 
@@ -162,8 +186,10 @@ const Products = () => {
                 {
                     (resultPerPage < count) &&
                     <Pagination
-                        count={Math.ceil(productsCount / resultPerPage)}
+                        count={totalPages}
                         onChange={setCurrentPageNo}
+                        showFirstButton
+                        showLastButton
                     />
                 }
 

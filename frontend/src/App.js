@@ -15,6 +15,8 @@ const ProductModule = lazy(() => import('./components/modules/product'));
 const CartModule = lazy(() => import('./components/modules/cart'));
 const CheckoutModule = lazy(() => import('./components/modules/checkout'));
 const OrderModule = lazy(() => import('./components/modules/order'));
+const About = lazy(() => import('./components/modules/about'));
+const Contact = lazy(() => import('./components/modules/contact'));
 
 const routes = [
   {
@@ -60,6 +62,16 @@ const routes = [
   {
     path: 'orders/*',
     element: <OrderModule />
+  },
+
+  {
+    path: 'about',
+    element: <About />
+  },
+
+  {
+    path: 'contact',
+    element: <Contact />
   },
 
   {
