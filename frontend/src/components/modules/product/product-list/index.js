@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Slider } from '@mui/material';
 import { useAlert } from 'react-alert';
 import { useParams } from 'react-router-dom';
-// import Pagination from 'react-js-pagination';
+import Pagination from '@mui/material/Pagination';
 import AppWrap from '../../../hoc/AppWrap';
 import { getProducts, clearErrors } from '../../../../redux/actions/productAction';
 import Loader from '../../../layout/loader/Loader';
@@ -39,14 +39,13 @@ const Products = () => {
 
     const [currentPage, setCurrentPage] = useState(1);
     const [price, setPrice] = useState([0, 500000]);
-    const [category, setCategory] = useState("");
-
+    const [category, setCategory] = useState(categories[0]);
     const [ratings, setRatings] = useState(0);
 
     const { keyword } = useParams();
 
-    const setCurrentPageNo = (e) => {
-        setCurrentPage(e);
+    const setCurrentPageNo = (e, v) => {
+        setCurrentPage(v);
     };
 
     const priceHandler = (event, newPrice) => {
@@ -160,24 +159,13 @@ const Products = () => {
 
                 </div>
 
-                {/* {resultPerPage < count && (
-                            <div className="paginationBox">
-                                <Pagination
-                                    activePage={currentPage}
-                                    itemsCountPerPage={resultPerPage}
-                                    totalItemsCount={productsCount}
-                                    onChange={setCurrentPageNo}
-                                    nextPageText="Next"
-                                    prevPageText="Prev"
-                                    firstPageText="1st"
-                                    lastPageText="Last"
-                                    itemClass="page-item"
-                                    linkClass="page-link"
-                                    activeClass="pageItemActive"
-                                    activeLinkClass="pageLinkActive"
-                                />
-                            </div>
-                        )} */}
+                {
+                    (resultPerPage < count) &&
+                    <Pagination
+                        count={Math.ceil(productsCount / resultPerPage)}
+                        onChange={setCurrentPageNo}
+                    />
+                }
 
             </div>
 
