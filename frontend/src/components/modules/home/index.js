@@ -1,7 +1,7 @@
 import { TraverseRoutes } from "../../route";
 import { lazy } from "react";
 
-const Home = lazy(() => import('./Home'))
+const Home = lazy(() => import('./homepage'))
 
 const routes = [
     {

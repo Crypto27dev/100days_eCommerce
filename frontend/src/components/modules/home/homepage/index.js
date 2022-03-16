@@ -1,19 +1,19 @@
-import './Home.css';
 import { useEffect } from 'react';
-import ProductCard from './ProductCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAlert } from 'react-alert';
+import { useNavigate } from 'react-router-dom';
 import { getProducts, clearErrors } from '../../../../redux/actions/productAction';
 import Loader from '../../../layout/loader/Loader';
 import MetaData from '../../../layout/MetaData';
 import AppWrap from '../../../hoc/AppWrap';
+import ProductCard from '../../../common/product-card';
 
 
 function Home() {
 
     const dispatch = useDispatch();
-
     const alert = useAlert();
+    const navigate = useNavigate();
 
     const {
         loading, error, products
@@ -43,8 +43,7 @@ function Home() {
                     Featured Products
                 </div>
 
-                <div className="product-list-container"
-                >
+                <div className="product-list-container">
                     {
                         loading ?
                             <Loader />
@@ -57,6 +56,12 @@ function Home() {
                             })
                     }
                 </div>
+
+                <button className="rounded-outlined-btn"
+                    onClick={() => navigate("/products")}
+                >
+                    View More Products
+                </button>
 
             </div>
 

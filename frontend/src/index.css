@@ -525,9 +525,44 @@ input[type="file"]::file-selector-button:hover {
   opacity: 0.75;
 }
 
-/* @media screen and (max-width: 768px) {
+.text-btn {
+  width: fit-content;
+  display: flex;
+  align-items: center;
 
-} */
+  color: var(--activeColor);
+
+  font-size: 1.1rem;
+
+  text-decoration: none;
+  outline: none;
+}
+
+.text-btn:hover {
+  opacity: 0.75;
+}
+
+.rounded-outlined-btn {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--activeColor);
+  border: 1px solid var(--activeColor);
+  border-radius: 2rem;
+
+  padding: 0.25rem 1rem;
+
+  font-size: 1.1rem;
+
+  text-decoration: none;
+  outline: none;
+}
+
+.rounded-outlined-btn:hover {
+  opacity: 0.75;
+}
 
 .custom-item-tile {
   width: 100%;
@@ -575,6 +610,23 @@ input[type="file"]::file-selector-button:hover {
   border: 1px solid var(--lightGrayColor);
 
   transition: all 0.5s ease-in-out;
+}
+
+.head-text {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.product-list-container {
+  width: 100%;
+
+  margin: 1rem;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .greenColor {

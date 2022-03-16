@@ -1,8 +1,10 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import './ProductCard.css';
+import { useNavigate } from 'react-router-dom';
 import Rating from '@mui/material/Rating';
 
 function ProductCard({ product }) {
+
+    const navigate = useNavigate();
 
     const options = {
         size: "large",
@@ -12,8 +14,8 @@ function ProductCard({ product }) {
     };
 
     return (
-        <Link className='product-card'
-            to={`/products/${product._id}`}
+        <div className='product-card'
+            onClick={() => navigate(`/products/${product._id}`)}
         >
             <img className='product-img'
                 src={product.images[0].url}
@@ -25,9 +27,12 @@ function ProductCard({ product }) {
 
             <Rating {...options} />
 
-            <span>{`₹${product.price}`}</span>
+            <span className='price'
+            >
+                {`₹${product.price}`}
+            </span>
 
-        </Link>
+        </div>
     )
 }
 

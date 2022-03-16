@@ -245,6 +245,74 @@
     height: fit-content;
 }
 
+.filter-box {
+    flex: 2;
+    position: relative;
+
+    height: fit-content;
+
+    margin-top: 1rem;
+    padding: 1rem;
+
+    background-color: var(--whiteColor);
+    border: 1px solid #e6e6e6;
+    border-radius: 0.5rem;
+}
+
+.product-list-container {
+    flex: 8;
+    position: relative;
+
+    padding: 0;
+}
+
+.filter-box .price-filter {
+    padding: 0 0.5rem;
+
+    border-bottom: 1px solid var(--lightGrayColor);
+}
+
+.filter-box .price-filter h2 {
+    font-size: 1.25rem;
+    margin: auto;
+    text-align: center;
+}
+
+.filter-box .category-filter {
+    margin: 1rem 0;
+
+    padding: 0 0.5rem;
+}
+
+.filter-box .category-filter h2 {
+    font-size: 1.25rem;
+    margin: auto;
+    text-align: center;
+}
+
+.filter-box .category-filter .category-link {
+    list-style: none;
+    margin: 0.5rem;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.filter-box .category-filter .category-link:hover {
+    color: var(--activeColor);
+}
+
+.filter-box .rating-filter {
+    padding: 0.5rem;
+
+    border-top: 1px solid var(--lightGrayColor);
+}
+
+.filter-box .rating-filter h2 {
+    font-size: 1.25rem;
+    margin: auto;
+    text-align: center;
+}
+
 @media screen and (min-width: 1367px) {
     .product-carousel-box {
         flex: 2;

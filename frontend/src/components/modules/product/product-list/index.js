@@ -1,16 +1,26 @@
-import './Products.css';
+import '../Product.css';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProducts, clearErrors } from '../../redux/actions/productAction';
-import Loader from '../layout/loader/Loader';
-import { useAlert } from 'react-alert';
-import MetaData from '../layout/MetaData';
-import ProductCard from '../home/ProductCard';
 import { Slider } from '@mui/material';
+import { useAlert } from 'react-alert';
 import { useParams } from 'react-router-dom';
-import Pagination from 'react-js-pagination';
-import { categories } from '../../assets/data/categoryData';
+// import Pagination from 'react-js-pagination';
+import AppWrap from '../../../hoc/AppWrap';
+import { getProducts, clearErrors } from '../../../../redux/actions/productAction';
+import Loader from '../../../layout/loader/Loader';
+import MetaData from '../../../layout/MetaData';
+import ProductCard from '../../../common/product-card';
 
+
+const categories = [
+    "All",
+    "Laptop",
+    "Mobile Phone",
+    "Men's Wear",
+    "Women's Wear",
+    "Accessories",
+    "Camera"
+];
 
 const Products = () => {
 
@@ -60,89 +70,97 @@ const Products = () => {
     ])
 
     return (
-        <div style={{
-            marginTop: 80
-        }}>
+        <div className='app__top-margin'>
 
-            {
-                loading ?
-                    <Loader fullScreen />
-                    :
-                    <div className='custom-container'>
+            <MetaData title="All Products - NixLab Shop" />
 
-                        <MetaData title="Products -- Ecommerce" />
-                        <h2 className="productsHeading">Products</h2>
+            <div className="flex-container">
 
-                        <div className="custom-row">
+                <div className='product-details-container'>
 
-                            <div className="filterBox">
-                                <div className='typography'>
-                                    Price Between
-                                </div>
-                                <Slider
-                                    value={price}
-                                    onChange={priceHandler}
-                                    valueLabelDisplay="auto"
-                                    aria-labelledby="range-slider"
-                                    min={0}
-                                    max={500000}
-                                />
+                    <div className="filter-box">
 
-                                <div style={{
-                                    marginTop: 20
-                                }}>
-                                    <div className='typography'
-                                        style={{
-                                            fontSize: 18,
-                                            marginBottom: 10
-                                        }}>
-                                        Categories
-                                    </div>
-                                    <ul className="categoryBox">
-                                        {categories.map((category) => (
-                                            <li
-                                                className="category-link"
-                                                key={category.id}
-                                                onClick={() => setCategory(category.name)}
-                                            >
-                                                {category.name}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
+                        <div className="price-filter">
 
-                                <div style={{
-                                    marginTop: 20
-                                }}>
-                                    <div className='typography'>
-                                        Ratings Above
-                                    </div>
-                                    <Slider
-                                        value={ratings}
-                                        onChange={(e, newRating) => {
-                                            setRatings(newRating);
-                                        }}
-                                        aria-labelledby="continuous-slider"
-                                        valueLabelDisplay="auto"
-                                        min={0}
-                                        max={5}
-                                    />
-                                </div>
+                            <h2>
+                                Price Between
+                            </h2>
 
-                            </div>
-
-                            <div className="products">
-                                {products &&
-                                    products.map((product) => (
-                                        <ProductCard
-                                            key={product._id}
-                                            product={product} />
-                                    ))}
-                            </div>
+                            <Slider
+                                value={price}
+                                onChange={priceHandler}
+                                valueLabelDisplay="auto"
+                                aria-labelledby="range-slider"
+                                min={0}
+                                max={500000}
+                            />
 
                         </div>
 
-                        {resultPerPage < count && (
+                        <div className='category-filter'>
+
+                            <h2>
+                                Categories
+                            </h2>
+
+                            <ul className="categoryBox">
+                                {categories.map((category) => (
+                                    <li
+                                        className="category-link"
+                                        key={category}
+                                        onClick={() => setCategory(category)}
+                                    >
+                                        {category}
+                                    </li>
+                                ))}
+                            </ul>
+
+                        </div>
+
+                        <div className='rating-filter'>
+
+                            <h2>
+                                Ratings Above
+                            </h2>
+
+                            <Slider
+                                value={ratings}
+                                onChange={(e, newRating) => {
+                                    setRatings(newRating);
+                                }}
+                                aria-labelledby="continuous-slider"
+                                valueLabelDisplay="auto"
+                                min={0}
+                                max={5}
+                            />
+
+                        </div>
+
+                    </div>
+
+                    <div className="product-list-container">
+                        {
+                            loading ?
+                                <div style={{
+                                    margin: "1rem"
+                                }}>
+                                    <Loader />
+                                </div>
+                                :
+                                products &&
+                                products.map((product) => (
+                                    <ProductCard
+                                        key={product._id}
+                                        product={product} />
+                                ))
+
+                        }
+
+                    </div>
+
+                </div>
+
+                {/* {resultPerPage < count && (
                             <div className="paginationBox">
                                 <Pagination
                                     activePage={currentPage}
@@ -159,13 +177,12 @@ const Products = () => {
                                     activeLinkClass="pageLinkActive"
                                 />
                             </div>
-                        )}
+                        )} */}
 
-                    </div>
-            }
+            </div>
 
         </div>
     )
 }
 
-export default Products;
+export default AppWrap(Products);
