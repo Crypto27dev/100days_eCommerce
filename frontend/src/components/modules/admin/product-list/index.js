@@ -17,6 +17,7 @@ import { DELETE_PRODUCT_RESET } from "../../../../redux/constants/productConstan
 import SideBar from "../sidebar";
 import MetaData from "../../../layout/MetaData";
 import AppWrap from '../../../hoc/AppWrap';
+import currency from '../../../helpers/currency';
 
 
 function ProductList() {
@@ -97,7 +98,7 @@ function ProductList() {
             minWidth: 120,
             flex: 0.5,
             renderCell: (params) => {
-                return <div> {`₹${params.value}`} </div>
+                return `₹${currency.format(params.value)}`
             }
         },
 

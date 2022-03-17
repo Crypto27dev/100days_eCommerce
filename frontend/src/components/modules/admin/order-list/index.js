@@ -16,6 +16,7 @@ import { DELETE_ORDER_RESET } from "../../../../redux/constants/orderConstants";
 import SideBar from "../sidebar";
 import MetaData from "../../../layout/MetaData";
 import AppWrap from "../../../hoc/AppWrap";
+import currency from "../../../helpers/currency";
 
 
 function OrderList() {
@@ -73,6 +74,9 @@ function OrderList() {
             type: "number",
             minWidth: 100,
             flex: 0.5,
+            renderCell: (params) => {
+                return `₹${currency.format(params.value)}`
+            }
         },
 
         {

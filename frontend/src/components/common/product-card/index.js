@@ -1,6 +1,8 @@
 import './ProductCard.css';
 import { useNavigate } from 'react-router-dom';
 import Rating from '@mui/material/Rating';
+import currency from '../../helpers/currency';
+
 
 function ProductCard({ product }) {
 
@@ -29,7 +31,7 @@ function ProductCard({ product }) {
 
             <span className='price'
             >
-                {`₹${product.price}`}
+                {`₹${currency.format(product.price)}`}
             </span>
 
         </div>

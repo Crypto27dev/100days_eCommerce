@@ -9,6 +9,7 @@ import {
 import Loader from "../../../layout/loader/Loader";
 import MetaData from "../../../layout/MetaData";
 import AppWrap from "../../../hoc/AppWrap";
+import currency from '../../../helpers/currency';
 
 
 function OrderDetails() {
@@ -132,7 +133,7 @@ function OrderDetails() {
                                     <p>Amount:</p>
 
                                     <span>
-                                        {order.totalPrice && order.totalPrice}
+                                        {currency.format(order.totalPrice && order.totalPrice)}
                                     </span>
                                 </div>
 
@@ -155,8 +156,8 @@ function OrderDetails() {
                                                     {item.name}
                                                 </Link>
                                                 <span>
-                                                    {item.quantity} X ₹{item.price} ={" "}
-                                                    <b>₹{item.price * item.quantity}</b>
+                                                    {item.quantity} X ₹{currency.format(item.price)} = {" "}
+                                                    <b>₹{currency.format(item.price * item.quantity)}</b>
                                                 </span>
                                             </div>
 

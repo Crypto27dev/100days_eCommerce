@@ -5,6 +5,7 @@ import {
     addItemsToCart, removeItemsFromCart
 } from "../../../../redux/actions/cartAction";
 import { AiFillDelete } from 'react-icons/ai';
+import currency from '../../../helpers/currency';
 
 
 function CartItemCard({ item }) {
@@ -47,7 +48,7 @@ function CartItemCard({ item }) {
                     </Link>
 
                     <div className="price">
-                        {`₹${item.price * item.quantity}`}
+                        {`₹${currency.format(item.price * item.quantity)}`}
                     </div>
 
                 </div>

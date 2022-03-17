@@ -7,13 +7,15 @@ import {
     FiShoppingCart,
     FiSearch,
     FiLogOut,
-    FiList
+    FiList,
+    FiPieChart
 } from "react-icons/fi";
 import { logout } from "../../../redux/actions/userAction";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Badge from '@mui/material/Badge';
 import Logo from '../../../assets/images/logo.png';
+import FavIcon from '../../../assets/images/favicon.png';
 import profilePng from "../../../assets/images/profile.jpg";
 
 
@@ -27,6 +29,8 @@ function Header() {
     const navigate = useNavigate();
 
     const [anchorEl, setAnchorEl] = useState(false);
+    const [searchKeyword, setSearchKeyword] = useState("");
+    const [showSearchBox, setShowSearchBox] = useState(false);
 
     const handleMenuClick = evt => {
         setAnchorEl(evt.currentTarget);
@@ -59,6 +63,15 @@ function Header() {
         navigate("/orders")
     }
 
+    const searchSubmitHandler = (e) => {
+        e.preventDefault();
+        if (searchKeyword.trim()) {
+            navigate(`/products/search/${searchKeyword}`);
+        } else {
+            navigate("/products");
+        }
+    };
+
     const UserOptions = [
         {
             icon: <FiUser />,
@@ -84,7 +97,7 @@ function Header() {
 
     if (isAuthenticated && !loading && user.role === "admin") {
         UserOptions.unshift({
-            icon: <FiUser />,
+            icon: <FiPieChart />,
             name: "Dashboard",
             func: navigateToDashboard
         })
@@ -105,11 +118,19 @@ function Header() {
                             navigate("/")
                         }
                     }>
-                    <img className="logo-img"
+                    <img className="logo-img logo-main"
                         width="100%"
                         height="100%"
                         src={Logo}
-                        alt="logo-img"
+                        alt="logo"
+                        loading="lazy"
+                    />
+
+                    <img className="logo-img favicon"
+                        width="100%"
+                        height="100%"
+                        src={FavIcon}
+                        alt="logo"
                         loading="lazy"
                     />
                 </div>
@@ -122,14 +143,32 @@ function Header() {
                 justifyContent: "space-between"
             }}>
 
-                <div className='header-icon'
-                    onClick={
-                        () => {
-                            navigate("/products/search");
-                        }
-                    }>
-                    <FiSearch />
-                </div>
+                {
+                    showSearchBox ?
+                        <div className="search-input">
+
+                            <input
+                                type="text"
+                                placeholder="Search for product"
+                                onChange={(e) => setSearchKeyword(e.target.value)}
+                            />
+
+                            <button
+                                onClick={searchSubmitHandler}>
+                                <FiSearch />
+                            </button>
+
+                        </div>
+                        :
+                        <div className='header-icon'
+                            onClick={
+                                () => {
+                                    setShowSearchBox(true)
+                                }
+                            }>
+                            <FiSearch />
+                        </div>
+                }
 
                 <div className='header-icon'
                     onClick={

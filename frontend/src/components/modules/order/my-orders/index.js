@@ -8,6 +8,7 @@ import { clearErrors, myOrders } from "../../../../redux/actions/orderAction";
 import AppWrap from '../../../hoc/AppWrap';
 import MetaData from "../../../layout/MetaData";
 import Loader from "../../../layout/loader/Loader";
+import currency from '../../../helpers/currency';
 
 
 function MyOrders() {
@@ -60,6 +61,9 @@ function MyOrders() {
             type: "number",
             minWidth: 100,
             flex: 0.5,
+            renderCell: (params) => {
+                return `₹${currency.format(params.value)}`;
+            }
         },
 
         {

@@ -178,6 +178,47 @@
     color: var(--activeColor);
 }
 
+.admin-tile-container {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    margin-top: 0.5rem;
+
+    transition: all .5s ease-in-out;
+}
+
+.admin-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 0.5rem;
+}
+
+.admin-tile>p {
+    font-size: 1rem;
+    color: var(--grayColor);
+}
+
+.admin-tile>span {
+    margin-top: 0.25rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.chart-header {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--voidColor);
+    margin-bottom: 0.5rem;
+}
+
 @media screen and (max-width: 768px) {
 
     .app__dashboard {

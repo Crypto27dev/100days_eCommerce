@@ -18,7 +18,7 @@
 }
 
 .order-details-box .box-header>p {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: 600;
 }
 
@@ -35,6 +35,11 @@
 .item-list .item-card {
     display: flex;
     flex-direction: row;
+    margin-bottom: 1rem;
+}
+
+.item-list .item-card:last-child {
+    margin-bottom: 0;
 }
 
 .item-list .item-card img {

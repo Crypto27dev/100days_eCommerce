@@ -23,6 +23,7 @@ import Loader from '../../../layout/loader/Loader';
 import MetaData from '../../../layout/MetaData';
 import ReviewCard from '../../../common/ReviewCard';
 import AppWrap from '../../../hoc/AppWrap';
+import currency from '../../../helpers/currency';
 
 
 function ProductDetails() {
@@ -168,9 +169,12 @@ function ProductDetails() {
 
                     <div className='product-details-box'>
 
-                        <div className="name">
-                            {product.name}
-                        </div>
+                        {
+                            product.name &&
+                            <div className="name">
+                                {product.name}
+                            </div>
+                        }
 
                         <div className="rating-container">
 
@@ -186,15 +190,20 @@ function ProductDetails() {
                             <p>{product.numOfReviews} Reviews</p>
                         </div>
 
-                        <div className="price-qty-container">
-                            <h1>{`₹${product.price}`}</h1>
+                        {
+                            product.price &&
+                            <div className="price-qty-container">
+                                <h1>
+                                    {`₹${currency.format(product.price)}`}
+                                </h1>
 
-                            <div className="qty-input">
-                                <button onClick={decreaseQuantity}>-</button>
-                                <input readOnly type="number" value={quantity} />
-                                <button onClick={increaseQuantity}>+</button>
+                                <div className="qty-input">
+                                    <button onClick={decreaseQuantity}>-</button>
+                                    <input readOnly type="number" value={quantity} />
+                                    <button onClick={increaseQuantity}>+</button>
+                                </div>
                             </div>
-                        </div>
+                        }
 
                         <div className="stock-status-container">
                             <span style={{

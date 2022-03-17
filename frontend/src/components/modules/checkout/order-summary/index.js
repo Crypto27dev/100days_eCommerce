@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import AppWrap from '../../../hoc/AppWrap';
 import MetaData from '../../../layout/MetaData';
 import CheckoutSteps from '../checkout-steps';
+import currency from '../../../helpers/currency';
 
 
 function OrderSummary() {
@@ -80,7 +81,7 @@ function OrderSummary() {
                         <div className='cart-items'>
 
                             <div className="box-header">
-                                <p>Your Cart Items</p>
+                                <p>Your Items</p>
                             </div>
 
                             <div className="item-list">
@@ -96,8 +97,8 @@ function OrderSummary() {
                                                     {item.name}
                                                 </Link>
                                                 <span>
-                                                    {item.quantity} X ₹{item.price} ={" "}
-                                                    <b>₹{item.price * item.quantity}</b>
+                                                    {item.quantity} X ₹{currency.format(item.price)} ={" "}
+                                                    <b>₹{currency.format(item.price * item.quantity)}</b>
                                                 </span>
                                             </div>
 
@@ -121,7 +122,7 @@ function OrderSummary() {
                                 </p>
 
                                 <p className="subtitle">
-                                    ₹{subtotal}
+                                    ₹{currency.format(subtotal)}
                                 </p>
                             </div>
 
@@ -131,7 +132,7 @@ function OrderSummary() {
                                 </p>
 
                                 <p className="subtitle">
-                                    ₹{tax}
+                                    ₹{currency.format(tax)}
                                 </p>
                             </div>
                         </div>
@@ -143,7 +144,7 @@ function OrderSummary() {
                             </p>
 
                             <p className="subtitle">
-                                {`₹${totalPrice}`}
+                                {`₹${currency.format(totalPrice)}`}
                             </p>
                         </div>
 

@@ -1,11 +1,12 @@
 import "../Cart.css";
+import { useEffect, useState } from "react";
 import CartItemCard from "../cart-item-card";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { BsCartX } from 'react-icons/bs';
 import MetaData from '../../../layout/MetaData';
 import AppWrap from "../../../hoc/AppWrap";
-import { useEffect, useState } from "react";
+import currency from "../../../helpers/currency";
 
 
 function Cart() {
@@ -107,10 +108,10 @@ function Cart() {
                                         </p>
 
                                         <p className="subtitle">
-                                            {`₹${cartItems.reduce(
+                                            {`₹${currency.format(cartItems.reduce(
                                                 (amt, item) => amt + item.quantity * item.price,
                                                 0
-                                            )}`}
+                                            ))}`}
                                         </p>
                                     </div>
 
@@ -123,7 +124,7 @@ function Cart() {
                                             {
                                                 discount > 0 ?
                                                     <div className="greenColor">
-                                                        {`- ₹${discount}`}
+                                                        {`- ₹${currency.format(discount)}`}
                                                     </div>
                                                     :
                                                     "₹0"
@@ -140,7 +141,7 @@ function Cart() {
                                         <p className="subtitle">
                                             {
                                                 delCharge > 0 ?
-                                                    `₹${delCharge}` :
+                                                    `₹${currency.format(delCharge)}` :
                                                     <div className="greenColor">
                                                         FREE
                                                     </div>
@@ -156,7 +157,7 @@ function Cart() {
                                     </p>
 
                                     <p className="subtitle">
-                                        {`₹${subTotal}`}
+                                        {`₹${currency.format(subTotal)}`}
                                     </p>
                                 </div>
 

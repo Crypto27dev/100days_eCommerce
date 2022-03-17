@@ -12,6 +12,11 @@ const routes = [
     },
 
     {
+        path: 'search/:keyword',
+        element: <ProductList />
+    },
+
+    {
         path: ':id',
         element: <ProductDetails />
     }

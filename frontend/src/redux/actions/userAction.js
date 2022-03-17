@@ -146,6 +146,10 @@ export const loadUser = (token) => async (dispatch) => {
         }
         else {
             dispatch(logout());
+            dispatch({
+                type: LOAD_USER_FAIL,
+                payload: 'Token is invalid or expired.'
+            });
         }
 
     } catch (error) {
