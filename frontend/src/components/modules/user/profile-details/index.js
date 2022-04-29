@@ -1,115 +1,96 @@
-import '../Profile.css';
-import { useEffect } from 'react';
+import "../Profile.css";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import Loader from "../../../layout/loader/Loader";
-import MetaData from '../../../layout/MetaData';
-import AppWrap from '../../../hoc/AppWrap';
-import { FiEdit } from 'react-icons/fi';
-import { BiRightArrowAlt } from 'react-icons/bi';
-import CustomTile from '../../../common/CustomTile';
+import MetaData from "../../../layout/MetaData";
+import AppWrap from "../../../hoc/AppWrap";
+import { FiEdit } from "react-icons/fi";
+import { BiRightArrowAlt } from "react-icons/bi";
+import CustomTile from "../../../common/CustomTile";
 import profilePng from "../../../../assets/images/profile.jpg";
 
-
 function ProfileDetails() {
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
+  const { user, loading, isAuthenticated } = useSelector((state) => state.user);
 
-    const { user, loading, isAuthenticated } = useSelector((state) => state.user);
+  useEffect(() => {
+    if (isAuthenticated === false) {
+      navigate("/auth/login");
+    }
 
-    useEffect(() => {
+    return () => {};
+  }, [isAuthenticated, navigate]);
 
-        if (isAuthenticated === false) {
-            navigate("/auth/login")
-        }
+  return (
+    <div className="app__top-margin">
+      {loading ? (
+        <Loader fullScreen={true} />
+      ) : (
+        user && (
+          <div className="app__flex-container">
+            <MetaData title={`${user.name} - NixLab Shop`} />
 
-        return () => { }
-    }, [
-        isAuthenticated, navigate
-    ])
+            <div className="app__flex-card">
+              <div className="image-container">
+                <img
+                  src={user.avatar ? user.avatar.url : profilePng}
+                  alt={user.name}
+                />
+              </div>
 
-    return (
-        <div className='app__top-margin'>
-            {
-                loading ?
-                    <Loader fullScreen={true} />
-                    :
-                    user &&
-                    <div className='app__flex-container'>
-                        <MetaData title={`${user.name} - NixLab Shop`} />
+              <Link to="/user/profile/update" className="edit-profile-btn">
+                <FiEdit /> Edit
+              </Link>
 
-                        <div className="app__flex-card">
+              <div className="profile-details">
+                <div className="name">{user.name}</div>
 
-                            <div className='image-container'>
-                                <img
-                                    src={user.avatar ? user.avatar.url : profilePng}
-                                    alt={user.name}
-                                />
-                            </div>
+                <p
+                  style={{
+                    fontSize: 18,
+                    color: "var(--grayColor)",
+                    margin: "10px 0",
+                    marginTop: "20px",
+                  }}
+                >
+                  Basic Information
+                </p>
 
-                            <Link to="/user/profile/update"
-                                className="edit-profile-btn"
-                            >
-                                <FiEdit /> Edit
-                            </Link>
+                <CustomTile
+                  leading={"Email"}
+                  trailing={<a href={`mailto:${user.email}`}>{user.email}</a>}
+                />
 
-                            <div className='profile-details'>
-                                <div className='name'>
-                                    {user.name}
-                                </div>
+                <CustomTile
+                  leading={"Joined On"}
+                  trailing={String(user.createdAt).substring(0, 10)}
+                />
 
-                                <p
-                                    style={{
-                                        fontSize: 18,
-                                        color: "var(--grayColor)",
-                                        margin: "10px 0",
-                                        marginTop: "20px"
-                                    }}
-                                >
-                                    Basic Information
-                                </p>
+                {user.gender && (
+                  <CustomTile leading={"Gender"} trailing={user.gender} />
+                )}
 
-                                <CustomTile
-                                    leading={'Email'}
-                                    trailing={
-                                        <a href={`mailto:${user.email}`}>{user.email}</a>
-                                    }
-                                />
+                {user.dob && user.dob !== undefined && user.dob !== "" && (
+                  <CustomTile leading={"DOB"} trailing={user.dob} />
+                )}
 
-                                <CustomTile
-                                    leading={'Joined On'}
-                                    trailing={String(user.createdAt).substring(0, 10)}
-                                />
-
-                                {
-                                    user.gender &&
-                                    <CustomTile
-                                        leading={'Gender'}
-                                        trailing={user.gender}
-                                    />
-                                }
-
-                                {
-                                    (user.dob && user.dob !== undefined && user.dob !== "") &&
-                                    <CustomTile
-                                        leading={'DOB'}
-                                        trailing={user.dob}
-                                    />
-                                }
-
-                                <div className="actions">
-                                    <Link to="/user/orders">My Orders <BiRightArrowAlt /> </Link>
-                                    <Link to="/auth/password/update">Change Password <BiRightArrowAlt /> </Link>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-            }
-
-        </div>
-    )
+                <div className="actions">
+                  <Link to="/user/orders">
+                    My Orders <BiRightArrowAlt />{" "}
+                  </Link>
+                  <Link to="/auth/password/update">
+                    Change Password <BiRightArrowAlt />{" "}
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        )
+      )}
+    </div>
+  );
 }
 
 export default AppWrap(ProfileDetails);

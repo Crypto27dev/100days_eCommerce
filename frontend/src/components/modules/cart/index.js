@@ -1,15 +1,14 @@
-import { lazy } from 'react';
-import { TraverseRoutes } from '../../route';
+import { lazy } from "react";
+import { TraverseRoutes } from "../../route";
 
-const Cart = lazy(() => import('./my-cart'));
+const Cart = lazy(() => import("./my-cart"));
 
 const routes = [
-    {
-        path: '',
-        element: <Cart />
-    }
-
-]
+  {
+    path: "",
+    element: <Cart />,
+  },
+];
 
 const CartModule = () => <TraverseRoutes routes={routes} />;
 

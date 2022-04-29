@@ -1,193 +1,192 @@
 .app__checkout-container {
-    position: relative;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
 
-    transition: all .5s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 
 .app__checkout-container .box-header {
-    width: 100%;
-    padding: 1rem;
-    border-bottom: 1px solid var(--lightGrayColor);
+  width: 100%;
+  padding: 1rem;
+  border-bottom: 1px solid var(--lightGrayColor);
 }
 
-.app__checkout-container .box-header>p {
-    font-size: 1.2rem;
-    font-weight: 600;
+.app__checkout-container .box-header > p {
+  font-size: 1.2rem;
+  font-weight: 600;
 }
 
 .app__checkout-container .summary-items {
-    position: relative;
-    background-color: var(--whiteColor);
-    border-radius: 5px;
-    box-shadow: 0 0 20px rgba(51, 51, 51, 0.1);
+  position: relative;
+  background-color: var(--whiteColor);
+  border-radius: 5px;
+  box-shadow: 0 0 20px rgba(51, 51, 51, 0.1);
 
-    flex: 8;
-    height: fit-content;
+  flex: 8;
+  height: fit-content;
 
-    margin: 0 1rem;
+  margin: 0 1rem;
 }
 
 .app__checkout-container .cart-amount-box {
-    position: relative;
-    height: fit-content;
-    background-color: var(--whiteColor);
-    border-radius: 5px;
-    box-shadow: 0 0 20px rgba(51, 51, 51, 0.1);
+  position: relative;
+  height: fit-content;
+  background-color: var(--whiteColor);
+  border-radius: 5px;
+  box-shadow: 0 0 20px rgba(51, 51, 51, 0.1);
 
-    flex: 3;
+  flex: 3;
 
-    margin: 0 1rem;
+  margin: 0 1rem;
 }
 
 .summary-items .shipping-info {
-    padding: 1rem;
-    border-bottom: 1px solid var(--lightGrayColor);
+  padding: 1rem;
+  border-bottom: 1px solid var(--lightGrayColor);
 }
 
 .cart-items .item-list {
-    padding: 1rem;
+  padding: 1rem;
 }
 
 .item-list .item-card {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 1rem;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1rem;
 }
 
 .item-list .item-card:last-child {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .item-list .item-card img {
-    width: 10rem;
-    height: auto;
-    max-height: 10rem;
-    object-fit: contain;
+  width: 10rem;
+  height: auto;
+  max-height: 10rem;
+  object-fit: contain;
 }
 
 .item-list .item-card .details {
-    display: flex;
-    flex-direction: column;
-    margin-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  margin-left: 1rem;
 }
 
-.item-list .item-card .details>a {
-    font-size: 1.1rem;
-    font-weight: 500;
-    text-decoration: none;
+.item-list .item-card .details > a {
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-decoration: none;
 
-    color: var(--primaryTextColor);
-    margin-bottom: 1rem;
+  color: var(--primaryTextColor);
+  margin-bottom: 1rem;
 }
 
-.item-list .item-card .details>a:hover {
-    color: var(--activeColor);
+.item-list .item-card .details > a:hover {
+  color: var(--activeColor);
 }
 
 .payment-input {
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-    border: 1px solid rgba(50, 50, 50, 0.2);
-    border-radius: 5px;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border: 1px solid rgba(50, 50, 50, 0.2);
+  border-radius: 5px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 
-    font-family: 'Roboto', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 600;
+  font-family: "Roboto", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
 
-    padding: 0.6rem 0.5rem;
-    color: var(--activeColor);
-    outline: none;
+  padding: 0.6rem 0.5rem;
+  color: var(--activeColor);
+  outline: none;
 }
 
 .payment-input:focus {
-    border-color: var(--activeColor) !important;
+  border-color: var(--activeColor) !important;
 }
 
 .order-success-box {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-    transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 
 .order-success-box .message {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
 }
 
-.order-success-box .message>svg {
-    width: 1.5rem;
-    height: 1.5rem;
+.order-success-box .message > svg {
+  width: 1.5rem;
+  height: 1.5rem;
 
-    margin-right: 0.5rem;
+  margin-right: 0.5rem;
 
-    color: var(--successColor);
+  color: var(--successColor);
 }
 
-.order-success-box .message>p {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--successColor);
+.order-success-box .message > p {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--successColor);
 }
 
-.order-success-box>a {
-    background-color: var(--activeColor);
-    color: var(--whiteColor);
+.order-success-box > a {
+  background-color: var(--activeColor);
+  color: var(--whiteColor);
 
-    padding: 0.5rem 1rem;
+  padding: 0.5rem 1rem;
 
-    border-radius: 2rem;
+  border-radius: 2rem;
 
-    text-decoration: none;
+  text-decoration: none;
 }
 
-.order-success-box>a:hover {
-    opacity: 0.75;
+.order-success-box > a:hover {
+  opacity: 0.75;
 }
 
 @media screen and (max-width: 768px) {
-    .app__checkout-container {
-        flex-direction: column;
-    }
+  .app__checkout-container {
+    flex-direction: column;
+  }
 
-    .app__checkout-container .summary-items {
-        flex: 1;
-        margin: 0;
-    }
+  .app__checkout-container .summary-items {
+    flex: 1;
+    margin: 0;
+  }
 
+  .app__checkout-container .cart-amount-box {
+    flex: 1;
 
-    .app__checkout-container .cart-amount-box {
-        flex: 1;
+    margin: 0;
+    margin-top: 1rem;
+  }
 
-        margin: 0;
-        margin-top: 1rem;
-    }
+  .order-success-box .message {
+    flex-direction: column;
+  }
 
-    .order-success-box .message {
-        flex-direction: column;
-    }
+  .order-success-box .message > svg {
+    width: 2rem;
+    height: 2rem;
 
-    .order-success-box .message>svg {
-        width: 2rem;
-        height: 2rem;
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+  }
 
-        margin-right: 0;
-        margin-bottom: 0.5rem;
-    }
-
-    .order-success-box .message>p {
-        font-size: 1.2rem;
-        text-align: center;
-    }
+  .order-success-box .message > p {
+    font-size: 1.2rem;
+    text-align: center;
+  }
 }

@@ -1,32 +1,32 @@
 .loading {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
 .loading .loading-spinner {
-    position: absolute;
+  position: absolute;
 }
 
 .loading-spinner-2 {
-    position: absolute;
-    animation: loadingRotate 1000ms linear infinite;
+  position: absolute;
+  animation: loadingRotate 1000ms linear infinite;
 }
 
 .loading-spinner-3 {
-    position: absolute;
-    animation: loadingRotate 1200ms linear infinite;
+  position: absolute;
+  animation: loadingRotate 1200ms linear infinite;
 }
 
 .loading-spinner-4 {
-    position: absolute;
-    animation: loadingRotate 1400ms linear infinite;
+  position: absolute;
+  animation: loadingRotate 1400ms linear infinite;
 }
 
 @keyframes loadingRotate {
-    to {
-        transform: rotateZ(-360deg);
-    }
+  to {
+    transform: rotateZ(-360deg);
+  }
 }

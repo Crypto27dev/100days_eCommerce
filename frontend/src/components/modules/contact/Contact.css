@@ -1,21 +1,21 @@
 .contact-container {
-    position: relative;
-    width: 100%;
+  position: relative;
+  width: 100%;
 
-    margin-top: 2rem;
+  margin-top: 2rem;
 
-    transition: all .5s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 
 .contact-container a {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
 
-    font-weight: 600;
-    color: var(--darkGrayColor);
+  font-weight: 600;
+  color: var(--darkGrayColor);
 
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .contact-container a:hover {
-    color: var(--activeColor);
+  color: var(--activeColor);
 }

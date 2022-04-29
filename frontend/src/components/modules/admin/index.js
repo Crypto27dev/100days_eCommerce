@@ -9,54 +9,99 @@ const OrderList = lazy(() => import("./order-list"));
 const EditUser = lazy(() => import("./update-user"));
 const EditProduct = lazy(() => import("./update-product"));
 const ReviewList = lazy(() => import("./review-list"));
-const EditOrder = lazy(() => import('./process-order'));
+const EditOrder = lazy(() => import("./process-order"));
 
 const routes = [
-    {
-        path: 'dashboard',
-        element: <ProtectedRoute isAdmin={true}> <Dashboard /> </ProtectedRoute>
-    },
+  {
+    path: "dashboard",
+    element: (
+      <ProtectedRoute isAdmin={true}>
+        {" "}
+        <Dashboard />{" "}
+      </ProtectedRoute>
+    ),
+  },
 
-    {
-        path: 'products',
-        element: <ProtectedRoute isAdmin={true}> <ProductList /> </ProtectedRoute>
-    },
+  {
+    path: "products",
+    element: (
+      <ProtectedRoute isAdmin={true}>
+        {" "}
+        <ProductList />{" "}
+      </ProtectedRoute>
+    ),
+  },
 
-    {
-        path: 'product/new',
-        element: <ProtectedRoute isAdmin={true}> <NewProduct /> </ProtectedRoute>
-    },
+  {
+    path: "product/new",
+    element: (
+      <ProtectedRoute isAdmin={true}>
+        {" "}
+        <NewProduct />{" "}
+      </ProtectedRoute>
+    ),
+  },
 
-    {
-        path: 'products/:id',
-        element: <ProtectedRoute isAdmin={true}> <EditProduct /> </ProtectedRoute>
-    },
+  {
+    path: "products/:id",
+    element: (
+      <ProtectedRoute isAdmin={true}>
+        {" "}
+        <EditProduct />{" "}
+      </ProtectedRoute>
+    ),
+  },
 
-    {
-        path: 'users',
-        element: <ProtectedRoute isAdmin={true}> <UserList /> </ProtectedRoute>
-    },
+  {
+    path: "users",
+    element: (
+      <ProtectedRoute isAdmin={true}>
+        {" "}
+        <UserList />{" "}
+      </ProtectedRoute>
+    ),
+  },
 
-    {
-        path: 'users/:id',
-        element: <ProtectedRoute isAdmin={true}> <EditUser /> </ProtectedRoute>
-    },
+  {
+    path: "users/:id",
+    element: (
+      <ProtectedRoute isAdmin={true}>
+        {" "}
+        <EditUser />{" "}
+      </ProtectedRoute>
+    ),
+  },
 
-    {
-        path: 'orders',
-        element: <ProtectedRoute isAdmin={true}> <OrderList /> </ProtectedRoute>
-    },
+  {
+    path: "orders",
+    element: (
+      <ProtectedRoute isAdmin={true}>
+        {" "}
+        <OrderList />{" "}
+      </ProtectedRoute>
+    ),
+  },
 
-    {
-        path: 'orders/:id',
-        element: <ProtectedRoute isAdmin={true}> <EditOrder /> </ProtectedRoute>
-    },
+  {
+    path: "orders/:id",
+    element: (
+      <ProtectedRoute isAdmin={true}>
+        {" "}
+        <EditOrder />{" "}
+      </ProtectedRoute>
+    ),
+  },
 
-    {
-        path: 'reviews',
-        element: <ProtectedRoute isAdmin={true}> <ReviewList /> </ProtectedRoute>
-    }
-]
+  {
+    path: "reviews",
+    element: (
+      <ProtectedRoute isAdmin={true}>
+        {" "}
+        <ReviewList />{" "}
+      </ProtectedRoute>
+    ),
+  },
+];
 
 const AdminModule = () => <TraverseRoutes routes={routes} />;
 

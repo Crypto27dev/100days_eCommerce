@@ -1,102 +1,102 @@
 .image-container {
-    position: absolute;
-    top: -10%;
-    left: 0;
-    right: 0;
-    width: 12rem;
-    height: 12rem;
-    border-radius: 50%;
-    margin: auto;
-    overflow: hidden;
-    border: 1px solid var(--lightGrayColor);
+  position: absolute;
+  top: -10%;
+  left: 0;
+  right: 0;
+  width: 12rem;
+  height: 12rem;
+  border-radius: 50%;
+  margin: auto;
+  overflow: hidden;
+  border: 1px solid var(--lightGrayColor);
 
-    transition: all .5s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 
 .image-container img {
-    width: 100%;
-    aspect-ratio: 1.0;
-    object-fit: cover;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
 
-    transition: all .5s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 
 .edit-profile-btn {
-    position: absolute;
-    top: 1.2rem;
-    right: 1.2rem;
-    font-size: 1.2rem;
-    text-decoration: none;
-    color: var(--activeColor);
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: var(--activeColor);
 
-    display: flex;
-    align-items: center;
-    transition: all .3s ease-in-out;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
 }
 
 .edit-profile-btn:hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .edit-profile-btn svg {
-    width: 1.2rem;
-    height: 1.2rem;
-    margin-right: 5px;
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-right: 5px;
 }
 
 .profile-details {
-    position: relative;
-    margin-top: 20%;
-    transition: all .5s ease-in-out;
+  position: relative;
+  margin-top: 20%;
+  transition: all 0.5s ease-in-out;
 
-    width: 100%;
-    display: flex;
-    flex-direction: column;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .profile-details .name {
-    font-size: x-large;
-    font-weight: 700;
+  font-size: x-large;
+  font-weight: 700;
 }
 
 .profile-details .actions {
-    width: 100%;
+  width: 100%;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .profile-details .actions a {
-    display: flex;
-    align-items: center;
-    color: var(--activeColor);
-    text-decoration: none;
+  display: flex;
+  align-items: center;
+  color: var(--activeColor);
+  text-decoration: none;
 
-    font-size: larger;
-    padding: 0.5rem 1rem;
-    border: 1px solid var(--activeColor);
-    border-radius: 20px;
-    margin: 10px 0;
+  font-size: larger;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--activeColor);
+  border-radius: 20px;
+  margin: 10px 0;
 }
 
 .profile-details .actions svg {
-    margin-left: 5px;
-    width: 20px;
-    height: 20px;
+  margin-left: 5px;
+  width: 20px;
+  height: 20px;
 }
 
 @media screen and (max-width: 768px) {
-    .image-container {
-        position: relative;
-    }
+  .image-container {
+    position: relative;
+  }
 
-    .profile-details {
-        position: relative;
-        margin-top: 20px;
-    }
+  .profile-details {
+    position: relative;
+    margin-top: 20px;
+  }
 
-    .profile-details .actions a {
-        font-size: large;
-    }
+  .profile-details .actions a {
+    font-size: large;
+  }
 }

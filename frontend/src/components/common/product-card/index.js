@@ -1,41 +1,37 @@
-import './ProductCard.css';
-import { useNavigate } from 'react-router-dom';
-import Rating from '@mui/material/Rating';
-import currency from '../../helpers/currency';
-
+import "./ProductCard.css";
+import { useNavigate } from "react-router-dom";
+import Rating from "@mui/material/Rating";
+import currency from "../../helpers/currency";
 
 function ProductCard({ product }) {
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
+  const options = {
+    size: "large",
+    value: product.ratings,
+    readOnly: true,
+    precision: 0.5,
+  };
 
-    const options = {
-        size: "large",
-        value: product.ratings,
-        readOnly: true,
-        precision: 0.5,
-    };
+  return (
+    <div
+      className="product-card"
+      onClick={() => navigate(`/products/${product._id}`)}
+    >
+      <img
+        className="product-img"
+        src={product.images[0].url}
+        alt={product.name}
+        loading="lazy"
+      />
 
-    return (
-        <div className='product-card'
-            onClick={() => navigate(`/products/${product._id}`)}
-        >
-            <img className='product-img'
-                src={product.images[0].url}
-                alt={product.name}
-                loading="lazy"
-            />
+      <p>{product.name}</p>
 
-            <p>{product.name}</p>
+      <Rating {...options} />
 
-            <Rating {...options} />
-
-            <span className='price'
-            >
-                {`₹${currency.format(product.price)}`}
-            </span>
-
-        </div>
-    )
+      <span className="price">{`₹${currency.format(product.price)}`}</span>
+    </div>
+  );
 }
 
 export default ProductCard;
