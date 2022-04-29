@@ -1,17 +1,17 @@
 const mongoose = require("mongoose");
 
-const connectDatabase = async (mongoUri, dbName) => {
-
-    try {
-        await mongoose.connect(mongoUri, {
-            dbName: dbName,
-        });
-        console.log(`[db] connected successfully to MongoDB`);
-    }
-    catch (err) {
-        console.log(`[db] could not connect due to [${err.message}]`);
-    }
-
-}
+const connectDatabase = async () => {
+  try {
+    await mongoose.connect(process.env.DB_URI, {
+      dbName: process.env.DB_NAME,
+      autoIndex: true,
+      socketTimeoutMS: 45000,
+      serverSelectionTimeoutMS: 60000,
+    });
+    console.log(`[database] connected successfully to MongoDB`);
+  } catch (err) {
+    console.log(`[database] could not connect due to [${err.message}]`);
+  }
+};
 
 module.exports = connectDatabase;

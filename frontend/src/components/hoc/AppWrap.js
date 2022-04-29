@@ -1,19 +1,18 @@
-import React from 'react'
-import Footer from '../modules/footer/Footer'
-import Header from '../modules/header/Header'
+import React from "react";
+import Footer from "../modules/footer/Footer";
+import Header from "../modules/header/Header";
 
-const AppWrap = (Component) => function HOC() {
+const AppWrap = (Component) =>
+  function HOC() {
     return (
-        <div className='app__wrap'>
+      <div className="app__wrap">
+        <Header />
 
-            <Header />
+        <Component />
 
-            <Component />
+        <Footer />
+      </div>
+    );
+  };
 
-            <Footer />
-
-        </div>
-    )
-}
-
-export default AppWrap
+export default AppWrap;
