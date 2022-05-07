@@ -16,9 +16,16 @@ import {
 import SideBar from "../sidebar";
 import MetaData from "../../../layout/MetaData";
 import AppWrap from "../../../hoc/AppWrap";
+import ProfileImg from "../../../../assets/images/profile.jpg";
 
 function renderUserImage(params) {
-  return <img className="header-user-img" src={params.value} alt="user" />;
+  return (
+    <img
+      className="header-user-img"
+      src={params.value ?? ProfileImg}
+      alt="user"
+    />
+  );
 }
 
 function UserList() {
@@ -117,7 +124,7 @@ function UserList() {
       rows.push({
         ind: i + 1,
         id: item._id,
-        imgUrl: item.avatar.url,
+        imgUrl: item.avatar?.url,
         role: item.role,
         email: item.email,
         name: item.name,

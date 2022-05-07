@@ -297,6 +297,7 @@ export const getAllUsers = (token) => async (dispatch) => {
     };
 
     const { data } = await axios.get(`/api/v1/admin/users`, config);
+    console.log(data);
 
     dispatch({
       type: ALL_USERS_SUCCESS,
