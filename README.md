@@ -13,7 +13,7 @@ An E-commerce Web App developed using MERN stack where user can buy and checkout
 
 ## Website
 
-[Link](https://nixlab-shop.herokuapp.com/)
+[Link](https://creepy-underclothes-lion.cyclic.app)
 
 ## Connect With Me
 
