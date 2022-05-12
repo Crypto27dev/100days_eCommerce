@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node ./backend/server.js",
     "dev": "nodemon ./backend/server.js",
-    "postinstall": "cd frontend && npm install && npm run build",
+    "postinstall": "cd frontend && npm run build",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false && npm install --prefix frontend --force && npm run build --prefix frontend"
   },
   "author": "Nikhil Rajput",
