@@ -65,8 +65,6 @@ function Payment() {
         },
       };
 
-      console.log(token);
-
       const { data } = await axios.post(
         "/api/v1/payment/create",
         paymentData,
@@ -119,7 +117,6 @@ function Payment() {
     } catch (error) {
       payBtn.current.disabled = false;
       setLoading(false);
-      console.log(error.response.data.message);
       alert.error(error.response.data.message);
     }
   };
