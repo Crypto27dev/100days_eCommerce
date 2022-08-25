@@ -8,7 +8,7 @@ function ProductCard({ product }) {
 
   const options = {
     size: "large",
-    value: product.ratings,
+    value: Number(product.ratings).toFixed(2),
     readOnly: true,
     precision: 0.5,
   };

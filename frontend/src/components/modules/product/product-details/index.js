@@ -102,7 +102,7 @@ function ProductDetails() {
       dispatch(getProductDetails(id));
     }
 
-    return () => {};
+    return () => { };
   }, [dispatch, id, error, alert, reviewError, success]);
 
   return (
@@ -159,13 +159,13 @@ function ProductDetails() {
                     product.ratings <= 0
                       ? "gray"
                       : product.ratings < 2
-                      ? "red"
-                      : product.ratings < 4
-                      ? "orange"
-                      : "green",
+                        ? "red"
+                        : product.ratings < 4
+                          ? "orange"
+                          : "green",
                 }}
               >
-                <span>{product.ratings}</span>
+                <span>{Number(product.ratings).toFixed(1)}</span>
                 <FaStar />
               </div>
 
@@ -192,15 +192,15 @@ function ProductDetails() {
                     product.stock < 1
                       ? "red"
                       : product.stock < 5
-                      ? "orange"
-                      : "green",
+                        ? "orange"
+                        : "green",
                 }}
               >
                 {product.stock < 1
                   ? "Out Of Stock"
                   : product.stock < 5
-                  ? "Only Few Left"
-                  : "Available"}
+                    ? "Only Few Left"
+                    : "Available"}
               </span>
             </div>
 
