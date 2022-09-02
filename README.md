@@ -11,6 +11,62 @@ An E-commerce Web App developed using MERN stack where user can buy and checkout
 - Add Review
 - Add Rating
 
+## Usage
+
+- Clone the repository
+
+```bash
+git clone https://github.com/nixrajput/ecommerce-mern.git
+```
+
+- Install required modules
+  
+```bash
+npm install
+```
+
+- Create a new directory `config` in `backend` directory
+- Create a new file `config.env` in `config` directory
+- Add following VARIABLES in `config.env` or in production Environment Variables
+  
+```env
+PORT = 4000
+
+DB_URI = 'YOUR MONGO-DB URI'
+DB_NAME = 'ecommerce'
+
+NODE_ENV = 'dev'
+
+JWT_SECRET = 'YOUR JWT SECRET'
+JWT_EXPIRES_IN = 7d
+
+COOKIE_EXPIRES_IN = 5
+
+SMTP_FROM = 'Test <noreply@yourcompany.com>'
+
+SENDGRID_API_KEY = 'YOUR SENDGRID API KEY'
+
+# Cloudinary
+CLOUDINARY_CLOUD_NAME = 'YOUR CLOUDINARY CLOUD NAME'
+CLOUDINARY_API_KEY = 'YOUR CLOUDINARY API KEY'
+CLOUDINARY_API_SECRET = 'YOUR CLOUDINARY API SECRET'
+
+# URL
+FRONTEND_URL = 'http://localhost:3000';
+
+# STRIPE CONFIG
+STRIPE_API_KEY = 'YOUR STRIPE API KEY'
+STRIPE_SECRET_KEY = 'YOUR STRIPE SECRET KEY'
+```
+
+- Run the server
+
+```bash
+npm run dev
+cd frontend
+npm start
+```
+
 ## Website
 
 [Website Link](https://nixlab-shop.herokuapp.com)
